@@ -40,9 +40,17 @@ public class StrategyService {
 	}
 
 	public StrategyResponse evaluate(String symbol) {
+		return evaluate(symbol, true);
+	}
+
+	private StrategyResponse evaluateForScan(String symbol) {
+		return evaluate(symbol, false);
+	}
+
+	private StrategyResponse evaluate(String symbol, boolean includeFundamentals) {
 		String normalized = symbol.toUpperCase();
 		ScannerResponse scanner = getOrNull(scannerUrl + "/scanner/scan/{symbol}", normalized, ScannerResponse.class);
-		FundamentalResponse fundamental = getOrNull(fundamentalUrl + "/fundamentals/analyze/{symbol}", normalized, FundamentalResponse.class);
+		FundamentalResponse fundamental = includeFundamentals ? getOrNull(fundamentalUrl + "/fundamentals/analyze/{symbol}", normalized, FundamentalResponse.class) : null;
 		BacktestResponse backtest = getOrNull(backtestUrl + "/backtests/run/{symbol}", normalized, BacktestResponse.class);
 
 		String technicalSignal = scanner == null ? "WAIT" : scanner.signal();
@@ -55,7 +63,9 @@ public class StrategyService {
 		boolean fundamentalOk = !hasFundamentals || fundamentalScore >= 55;
 		String decision = technicalOk && backtestOk && fundamentalOk ? "BUY" : "NO_BUY";
 		String confidence = successRate.compareTo(BigDecimal.valueOf(45)) >= 0 ? "HIGH" : successRate.compareTo(MINIMUM_SUCCESS_RATE) >= 0 ? "MEDIUM" : "LOW";
-		String reason = "Pass rule: price trend must be positive and past success rate must be at least 20 percent.";
+		String reason = includeFundamentals
+				? "Full check uses price trend, past success rate, and available company fundamentals."
+				: "Scan rule: price trend must be positive and past success rate must be at least 20 percent. Company fundamentals are checked on the Full Check page.";
 
 		return new StrategyResponse(
 				normalized,
@@ -69,6 +79,20 @@ public class StrategyService {
 				technicalSignal,
 				fundamental == null ? "UNKNOWN" : fundamental.verdict(),
 				fundamentalScore,
+				fundamental == null ? null : fundamental.marketCap(),
+				fundamental == null ? null : fundamental.peRatio(),
+				fundamental == null ? null : fundamental.pegRatio(),
+				fundamental == null ? null : fundamental.roe(),
+				fundamental == null ? null : fundamental.debtToEquity(),
+				fundamental == null ? null : fundamental.profitGrowth(),
+				fundamental == null ? null : fundamental.salesGrowth(),
+				fundamental == null ? null : fundamental.salesCagr(),
+				fundamental == null ? null : fundamental.profitCagr(),
+				fundamental == null ? null : fundamental.stockPriceCagr(),
+				fundamental == null ? null : fundamental.netProfit(),
+				fundamental == null ? "Future view is not available right now." : fundamental.futurePerspective(),
+				fundamental == null ? "Order book is not available right now." : fundamental.orderBook(),
+				fundamental == null ? "Not available" : fundamental.dataSource(),
 				successRate,
 				reason
 		);
@@ -102,7 +126,7 @@ public class StrategyService {
 				.toList();
 
 		List<StrategyResponse> recommendations = loadedSymbols.parallelStream()
-				.map(this::evaluate)
+				.map(this::evaluateForScan)
 				.filter(Objects::nonNull)
 				.filter(response -> "BUY".equals(response.decision()))
 				.sorted((left, right) -> right.backtestSuccessRate().compareTo(left.backtestSuccessRate()))
@@ -121,9 +145,9 @@ public class StrategyService {
 					.retrieve()
 					.toBodilessEntity();
 			Thread.sleep(350);
-			return evaluate(symbol);
+			return evaluateForScan(symbol);
 		} catch (RestClientException exception) {
-			return evaluate(symbol);
+			return evaluateForScan(symbol);
 		} catch (InterruptedException exception) {
 			Thread.currentThread().interrupt();
 			return null;
@@ -133,9 +157,11 @@ public class StrategyService {
 	private boolean hasFundamentalValues(FundamentalResponse fundamental) {
 		return fundamental.marketCap() != null
 				|| fundamental.peRatio() != null
+				|| fundamental.pegRatio() != null
 				|| fundamental.roe() != null
 				|| fundamental.debtToEquity() != null
-				|| fundamental.profitGrowth() != null;
+				|| fundamental.profitGrowth() != null
+				|| fundamental.salesGrowth() != null;
 	}
 
 	private <T> T getOrNull(String url, String symbol, Class<T> responseType) {

@@ -288,7 +288,44 @@
             <div><span>Success Chance</span><strong>{{ formatPercent(strategy()?.backtestSuccessRate) }}</strong></div>
           </div>
 
-          <p class="result-note">{{ strategy()?.reason || 'Get the full recommendation after refreshing live market data.' }}</p>
+          <div class="full-check-grid">
+            <div class="analysis-box">
+              <p class="eyebrow">Valuation</p>
+              <div><span>Market Cap</span><strong>{{ formatNumber(strategy()?.marketCap) }} Cr</strong></div>
+              <div><span>PE Ratio</span><strong>{{ formatNumber(strategy()?.peRatio) }}</strong></div>
+              <div><span>PEG Ratio</span><strong>{{ formatNumber(strategy()?.pegRatio) }}</strong></div>
+              <p>PE tells whether the stock price is expensive compared with earnings. PEG also considers profit growth.</p>
+            </div>
+
+            <div class="analysis-box">
+              <p class="eyebrow">Growth</p>
+              <div><span>Sales Growth</span><strong>{{ formatPercent(strategy()?.salesGrowth) }}</strong></div>
+              <div><span>Profit Growth</span><strong>{{ formatPercent(strategy()?.profitGrowth) }}</strong></div>
+              <div><span>Stock CAGR</span><strong>{{ formatPercent(strategy()?.stockPriceCagr) }}</strong></div>
+              <p>Sales and profit growth show whether the business is expanding, not only whether the price is moving.</p>
+            </div>
+
+            <div class="analysis-box">
+              <p class="eyebrow">Quality and Risk</p>
+              <div><span>ROE</span><strong>{{ formatPercent(strategy()?.roe) }}</strong></div>
+              <div><span>Debt to Equity</span><strong>{{ formatNumber(strategy()?.debtToEquity) }}</strong></div>
+              <div><span>Net Profit</span><strong>{{ formatNumber(strategy()?.netProfit) }} Cr</strong></div>
+              <p>ROE checks business quality. Debt and profit help understand risk and stability.</p>
+            </div>
+          </div>
+
+          <div class="reason-panel full-check-reasons">
+            <div class="reason-heading">
+              <p class="eyebrow">Why this full recommendation was given</p>
+              <h3>{{ strategy()?.symbol || normalizedSymbol() }}</h3>
+            </div>
+            <ul>
+              @for (reason of fullCheckReasons(); track reason) {
+                <li>{{ reason }}</li>
+              }
+            </ul>
+            <p class="result-note">Fundamental data source: {{ strategy()?.fundamentalDataSource || 'Not available' }}</p>
+          </div>
         </div>
       </section>
     }

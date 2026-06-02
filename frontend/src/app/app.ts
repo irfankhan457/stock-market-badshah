@@ -53,6 +53,20 @@ interface StrategyResponse {
   technicalSignal: string;
   fundamentalVerdict: string;
   fundamentalScore: number;
+  marketCap: number | null;
+  peRatio: number | null;
+  pegRatio: number | null;
+  roe: number | null;
+  debtToEquity: number | null;
+  profitGrowth: number | null;
+  salesGrowth: number | null;
+  salesCagr: number | null;
+  profitCagr: number | null;
+  stockPriceCagr: number | null;
+  netProfit: number | null;
+  futurePerspective: string | null;
+  orderBook: string | null;
+  fundamentalDataSource: string | null;
   backtestSuccessRate: number;
   reason: string;
 }
@@ -439,6 +453,26 @@ export class App {
     ];
 
     return reasons;
+  }
+
+  fullCheckReasons(): string[] {
+    const response = this.strategy();
+    if (!response) {
+      return ['Click Get Full Recommendation to run price trend, company strength, past success, and final buying checks.'];
+    }
+
+    return [
+      `Technical view: ${this.toDecisionLabel(response.technicalSignal)}. The app checks recent price movement and trend score before giving a buy view.`,
+      `Trend score is ${this.formatNumber(response.rsi)}. Higher trend score means recent buying strength is better.`,
+      `Past success chance is ${this.formatPercent(response.backtestSuccessRate)}. This is tested using recent history with the app's target and stop-loss rule.`,
+      `Valuation: PE is ${this.formatNumber(response.peRatio)} and PEG is ${this.formatNumber(response.pegRatio)}. Lower PEG is generally better because it compares price valuation with profit growth.`,
+      `Company size: market cap is ${this.formatNumber(response.marketCap)} Cr. Bigger companies are usually more stable than very small companies.`,
+      `Profitability: ROE is ${this.formatPercent(response.roe)}. This tells how efficiently the company uses shareholder money.`,
+      `Growth: sales growth is ${this.formatPercent(response.salesGrowth)} and profit growth is ${this.formatPercent(response.profitGrowth)}. A good buy should ideally have both sales and profit moving up.`,
+      `Future view: ${response.futurePerspective || 'Future perspective is not available from the free data source.'}`,
+      `Order book: ${response.orderBook || 'Order book is not available from the free data source.'}`,
+      `Final result: ${this.toDecisionLabel(response.decision)} with ${this.confidenceLabel(response.confidence)} confidence.`
+    ];
   }
 
   toDecisionLabel(value: string | null | undefined): string {
