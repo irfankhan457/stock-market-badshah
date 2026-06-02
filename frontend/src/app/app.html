@@ -4,7 +4,7 @@
       <div class="brand-mark">SB</div>
       <div>
         <strong>Stock Badshah</strong>
-        <span>Signal Command</span>
+        <span>Market Guide</span>
       </div>
     </div>
 
@@ -13,21 +13,21 @@
         <span>Scan</span>
       </button>
       <button type="button" [class.active]="activeTab() === 'strategy'" (click)="setTab('strategy')">
-        <span>Strategy</span>
+        <span>Full Check</span>
       </button>
       <button type="button" [class.active]="activeTab() === 'screener'" (click)="setTab('screener')">
-        <span>Screener</span>
+        <span>Watchlist</span>
       </button>
       <button type="button" [class.active]="activeTab() === 'portfolio'" (click)="setTab('portfolio')">
-        <span>Stocks</span>
+        <span>Prices</span>
       </button>
       <button type="button" [class.active]="activeTab() === 'services'" (click)="setTab('services')">
-        <span>Services</span>
+        <span>App Status</span>
       </button>
     </nav>
 
     <div class="connection-panel">
-      <label for="gateway">Gateway</label>
+      <label for="gateway">App connection</label>
       <input id="gateway" [(ngModel)]="gatewayUrl" autocomplete="off">
       <button type="button" (click)="refreshAll()" [disabled]="isBusy()">Refresh</button>
     </div>
@@ -36,8 +36,8 @@
   <main class="workspace">
     <header class="topbar">
       <div>
-        <p class="eyebrow">API Gateway first workflow</p>
-        <h1>Professional stock signal scanner</h1>
+        <p class="eyebrow">Live market recommendation</p>
+        <h1>Stock Badshah buying guide</h1>
       </div>
       <div class="status-pill">
         <span></span>
@@ -47,8 +47,8 @@
 
     <section class="summary-grid">
       <div class="metric-card">
-        <span>Symbol</span>
-        <strong>{{ normalizedSymbol() }}</strong>
+        <span>Selected Stock</span>
+        <strong>{{ topRecommendationSymbol() }}</strong>
       </div>
       <div class="metric-card">
         <span>Latest Price</span>
@@ -56,19 +56,19 @@
       </div>
       <div class="metric-card">
         <span>Signal</span>
-        <strong [class]="signalClass()">{{ indicator()?.signal || '-' }}</strong>
+        <strong [class]="signalClass()">{{ toDecisionLabel(indicator()?.signal) }}</strong>
       </div>
       <div class="metric-card">
-        <span>Decision</span>
-        <strong [class]="strategyDecisionClass()">{{ strategy()?.decision || '-' }}</strong>
+        <span>Recommendation</span>
+        <strong [class]="strategyDecisionClass()">{{ userRecommendation() }}</strong>
       </div>
       <div class="metric-card">
-        <span>Saved Rows</span>
-        <strong>{{ savedRowsForSymbol().length }}</strong>
+        <span>Success Chance</span>
+        <strong>{{ formatPercent(topSuccessChance()) }}</strong>
       </div>
       <div class="metric-card">
-        <span>Scan Source</span>
-        <strong>{{ indicator()?.source || '-' }}</strong>
+        <span>Data Source</span>
+        <strong>{{ sourceLabel(indicator()?.source) }}</strong>
       </div>
     </section>
 
@@ -77,53 +77,156 @@
         <div class="panel controls-panel">
           <div class="panel-heading">
             <div>
-              <p class="eyebrow">Scanner input</p>
-              <h2>Build a clean signal request</h2>
+              <p class="eyebrow">Stock check</p>
+              <h2>Find today&apos;s buying view</h2>
             </div>
           </div>
 
           <label for="symbol">Symbol</label>
-          <input id="symbol" [(ngModel)]="symbol" autocomplete="off">
-
-          <label for="candles">Candles JSON</label>
-          <textarea id="candles" [(ngModel)]="candlesJson" spellcheck="false"></textarea>
+          <input id="symbol" [ngModel]="symbol()" (ngModelChange)="symbol.set($event)" autocomplete="off">
 
           <div class="action-row">
-            <button type="button" class="secondary" (click)="loadSampleCandles()" [disabled]="isBusy()">Sample</button>
-            <button type="button" class="secondary" (click)="saveCandles()" [disabled]="isBusy()">Save Candles</button>
-            <button type="button" class="primary" (click)="scanSignal()" [disabled]="isBusy()">Scan Signal</button>
+            <button type="button" class="primary" (click)="runScreener()" [disabled]="isBusy()">Scan Nifty 100</button>
+            <button type="button" class="primary" (click)="runNifty500Scanner()" [disabled]="isBusy()">Scan Nifty 500</button>
+            <button type="button" class="secondary" (click)="scanSignal()" [disabled]="isBusy()">Check This Stock</button>
+          </div>
+
+          <div class="help-box">
+            <strong>How the scan works</strong>
+            <p>Choose Nifty 100 or Nifty 500. Each stock is refreshed from live market data first, then only stocks that pass the buy rule are shown below.</p>
+          </div>
+
+          <div class="help-box">
+            <strong>Buy rule</strong>
+            <p>A stock must have a positive price trend and at least 20 percent past success rate. The success rate is calculated using the app&apos;s target and stop-loss rule on recent market history.</p>
+          </div>
+
+          <div class="action-row">
+            <button type="button" class="secondary" (click)="refreshLiveData()" [disabled]="isBusy()">Refresh Price</button>
           </div>
         </div>
 
         <div class="panel signal-panel">
           <div class="panel-heading">
             <div>
-              <p class="eyebrow">Signal output</p>
-              <h2>Trading decision</h2>
+              <p class="eyebrow">Result</p>
+              <h2>Buying recommendation</h2>
             </div>
-            <div class="signal-badge" [class]="signalClass()">{{ indicator()?.signal || 'WAIT' }}</div>
+            <div class="signal-badge" [class]="strategyDecisionClass()">{{ userRecommendation() }}</div>
           </div>
 
-          <div class="chart">
-            <svg viewBox="0 0 460 150" preserveAspectRatio="none" role="img" aria-label="Candle close price trend">
-              <line x1="0" y1="135" x2="460" y2="135"></line>
-              <line x1="0" y1="75" x2="460" y2="75"></line>
-              <line x1="0" y1="15" x2="460" y2="15"></line>
-              <polyline [attr.points]="trendPoints()"></polyline>
-            </svg>
+          <div class="recommendation-insight">
+            <div class="chart mini-chart">
+              <svg viewBox="0 0 460 150" preserveAspectRatio="none" role="img" aria-label="Recent price trend">
+                <line x1="0" y1="135" x2="460" y2="135"></line>
+                <line x1="0" y1="75" x2="460" y2="75"></line>
+                <line x1="0" y1="15" x2="460" y2="15"></line>
+                <polyline [attr.points]="trendPoints()"></polyline>
+              </svg>
+            </div>
+
+            <div class="reason-panel">
+              <div class="reason-heading">
+                <p class="eyebrow">Why this stock is shown</p>
+                <h3>{{ strategy()?.symbol || indicator()?.symbol || normalizedSymbol() }}</h3>
+              </div>
+              <ul>
+                @for (reason of recommendationReasons(); track reason) {
+                  <li>{{ reason }}</li>
+                }
+              </ul>
+            </div>
           </div>
 
           <div class="result-grid">
-            <div><span>Buy Date</span><strong>{{ indicator()?.buyDate || '-' }}</strong></div>
-            <div><span>Buy Price</span><strong>{{ formatNumber(indicator()?.buyPrice) }}</strong></div>
-            <div><span>RSI 14</span><strong>{{ formatNumber(indicator()?.rsi) }}</strong></div>
-            <div><span>SMA 20</span><strong>{{ formatNumber(indicator()?.sma20) }}</strong></div>
-            <div><span>Target</span><strong>{{ formatNumber(indicator()?.target) }}</strong></div>
+            <div><span>Price Date</span><strong>{{ indicator()?.buyDate || '-' }}</strong></div>
+            <div><span>Current Price</span><strong>{{ formatNumber(indicator()?.buyPrice) }}</strong></div>
+            <div><span>Success Chance</span><strong>{{ formatPercent(strategy()?.backtestSuccessRate) }}</strong></div>
+            <div><span>Trend Score</span><strong>{{ formatNumber(indicator()?.rsi) }}</strong></div>
+            <div><span>Expected Target</span><strong>{{ formatNumber(indicator()?.target) }}</strong></div>
             <div><span>Stop Loss</span><strong>{{ formatNumber(indicator()?.stopLoss) }}</strong></div>
-            <div><span>Candles</span><strong>{{ indicator()?.candlesCount || '-' }}</strong></div>
+            <div><span>Days Checked</span><strong>{{ indicator()?.candlesCount || savedRowsForSymbol().length || '-' }}</strong></div>
           </div>
 
-          <p class="result-note">{{ indicator()?.result || 'Run a scan to calculate the current technical view.' }}</p>
+          <p class="result-note">{{ strategy()?.reason || indicator()?.result || 'Click Get Recommendation to check live data and see whether this stock looks good to buy now.' }}</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Live watchlist</p>
+            <h2>Passed stocks from {{ activeScanName() }}</h2>
+          </div>
+          <div class="action-row">
+            <button type="button" class="primary" (click)="runScreener()" [disabled]="isBusy()">Scan Nifty 100</button>
+            <button type="button" class="primary" (click)="runNifty500Scanner()" [disabled]="isBusy()">Scan Nifty 500</button>
+          </div>
+        </div>
+
+        <div class="screener-summary">
+          <div><span>Checked</span><strong>{{ scannedCount() }} / {{ scanTotal() || 100 }}</strong></div>
+          <div><span>Live Loaded</span><strong>{{ liveLoadedCount() }}</strong></div>
+          <div><span>Good to Buy</span><strong>{{ screenerBuyCount() }}</strong></div>
+          <div><span>Failed</span><strong>{{ liveFailedCount() }}</strong></div>
+          <div><span>Hold</span><strong>{{ screenerHoldCount() }}</strong></div>
+          <div><span>Did Not Pass</span><strong>{{ screenerWaitCount() }}</strong></div>
+        </div>
+
+        @if (failedSymbols().length) {
+          <p class="result-note">Could not load live data for {{ failedSymbols().length }} symbols yet: {{ failedSymbols().slice(0, 12).join(', ') }}{{ failedSymbols().length > 12 ? '...' : '' }}</p>
+        }
+
+        @if (marketRecommendations().length) {
+          <div class="pager">
+            <span>Showing <strong>{{ recommendationStart() }}-{{ recommendationEnd() }}</strong> of <strong>{{ marketRecommendations().length }}</strong> passed stocks</span>
+            <div>
+              <button type="button" class="secondary" (click)="previousRecommendationPage()" [disabled]="recommendationPage() === 0">Previous</button>
+              <span>Page {{ recommendationPage() + 1 }} of {{ recommendationTotalPages() }}</span>
+              <button type="button" class="secondary" (click)="nextRecommendationPage()" [disabled]="recommendationPage() + 1 >= recommendationTotalPages()">Next</button>
+            </div>
+          </div>
+        }
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Stock</th>
+                <th>Recommendation</th>
+                <th>
+                  <button type="button" class="sort-button" (click)="toggleSuccessSort()">
+                    Success Chance <span>{{ successSortDirection() === 'desc' ? 'High to low' : 'Low to high' }}</span>
+                  </button>
+                </th>
+                <th>Price</th>
+                <th>Price Date</th>
+                <th>Expected Target</th>
+                <th>Stop Loss</th>
+                <th>Confidence</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (result of visibleMarketRecommendations(); track result.symbol) {
+                <tr>
+                  <td>{{ result.symbol }}</td>
+                  <td><strong [class]="decisionClass(result.decision)">{{ toDecisionLabel(result.decision) }}</strong></td>
+                  <td>{{ formatPercent(result.backtestSuccessRate) }}</td>
+                  <td>{{ formatNumber(result.buyPrice) }}</td>
+                  <td>{{ result.buyDate || '-' }}</td>
+                  <td>{{ formatNumber(result.target) }} <span class="gain-text">{{ formatTargetGain(result) }}</span></td>
+                  <td>{{ formatNumber(result.stopLoss) }}</td>
+                  <td>{{ confidenceLabel(result.confidence) }}</td>
+                  <td><button type="button" class="table-button" (click)="selectRecommendation(result)">View</button></td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="9">Click Scan Nifty 100 or Scan Nifty 500. Only stocks that pass the buy rule will appear here.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
         </div>
       </section>
     }
@@ -133,22 +236,22 @@
         <div class="panel controls-panel">
           <div class="panel-heading">
             <div>
-              <p class="eyebrow">Final architecture</p>
-              <h2>Strategy decision engine</h2>
+              <p class="eyebrow">Detailed check</p>
+              <h2>Full recommendation</h2>
             </div>
           </div>
 
           <label for="strategy-symbol">Symbol</label>
-          <input id="strategy-symbol" [(ngModel)]="symbol" autocomplete="off">
+          <input id="strategy-symbol" [ngModel]="symbol()" (ngModelChange)="symbol.set($event)" autocomplete="off">
 
           <div class="strategy-flow">
-            <div>Scanner</div>
-            <div>Fundamentals</div>
-            <div>Backtest</div>
-            <div>Strategy</div>
+            <div>Price trend</div>
+            <div>Company strength</div>
+            <div>Past success check</div>
+            <div>Final view</div>
           </div>
 
-          <button type="button" class="primary full-button" (click)="evaluateStrategy()" [disabled]="isBusy()">Evaluate Strategy</button>
+          <button type="button" class="primary full-button" (click)="evaluateStrategy()" [disabled]="isBusy()">Get Full Recommendation</button>
         </div>
 
         <div class="panel decision-panel">
@@ -157,35 +260,35 @@
               <p class="eyebrow">Combined result</p>
               <h2>{{ strategy()?.symbol || normalizedSymbol() }}</h2>
             </div>
-            <div class="decision-badge" [class]="decisionClass(strategy()?.decision)">{{ strategy()?.decision || 'NO_BUY' }}</div>
+            <div class="decision-badge" [class]="decisionClass(strategy()?.decision)">{{ toDecisionLabel(strategy()?.decision) }}</div>
           </div>
 
           <div class="decision-hero">
             <div>
-              <span>Confidence</span>
+              <span>Confidence Level</span>
               <strong>{{ strategy()?.confidence || '-' }}</strong>
             </div>
             <div>
-              <span>Technical</span>
-              <strong>{{ strategy()?.technicalSignal || '-' }}</strong>
+              <span>Price Trend</span>
+              <strong>{{ toDecisionLabel(strategy()?.technicalSignal) }}</strong>
             </div>
             <div>
-              <span>Fundamental</span>
+              <span>Company Strength</span>
               <strong>{{ strategy()?.fundamentalVerdict || '-' }}</strong>
             </div>
           </div>
 
           <div class="result-grid">
-            <div><span>Buy Date</span><strong>{{ strategy()?.buyDate || '-' }}</strong></div>
-            <div><span>Buy Price</span><strong>{{ formatNumber(strategy()?.buyPrice) }}</strong></div>
-            <div><span>Target</span><strong>{{ formatNumber(strategy()?.target) }}</strong></div>
+            <div><span>Price Date</span><strong>{{ strategy()?.buyDate || '-' }}</strong></div>
+            <div><span>Current Price</span><strong>{{ formatNumber(strategy()?.buyPrice) }}</strong></div>
+            <div><span>Expected Target</span><strong>{{ formatNumber(strategy()?.target) }}</strong></div>
             <div><span>Stop Loss</span><strong>{{ formatNumber(strategy()?.stopLoss) }}</strong></div>
-            <div><span>RSI 14</span><strong>{{ formatNumber(strategy()?.rsi) }}</strong></div>
-            <div><span>Fund Score</span><strong>{{ strategy()?.fundamentalScore ?? '-' }}</strong></div>
-            <div><span>Backtest</span><strong>{{ formatNumber(strategy()?.backtestSuccessRate) }}%</strong></div>
+            <div><span>Trend Score</span><strong>{{ formatNumber(strategy()?.rsi) }}</strong></div>
+            <div><span>Company Score</span><strong>{{ strategy()?.fundamentalScore ?? '-' }}</strong></div>
+            <div><span>Success Chance</span><strong>{{ formatPercent(strategy()?.backtestSuccessRate) }}</strong></div>
           </div>
 
-          <p class="result-note">{{ strategy()?.reason || 'Run the strategy evaluation after saving candle and fundamental data.' }}</p>
+          <p class="result-note">{{ strategy()?.reason || 'Get the full recommendation after refreshing live market data.' }}</p>
         </div>
       </section>
     }
@@ -194,10 +297,19 @@
       <section class="panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Saved market data</p>
-            <h2>Stock rows from PostgreSQL</h2>
+            <p class="eyebrow">Market data</p>
+            <h2>Recent prices saved for checking</h2>
           </div>
-          <button type="button" class="secondary" (click)="loadStocks()">Reload</button>
+          <button type="button" class="secondary" (click)="loadPricePage()">Refresh</button>
+        </div>
+
+        <div class="pager">
+          <span>Showing {{ priceRows().length }} of {{ priceTotalElements() }} rows</span>
+          <div>
+            <button type="button" class="secondary" (click)="previousPricePage()" [disabled]="pricePage() === 0">Previous</button>
+            <strong>Page {{ pricePage() + 1 }} of {{ priceTotalPages() || 1 }}</strong>
+            <button type="button" class="secondary" (click)="nextPricePage()" [disabled]="pricePage() + 1 >= priceTotalPages()">Next</button>
+          </div>
         </div>
 
         <div class="table-wrap">
@@ -206,13 +318,13 @@
               <tr>
                 <th>Symbol</th>
                 <th>Date</th>
-                <th>Close</th>
+                <th>Price</th>
                 <th>Company</th>
                 <th>Volume</th>
               </tr>
             </thead>
             <tbody>
-              @for (stock of stocks(); track stock.id || stock.symbol + stock.stockDate) {
+              @for (stock of priceRows(); track stock.id || stock.symbol + stock.stockDate) {
                 <tr>
                   <td>{{ stock.symbol }}</td>
                   <td>{{ stock.stockDate || '-' }}</td>
@@ -222,7 +334,7 @@
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="5">No stock rows loaded yet.</td>
+                  <td colspan="5">No market prices loaded yet.</td>
                 </tr>
               }
             </tbody>
@@ -235,48 +347,74 @@
       <section class="panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Saved symbols</p>
-            <h2>Full market screener</h2>
+            <p class="eyebrow">Watchlist</p>
+            <h2>Passed stocks from {{ activeScanName() }}</h2>
           </div>
-          <button type="button" class="primary" (click)="runScreener()" [disabled]="isBusy()">Run Screener</button>
+          <div class="action-row">
+            <button type="button" class="primary" (click)="runScreener()" [disabled]="isBusy()">Scan Nifty 100</button>
+            <button type="button" class="primary" (click)="runNifty500Scanner()" [disabled]="isBusy()">Scan Nifty 500</button>
+          </div>
         </div>
 
         <div class="screener-summary">
-          <div><span>Total</span><strong>{{ screenerResults().length }}</strong></div>
-          <div><span>Buy</span><strong>{{ screenerBuyCount() }}</strong></div>
+          <div><span>Checked</span><strong>{{ scannedCount() }} / {{ scanTotal() || 100 }}</strong></div>
+          <div><span>Live Loaded</span><strong>{{ liveLoadedCount() }}</strong></div>
+          <div><span>Good to Buy</span><strong>{{ screenerBuyCount() }}</strong></div>
+          <div><span>Failed</span><strong>{{ liveFailedCount() }}</strong></div>
           <div><span>Hold</span><strong>{{ screenerHoldCount() }}</strong></div>
-          <div><span>Wait</span><strong>{{ screenerWaitCount() }}</strong></div>
+          <div><span>Did Not Pass</span><strong>{{ screenerWaitCount() }}</strong></div>
         </div>
+
+        @if (failedSymbols().length) {
+          <p class="result-note">Could not load live data for {{ failedSymbols().length }} symbols yet: {{ failedSymbols().slice(0, 12).join(', ') }}{{ failedSymbols().length > 12 ? '...' : '' }}</p>
+        }
+
+        @if (marketRecommendations().length) {
+          <div class="pager">
+            <span>Showing <strong>{{ recommendationStart() }}-{{ recommendationEnd() }}</strong> of <strong>{{ marketRecommendations().length }}</strong> passed stocks</span>
+            <div>
+              <button type="button" class="secondary" (click)="previousRecommendationPage()" [disabled]="recommendationPage() === 0">Previous</button>
+              <span>Page {{ recommendationPage() + 1 }} of {{ recommendationTotalPages() }}</span>
+              <button type="button" class="secondary" (click)="nextRecommendationPage()" [disabled]="recommendationPage() + 1 >= recommendationTotalPages()">Next</button>
+            </div>
+          </div>
+        }
 
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>Symbol</th>
-                <th>Signal</th>
-                <th>Buy Date</th>
+                <th>Recommendation</th>
+                <th>
+                  <button type="button" class="sort-button" (click)="toggleSuccessSort()">
+                    Success Chance <span>{{ successSortDirection() === 'desc' ? 'High to low' : 'Low to high' }}</span>
+                  </button>
+                </th>
+                <th>Price Date</th>
                 <th>Price</th>
-                <th>RSI</th>
-                <th>Target</th>
+                <th>Expected Target</th>
                 <th>Stop Loss</th>
-                <th>Candles</th>
+                <th>Confidence</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              @for (result of screenerResults(); track result.symbol) {
+              @for (result of visibleMarketRecommendations(); track result.symbol) {
                 <tr>
                   <td>{{ result.symbol }}</td>
-                  <td><strong [class]="rowSignalClass(result.signal)">{{ result.signal }}</strong></td>
+                  <td><strong [class]="decisionClass(result.decision)">{{ toDecisionLabel(result.decision) }}</strong></td>
+                  <td>{{ formatPercent(result.backtestSuccessRate) }}</td>
                   <td>{{ result.buyDate || '-' }}</td>
                   <td>{{ formatNumber(result.buyPrice) }}</td>
-                  <td>{{ formatNumber(result.rsi) }}</td>
-                  <td>{{ formatNumber(result.target) }}</td>
+                  <td>{{ formatNumber(result.target) }} <span class="gain-text">{{ formatTargetGain(result) }}</span></td>
                   <td>{{ formatNumber(result.stopLoss) }}</td>
-                  <td>{{ result.candlesCount || 0 }}</td>
+                  <td>{{ confidenceLabel(result.confidence) }}</td>
+                  <td><button type="button" class="table-button" (click)="selectRecommendation(result)">View</button></td>
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="8">Run the screener after saving candles for one or more symbols.</td>
+                  <td colspan="9">Click Scan Nifty 100 or Scan Nifty 500. Only stocks that pass the buy rule will appear here.</td>
                 </tr>
               }
             </tbody>
@@ -292,7 +430,7 @@
             <div class="service-state" [class]="service.state"></div>
             <span>{{ service.name }}</span>
             <strong>{{ service.label }}</strong>
-            <code>{{ gatewayUrl }}{{ service.endpoint }}</code>
+            <code>{{ service.state === 'online' ? 'Available' : 'Not available' }}</code>
           </div>
         }
       </section>

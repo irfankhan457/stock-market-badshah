@@ -331,3 +331,35 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 2026-06-02T08:35:34.751+05:30  INFO 15104 --- [indicator-service] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_INDICATOR-SERVICE/DESKTOP-TAPHLMF:indicator-service:8082: registering service...
 2026-06-02T08:35:34.772+05:30  INFO 15104 --- [indicator-service] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_INDICATOR-SERVICE/DESKTOP-TAPHLMF:indicator-service:8082 - registration status: 204
 2026-06-02T08:35:34.951+05:30  INFO 15104 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-02T08:40:02.962+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T08:44:51.236+05:30  INFO 15104 --- [indicator-service] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-02T08:44:51.263+05:30  INFO 15104 --- [indicator-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-02T08:44:51.272+05:30  INFO 15104 --- [indicator-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2026-06-02T08:45:03.144+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T08:50:03.218+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T08:55:03.429+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:00:03.559+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:05:03.680+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:10:03.832+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:15:03.971+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:20:04.060+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:25:04.175+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:30:04.226+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:35:04.244+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:40:04.268+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:45:04.332+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:50:04.394+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T09:55:04.420+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T10:00:04.543+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T10:05:04.610+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T10:10:04.660+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T10:15:04.724+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T10:20:04.768+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T10:25:04.821+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T12:24:58.908+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T12:29:59.030+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T12:34:59.113+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T12:39:59.158+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T12:44:59.192+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T12:49:59.236+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-02T12:54:59.344+05:30  INFO 15104 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

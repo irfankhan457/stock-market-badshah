@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="fundamental-service" />
+        <module name="discovery-server" />
+        <module name="backtest-service" />
+        <module name="scanner-service" />
+        <module name="api-gateway" />
+        <module name="strategy-service" />
+        <module name="indicator-service" />
+        <module name="user-service" />
+        <module name="notification-service" />
+      </profile>
+      <profile name="Annotation profile for stock-data-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
+        </processorPath>
+        <module name="stock-data-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="backend" target="25" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-gateway" options="-parameters" />
+      <module name="backtest-service" options="-parameters" />
+      <module name="discovery-server" options="-parameters" />
+      <module name="fundamental-service" options="-parameters" />
+      <module name="indicator-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
+      <module name="scanner-service" options="-parameters" />
+      <module name="stock-data-service" options="-parameters" />
+      <module name="strategy-service" options="-parameters" />
+      <module name="user-service" options="-parameters" />
+    </option>
+  </component>
+</project>

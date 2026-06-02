@@ -33,7 +33,7 @@ public class IndicatorService {
 					null,
 					null,
 					null,
-					"Please send candle date and close price data."
+					"We could not find recent prices for this stock yet."
 			);
 		}
 
@@ -54,7 +54,7 @@ public class IndicatorService {
 				sma20,
 				target,
 				stopLoss,
-				"Calculated using latest close price, RSI 14, and SMA 20."
+				"We checked recent price movement and compared it with the latest market price."
 		);
 	}
 

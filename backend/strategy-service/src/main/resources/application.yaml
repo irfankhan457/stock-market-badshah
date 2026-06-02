@@ -9,6 +9,7 @@ services:
   scanner-url: http://localhost:8083
   fundamental-url: http://localhost:8084
   backtest-url: http://localhost:8086
+  stock-data-url: http://localhost:8081
 
 eureka:
   client:
