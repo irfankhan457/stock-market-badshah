@@ -217,6 +217,9 @@ export class App {
     if (tab === 'portfolio') {
       void this.loadPricePage();
     }
+    if (tab === 'strategy' && !this.isBusy()) {
+      void this.evaluateStrategy();
+    }
   }
 
   async refreshAll(): Promise<void> {
@@ -340,7 +343,13 @@ export class App {
 
   async evaluateStrategy(showStatus = true): Promise<void> {
     const task = async () => {
-      await this.refreshLiveSymbol(this.normalizedSymbol());
+      this.statusMessage.set(`Running full check for ${this.normalizedSymbol()}...`);
+      this.strategy.set(null);
+      try {
+        await this.refreshLiveSymbol(this.normalizedSymbol());
+      } catch {
+        this.statusMessage.set(`Using already saved live prices for ${this.normalizedSymbol()} and running full check...`);
+      }
       await this.loadStocks();
       const response = await this.http.get<StrategyResponse>(this.url(`/strategy/evaluate/${this.normalizedSymbol()}`)).toPromise();
       this.strategy.set(response ?? null);
@@ -413,6 +422,13 @@ export class App {
       return '-';
     }
     return `${this.formatNumber(value)}%`;
+  }
+
+  formatCrore(value: number | null | undefined): string {
+    if (value == null) {
+      return '-';
+    }
+    return `${this.formatNumber(value)} Cr`;
   }
 
   formatTargetGain(result: StrategyResponse): string {
@@ -593,7 +609,7 @@ export class App {
         this.statusMessage.set(successMessage);
       }
     } catch (error) {
-      this.statusMessage.set(error instanceof Error ? error.message : 'Request failed.');
+      this.statusMessage.set(error instanceof Error ? error.message : 'Could not complete this request. Please check that backend services are running.');
     } finally {
       this.isBusy.set(false);
     }

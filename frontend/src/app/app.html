@@ -251,7 +251,9 @@
             <div>Final view</div>
           </div>
 
-          <button type="button" class="primary full-button" (click)="evaluateStrategy()" [disabled]="isBusy()">Get Full Recommendation</button>
+          <button type="button" class="primary full-button" (click)="evaluateStrategy()" [disabled]="isBusy()">
+            {{ isBusy() ? 'Checking...' : 'Get Full Recommendation' }}
+          </button>
         </div>
 
         <div class="panel decision-panel">
@@ -291,7 +293,7 @@
           <div class="full-check-grid">
             <div class="analysis-box">
               <p class="eyebrow">Valuation</p>
-              <div><span>Market Cap</span><strong>{{ formatNumber(strategy()?.marketCap) }} Cr</strong></div>
+              <div><span>Market Cap</span><strong>{{ formatCrore(strategy()?.marketCap) }}</strong></div>
               <div><span>PE Ratio</span><strong>{{ formatNumber(strategy()?.peRatio) }}</strong></div>
               <div><span>PEG Ratio</span><strong>{{ formatNumber(strategy()?.pegRatio) }}</strong></div>
               <p>PE tells whether the stock price is expensive compared with earnings. PEG also considers profit growth.</p>
@@ -309,7 +311,7 @@
               <p class="eyebrow">Quality and Risk</p>
               <div><span>ROE</span><strong>{{ formatPercent(strategy()?.roe) }}</strong></div>
               <div><span>Debt to Equity</span><strong>{{ formatNumber(strategy()?.debtToEquity) }}</strong></div>
-              <div><span>Net Profit</span><strong>{{ formatNumber(strategy()?.netProfit) }} Cr</strong></div>
+              <div><span>Net Profit</span><strong>{{ formatCrore(strategy()?.netProfit) }}</strong></div>
               <p>ROE checks business quality. Debt and profit help understand risk and stability.</p>
             </div>
           </div>

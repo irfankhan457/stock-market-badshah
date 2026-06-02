@@ -341,7 +341,7 @@ public class FundamentalService {
 	}
 
 	private String parseStockAnalysisValue(String html, String labelRegex) {
-		Matcher matcher = Pattern.compile(labelRegex + ".*?</td><td[^>]*>([-0-9.,]+[BMK]?)", Pattern.DOTALL)
+		Matcher matcher = Pattern.compile(labelRegex + ".*?</td><td[^>]*>([-0-9.,]+[TBMK]?)", Pattern.DOTALL)
 				.matcher(html == null ? "" : html);
 		return matcher.find() ? matcher.group(1) : null;
 	}
@@ -372,12 +372,15 @@ public class FundamentalService {
 			return null;
 		}
 		String clean = value.trim().toUpperCase();
-		BigDecimal number = parseNumber(clean.replace("B", "").replace("M", "").replace("K", ""));
+		BigDecimal number = parseNumber(clean.replace("T", "").replace("B", "").replace("M", "").replace("K", ""));
 		if (number == null) {
 			return null;
 		}
 		if (clean.endsWith("B")) {
 			return number.multiply(BigDecimal.valueOf(100));
+		}
+		if (clean.endsWith("T")) {
+			return number.multiply(BigDecimal.valueOf(100000));
 		}
 		if (clean.endsWith("M")) {
 			return number.divide(BigDecimal.TEN, 2, RoundingMode.HALF_UP);
