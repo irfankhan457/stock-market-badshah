@@ -1,0 +1,140 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-06-02T08:33:20.705+05:30  INFO 11488 --- [discovery-server] [           main] c.s.d.DiscoveryServerApplication         : Starting DiscoveryServerApplication v0.0.1-SNAPSHOT using Java 21.0.7 with PID 11488 (D:\StockMarketBadsaha\backend\discovery-server\target\discovery-server-0.0.1-SNAPSHOT.jar started by irfan in D:\StockMarketBadsaha\backend\discovery-server)
+2026-06-02T08:33:20.755+05:30  INFO 11488 --- [discovery-server] [           main] c.s.d.DiscoveryServerApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-06-02T08:33:32.230+05:30  INFO 11488 --- [discovery-server] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=ae2e6a2d-2af4-30b1-af7d-30f23da950c1
+2026-06-02T08:33:55.968+05:30  INFO 11488 --- [discovery-server] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8761 (http)
+2026-06-02T08:33:59.088+05:30  INFO 11488 --- [discovery-server] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-02T08:33:59.148+05:30  INFO 11488 --- [discovery-server] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-02T08:34:01.373+05:30  INFO 11488 --- [discovery-server] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 40358 ms
+2026-06-02T08:35:02.178+05:30  INFO 11488 --- [discovery-server] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2026-06-02T08:35:02.227+05:30  INFO 11488 --- [discovery-server] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2026-06-02T08:35:02.994+05:30  INFO 11488 --- [discovery-server] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2026-06-02T08:35:02.997+05:30  INFO 11488 --- [discovery-server] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2026-06-02T08:35:04.986+05:30  INFO 11488 --- [discovery-server] [           main] o.s.v.b.OptionalValidatorFactoryBean     : Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2026-06-02T08:35:10.336+05:30  WARN 11488 --- [discovery-server] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-06-02T08:35:10.792+05:30  INFO 11488 --- [discovery-server] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-06-02T08:35:10.846+05:30  INFO 11488 --- [discovery-server] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-06-02T08:35:10.846+05:30  INFO 11488 --- [discovery-server] [           main] com.netflix.discovery.DiscoveryClient    : Client configured to neither register nor query for data.
+2026-06-02T08:35:10.850+05:30  INFO 11488 --- [discovery-server] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1780369510850 with initial instances count: 0
+2026-06-02T08:35:11.158+05:30  INFO 11488 --- [discovery-server] [           main] c.n.eureka.DefaultEurekaServerContext    : Initializing ...
+2026-06-02T08:35:11.196+05:30  INFO 11488 --- [discovery-server] [           main] c.n.eureka.cluster.PeerEurekaNodes       : Adding new peer nodes [http://localhost:8761/eureka/]
+2026-06-02T08:35:11.622+05:30  INFO 11488 --- [discovery-server] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2026-06-02T08:35:11.623+05:30  INFO 11488 --- [discovery-server] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2026-06-02T08:35:11.624+05:30  INFO 11488 --- [discovery-server] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2026-06-02T08:35:11.625+05:30  INFO 11488 --- [discovery-server] [           main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2026-06-02T08:35:11.802+05:30  INFO 11488 --- [discovery-server] [           main] c.n.eureka.cluster.PeerEurekaNodes       : Replica node URL:  http://localhost:8761/eureka/
+2026-06-02T08:35:11.864+05:30  INFO 11488 --- [discovery-server] [           main] c.n.e.registry.AbstractInstanceRegistry  : Finished initializing remote region registries. All known remote regions: []
+2026-06-02T08:35:11.865+05:30  INFO 11488 --- [discovery-server] [           main] c.n.eureka.DefaultEurekaServerContext    : Initialized
+2026-06-02T08:35:11.887+05:30  INFO 11488 --- [discovery-server] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-06-02T08:35:12.054+05:30  INFO 11488 --- [discovery-server] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application DISCOVERY-SERVER with eureka with status UP
+2026-06-02T08:35:12.145+05:30  INFO 11488 --- [discovery-server] [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : isAws returned false
+2026-06-02T08:35:12.147+05:30  INFO 11488 --- [discovery-server] [       Thread-9] o.s.c.n.e.server.EurekaServerBootstrap   : Initialized server context
+2026-06-02T08:35:12.149+05:30  INFO 11488 --- [discovery-server] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Got 1 instances from neighboring DS node
+2026-06-02T08:35:12.149+05:30  INFO 11488 --- [discovery-server] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Renew threshold is: 1
+2026-06-02T08:35:12.150+05:30  INFO 11488 --- [discovery-server] [       Thread-9] c.n.e.r.PeerAwareInstanceRegistryImpl    : Changing status to UP
+2026-06-02T08:35:12.153+05:30  INFO 11488 --- [discovery-server] [       Thread-9] e.s.EurekaServerInitializerConfiguration : Started Eureka Server
+2026-06-02T08:35:12.229+05:30  INFO 11488 --- [discovery-server] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8761 (http) with context path '/'
+2026-06-02T08:35:12.233+05:30  INFO 11488 --- [discovery-server] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8761
+2026-06-02T08:35:12.300+05:30  INFO 11488 --- [discovery-server] [           main] c.s.d.DiscoveryServerApplication         : Started DiscoveryServerApplication in 113.948 seconds (process running for 126.841)
+2026-06-02T08:35:17.678+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-02T08:35:17.678+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-02T08:35:17.687+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2026-06-02T08:35:18.416+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: BACKTEST-SERVICE - DESKTOP-TAPHLMF:backtest-service:8086
+2026-06-02T08:35:18.418+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-2] c.n.eureka.resources.InstanceResource    : Not Found (Renew): BACKTEST-SERVICE - DESKTOP-TAPHLMF:backtest-service:8086
+2026-06-02T08:35:18.778+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: STRATEGY-SERVICE - DESKTOP-TAPHLMF:strategy-service:8085
+2026-06-02T08:35:18.782+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-4] c.n.eureka.resources.InstanceResource    : Not Found (Renew): STRATEGY-SERVICE - DESKTOP-TAPHLMF:strategy-service:8085
+2026-06-02T08:35:20.340+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086 with status UP (replication=false)
+2026-06-02T08:35:20.340+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STRATEGY-SERVICE/DESKTOP-TAPHLMF:strategy-service:8085 with status UP (replication=false)
+2026-06-02T08:35:20.340+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STRATEGY-SERVICE/DESKTOP-TAPHLMF:strategy-service:8085 with status UP (replication=false)
+2026-06-02T08:35:20.340+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086 with status UP (replication=false)
+2026-06-02T08:35:21.411+05:30  INFO 11488 --- [discovery-server] [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086 with status UP (replication=true)
+2026-06-02T08:35:21.413+05:30  INFO 11488 --- [discovery-server] [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STRATEGY-SERVICE/DESKTOP-TAPHLMF:strategy-service:8085 with status UP (replication=true)
+2026-06-02T08:35:21.685+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STOCK-DATA-SERVICE/DESKTOP-TAPHLMF:stock-data-service:8081 with status UP (replication=false)
+2026-06-02T08:35:22.194+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance STOCK-DATA-SERVICE/DESKTOP-TAPHLMF:stock-data-service:8081 with status UP (replication=true)
+2026-06-02T08:35:22.576+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: NOTIFICATION-SERVICE - DESKTOP-TAPHLMF:notification-service:8088
+2026-06-02T08:35:22.576+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-4] c.n.eureka.resources.InstanceResource    : Not Found (Renew): NOTIFICATION-SERVICE - DESKTOP-TAPHLMF:notification-service:8088
+2026-06-02T08:35:22.764+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/DESKTOP-TAPHLMF:notification-service:8088 with status UP (replication=false)
+2026-06-02T08:35:23.274+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance NOTIFICATION-SERVICE/DESKTOP-TAPHLMF:notification-service:8088 with status UP (replication=true)
+2026-06-02T08:35:25.983+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-7] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: USER-SERVICE - DESKTOP-TAPHLMF:user-service:8087
+2026-06-02T08:35:25.984+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-7] c.n.eureka.resources.InstanceResource    : Not Found (Renew): USER-SERVICE - DESKTOP-TAPHLMF:user-service:8087
+2026-06-02T08:35:26.196+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/DESKTOP-TAPHLMF:user-service:8087 with status UP (replication=false)
+2026-06-02T08:35:26.721+05:30  INFO 11488 --- [discovery-server] [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance USER-SERVICE/DESKTOP-TAPHLMF:user-service:8087 with status UP (replication=true)
+2026-06-02T08:35:29.401+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: FUNDAMENTAL-SERVICE - DESKTOP-TAPHLMF:fundamental-service:8084
+2026-06-02T08:35:29.402+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-3] c.n.eureka.resources.InstanceResource    : Not Found (Renew): FUNDAMENTAL-SERVICE - DESKTOP-TAPHLMF:fundamental-service:8084
+2026-06-02T08:35:29.822+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-2] c.n.e.registry.AbstractInstanceRegistry  : Registered instance FUNDAMENTAL-SERVICE/DESKTOP-TAPHLMF:fundamental-service:8084 with status UP (replication=false)
+2026-06-02T08:35:30.352+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : Registered instance FUNDAMENTAL-SERVICE/DESKTOP-TAPHLMF:fundamental-service:8084 with status UP (replication=true)
+2026-06-02T08:35:32.639+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: SCANNER-SERVICE - DESKTOP-TAPHLMF:scanner-service:8083
+2026-06-02T08:35:32.643+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-5] c.n.eureka.resources.InstanceResource    : Not Found (Renew): SCANNER-SERVICE - DESKTOP-TAPHLMF:scanner-service:8083
+2026-06-02T08:35:33.183+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-6] c.n.e.registry.AbstractInstanceRegistry  : Registered instance SCANNER-SERVICE/DESKTOP-TAPHLMF:scanner-service:8083 with status UP (replication=false)
+2026-06-02T08:35:33.696+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-9] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: API-GATEWAY - DESKTOP-TAPHLMF:api-gateway:8080
+2026-06-02T08:35:33.697+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-9] c.n.eureka.resources.InstanceResource    : Not Found (Renew): API-GATEWAY - DESKTOP-TAPHLMF:api-gateway:8080
+2026-06-02T08:35:33.715+05:30  INFO 11488 --- [discovery-server] [io-8761-exec-10] c.n.e.registry.AbstractInstanceRegistry  : Registered instance SCANNER-SERVICE/DESKTOP-TAPHLMF:scanner-service:8083 with status UP (replication=true)
+2026-06-02T08:35:33.878+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/DESKTOP-TAPHLMF:api-gateway:8080 with status UP (replication=false)
+2026-06-02T08:35:34.394+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance API-GATEWAY/DESKTOP-TAPHLMF:api-gateway:8080 with status UP (replication=true)
+2026-06-02T08:35:34.526+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-4] c.n.e.registry.AbstractInstanceRegistry  : DS: Registry: lease doesn't exist, registering resource: INDICATOR-SERVICE - DESKTOP-TAPHLMF:indicator-service:8082
+2026-06-02T08:35:34.528+05:30  WARN 11488 --- [discovery-server] [nio-8761-exec-4] c.n.eureka.resources.InstanceResource    : Not Found (Renew): INDICATOR-SERVICE - DESKTOP-TAPHLMF:indicator-service:8082
+2026-06-02T08:35:34.769+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-8] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INDICATOR-SERVICE/DESKTOP-TAPHLMF:indicator-service:8082 with status UP (replication=false)
+2026-06-02T08:35:35.278+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance INDICATOR-SERVICE/DESKTOP-TAPHLMF:indicator-service:8082 with status UP (replication=true)
+2026-06-02T08:35:50.413+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-1] c.n.e.registry.AbstractInstanceRegistry  : Registered instance BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086 with status UP (replication=false)
+2026-06-02T08:35:50.928+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-3] c.n.e.registry.AbstractInstanceRegistry  : Registered instance BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086 with status UP (replication=true)
+2026-06-02T08:35:50.970+05:30  WARN 11488 --- [discovery-server] [et_localhost-13] c.n.eureka.cluster.ReplicationTask       : The replication of task BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086:Heartbeat@localhost failed with response code 409
+2026-06-02T08:35:50.971+05:30  WARN 11488 --- [discovery-server] [et_localhost-13] c.netflix.eureka.cluster.PeerEurekaNode  : Peer wants us to take the instance information from it, since the timestamp differs,Id : DESKTOP-TAPHLMF:backtest-service:8086 My Timestamp : 1780369487287, Peer's timestamp: 1780369550411
+2026-06-02T08:35:50.972+05:30  INFO 11488 --- [discovery-server] [et_localhost-13] c.n.e.registry.AbstractInstanceRegistry  : Registered instance BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086 with status UP (replication=true)
+2026-06-02T08:36:12.165+05:30  INFO 11488 --- [discovery-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-06-02T08:36:54.787+05:30 ERROR 11488 --- [discovery-server] [get_localhost-9] c.n.e.cluster.ReplicationTaskProcessor   : It seems to be a socket read timeout exception, it will retry later. if it continues to happen and some eureka node occupied all the cpu time, you should set property 'eureka.server.peer-node-read-timeout-ms' to a bigger value
+
+jakarta.ws.rs.ProcessingException: java.net.SocketTimeoutException: Read timed out
+	at org.glassfish.jersey.apache.connector.ApacheConnector.apply(ApacheConnector.java:535) ~[jersey-apache-connector-3.0.5.jar!/:na]
+	at org.glassfish.jersey.client.ClientRuntime.invoke(ClientRuntime.java:300) ~[jersey-client-4.0.2.jar!/:na]
+	at org.glassfish.jersey.client.JerseyInvocation.lambda$invoke$0(JerseyInvocation.java:671) ~[jersey-client-4.0.2.jar!/:na]
+	at org.glassfish.jersey.client.JerseyInvocation.call(JerseyInvocation.java:706) ~[jersey-client-4.0.2.jar!/:na]
+	at org.glassfish.jersey.client.JerseyInvocation.lambda$runInScope$3(JerseyInvocation.java:700) ~[jersey-client-4.0.2.jar!/:na]
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:292) ~[jersey-common-4.0.2.jar!/:na]
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:274) ~[jersey-common-4.0.2.jar!/:na]
+	at org.glassfish.jersey.internal.Errors.process(Errors.java:205) ~[jersey-common-4.0.2.jar!/:na]
+	at org.glassfish.jersey.process.internal.RequestScope.runInScope(RequestScope.java:391) ~[jersey-common-4.0.2.jar!/:na]
+	at org.glassfish.jersey.client.JerseyInvocation.runInScope(JerseyInvocation.java:700) ~[jersey-client-4.0.2.jar!/:na]
+	at org.glassfish.jersey.client.JerseyInvocation.invoke(JerseyInvocation.java:670) ~[jersey-client-4.0.2.jar!/:na]
+	at org.glassfish.jersey.client.JerseyInvocation$Builder.method(JerseyInvocation.java:436) ~[jersey-client-4.0.2.jar!/:na]
+	at org.glassfish.jersey.client.JerseyInvocation$Builder.post(JerseyInvocation.java:342) ~[jersey-client-4.0.2.jar!/:na]
+	at com.netflix.eureka.transport.Jersey3ReplicationClient.submitBatchUpdates(Jersey3ReplicationClient.java:116) ~[eureka-core-jersey3-2.0.5.jar!/:2.0.5]
+	at com.netflix.eureka.cluster.ReplicationTaskProcessor.process(ReplicationTaskProcessor.java:80) ~[eureka-core-2.0.5.jar!/:2.0.5]
+	at com.netflix.eureka.util.batcher.TaskExecutors$BatchWorkerRunnable.run(TaskExecutors.java:178) ~[eureka-core-2.0.5.jar!/:2.0.5]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:278) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:304) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796) ~[na:na]
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1099) ~[na:na]
+	at org.apache.http.impl.io.SessionInputBufferImpl.streamRead(SessionInputBufferImpl.java:137) ~[httpcore-4.4.16.jar!/:4.4.16]
+	at org.apache.http.impl.io.SessionInputBufferImpl.fillBuffer(SessionInputBufferImpl.java:153) ~[httpcore-4.4.16.jar!/:4.4.16]
+	at org.apache.http.impl.io.SessionInputBufferImpl.readLine(SessionInputBufferImpl.java:280) ~[httpcore-4.4.16.jar!/:4.4.16]
+	at org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead(DefaultHttpResponseParser.java:138) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.apache.http.impl.conn.DefaultHttpResponseParser.parseHead(DefaultHttpResponseParser.java:56) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.apache.http.impl.io.AbstractMessageParser.parse(AbstractMessageParser.java:259) ~[httpcore-4.4.16.jar!/:4.4.16]
+	at org.apache.http.impl.DefaultBHttpClientConnection.receiveResponseHeader(DefaultBHttpClientConnection.java:163) ~[httpcore-4.4.16.jar!/:4.4.16]
+	at org.apache.http.impl.conn.CPoolProxy.receiveResponseHeader(CPoolProxy.java:165) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.apache.http.protocol.HttpRequestExecutor.doReceiveResponse(HttpRequestExecutor.java:273) ~[httpcore-4.4.16.jar!/:4.4.16]
+	at org.apache.http.protocol.HttpRequestExecutor.execute(HttpRequestExecutor.java:125) ~[httpcore-4.4.16.jar!/:4.4.16]
+	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:272) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:185) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:89) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:111) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:72) ~[httpclient-4.5.3.jar!/:4.5.3]
+	at org.glassfish.jersey.apache.connector.ApacheConnector.apply(ApacheConnector.java:487) ~[jersey-apache-connector-3.0.5.jar!/:na]
+	... 16 common frames omitted
+
+2026-06-02T08:37:12.412+05:30  INFO 11488 --- [discovery-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 91ms
+2026-06-02T08:38:12.333+05:30  INFO 11488 --- [discovery-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 24ms
+2026-06-02T08:39:12.368+05:30  INFO 11488 --- [discovery-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 23ms

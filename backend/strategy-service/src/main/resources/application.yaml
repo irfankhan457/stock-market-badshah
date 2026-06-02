@@ -1,0 +1,16 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: strategy-service
+
+services:
+  scanner-url: http://localhost:8083
+  fundamental-url: http://localhost:8084
+  backtest-url: http://localhost:8086
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

@@ -1,0 +1,301 @@
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">SB</div>
+      <div>
+        <strong>Stock Badshah</strong>
+        <span>Signal Command</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button type="button" [class.active]="activeTab() === 'scanner'" (click)="setTab('scanner')">
+        <span>Scan</span>
+      </button>
+      <button type="button" [class.active]="activeTab() === 'strategy'" (click)="setTab('strategy')">
+        <span>Strategy</span>
+      </button>
+      <button type="button" [class.active]="activeTab() === 'screener'" (click)="setTab('screener')">
+        <span>Screener</span>
+      </button>
+      <button type="button" [class.active]="activeTab() === 'portfolio'" (click)="setTab('portfolio')">
+        <span>Stocks</span>
+      </button>
+      <button type="button" [class.active]="activeTab() === 'services'" (click)="setTab('services')">
+        <span>Services</span>
+      </button>
+    </nav>
+
+    <div class="connection-panel">
+      <label for="gateway">Gateway</label>
+      <input id="gateway" [(ngModel)]="gatewayUrl" autocomplete="off">
+      <button type="button" (click)="refreshAll()" [disabled]="isBusy()">Refresh</button>
+    </div>
+  </aside>
+
+  <main class="workspace">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">API Gateway first workflow</p>
+        <h1>Professional stock signal scanner</h1>
+      </div>
+      <div class="status-pill">
+        <span></span>
+        {{ statusMessage() }}
+      </div>
+    </header>
+
+    <section class="summary-grid">
+      <div class="metric-card">
+        <span>Symbol</span>
+        <strong>{{ normalizedSymbol() }}</strong>
+      </div>
+      <div class="metric-card">
+        <span>Latest Price</span>
+        <strong>{{ formatNumber(latestPrice()) }}</strong>
+      </div>
+      <div class="metric-card">
+        <span>Signal</span>
+        <strong [class]="signalClass()">{{ indicator()?.signal || '-' }}</strong>
+      </div>
+      <div class="metric-card">
+        <span>Decision</span>
+        <strong [class]="strategyDecisionClass()">{{ strategy()?.decision || '-' }}</strong>
+      </div>
+      <div class="metric-card">
+        <span>Saved Rows</span>
+        <strong>{{ savedRowsForSymbol().length }}</strong>
+      </div>
+      <div class="metric-card">
+        <span>Scan Source</span>
+        <strong>{{ indicator()?.source || '-' }}</strong>
+      </div>
+    </section>
+
+    @if (activeTab() === 'scanner') {
+      <section class="scanner-layout">
+        <div class="panel controls-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Scanner input</p>
+              <h2>Build a clean signal request</h2>
+            </div>
+          </div>
+
+          <label for="symbol">Symbol</label>
+          <input id="symbol" [(ngModel)]="symbol" autocomplete="off">
+
+          <label for="candles">Candles JSON</label>
+          <textarea id="candles" [(ngModel)]="candlesJson" spellcheck="false"></textarea>
+
+          <div class="action-row">
+            <button type="button" class="secondary" (click)="loadSampleCandles()" [disabled]="isBusy()">Sample</button>
+            <button type="button" class="secondary" (click)="saveCandles()" [disabled]="isBusy()">Save Candles</button>
+            <button type="button" class="primary" (click)="scanSignal()" [disabled]="isBusy()">Scan Signal</button>
+          </div>
+        </div>
+
+        <div class="panel signal-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Signal output</p>
+              <h2>Trading decision</h2>
+            </div>
+            <div class="signal-badge" [class]="signalClass()">{{ indicator()?.signal || 'WAIT' }}</div>
+          </div>
+
+          <div class="chart">
+            <svg viewBox="0 0 460 150" preserveAspectRatio="none" role="img" aria-label="Candle close price trend">
+              <line x1="0" y1="135" x2="460" y2="135"></line>
+              <line x1="0" y1="75" x2="460" y2="75"></line>
+              <line x1="0" y1="15" x2="460" y2="15"></line>
+              <polyline [attr.points]="trendPoints()"></polyline>
+            </svg>
+          </div>
+
+          <div class="result-grid">
+            <div><span>Buy Date</span><strong>{{ indicator()?.buyDate || '-' }}</strong></div>
+            <div><span>Buy Price</span><strong>{{ formatNumber(indicator()?.buyPrice) }}</strong></div>
+            <div><span>RSI 14</span><strong>{{ formatNumber(indicator()?.rsi) }}</strong></div>
+            <div><span>SMA 20</span><strong>{{ formatNumber(indicator()?.sma20) }}</strong></div>
+            <div><span>Target</span><strong>{{ formatNumber(indicator()?.target) }}</strong></div>
+            <div><span>Stop Loss</span><strong>{{ formatNumber(indicator()?.stopLoss) }}</strong></div>
+            <div><span>Candles</span><strong>{{ indicator()?.candlesCount || '-' }}</strong></div>
+          </div>
+
+          <p class="result-note">{{ indicator()?.result || 'Run a scan to calculate the current technical view.' }}</p>
+        </div>
+      </section>
+    }
+
+    @if (activeTab() === 'strategy') {
+      <section class="strategy-layout">
+        <div class="panel controls-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Final architecture</p>
+              <h2>Strategy decision engine</h2>
+            </div>
+          </div>
+
+          <label for="strategy-symbol">Symbol</label>
+          <input id="strategy-symbol" [(ngModel)]="symbol" autocomplete="off">
+
+          <div class="strategy-flow">
+            <div>Scanner</div>
+            <div>Fundamentals</div>
+            <div>Backtest</div>
+            <div>Strategy</div>
+          </div>
+
+          <button type="button" class="primary full-button" (click)="evaluateStrategy()" [disabled]="isBusy()">Evaluate Strategy</button>
+        </div>
+
+        <div class="panel decision-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Combined result</p>
+              <h2>{{ strategy()?.symbol || normalizedSymbol() }}</h2>
+            </div>
+            <div class="decision-badge" [class]="decisionClass(strategy()?.decision)">{{ strategy()?.decision || 'NO_BUY' }}</div>
+          </div>
+
+          <div class="decision-hero">
+            <div>
+              <span>Confidence</span>
+              <strong>{{ strategy()?.confidence || '-' }}</strong>
+            </div>
+            <div>
+              <span>Technical</span>
+              <strong>{{ strategy()?.technicalSignal || '-' }}</strong>
+            </div>
+            <div>
+              <span>Fundamental</span>
+              <strong>{{ strategy()?.fundamentalVerdict || '-' }}</strong>
+            </div>
+          </div>
+
+          <div class="result-grid">
+            <div><span>Buy Date</span><strong>{{ strategy()?.buyDate || '-' }}</strong></div>
+            <div><span>Buy Price</span><strong>{{ formatNumber(strategy()?.buyPrice) }}</strong></div>
+            <div><span>Target</span><strong>{{ formatNumber(strategy()?.target) }}</strong></div>
+            <div><span>Stop Loss</span><strong>{{ formatNumber(strategy()?.stopLoss) }}</strong></div>
+            <div><span>RSI 14</span><strong>{{ formatNumber(strategy()?.rsi) }}</strong></div>
+            <div><span>Fund Score</span><strong>{{ strategy()?.fundamentalScore ?? '-' }}</strong></div>
+            <div><span>Backtest</span><strong>{{ formatNumber(strategy()?.backtestSuccessRate) }}%</strong></div>
+          </div>
+
+          <p class="result-note">{{ strategy()?.reason || 'Run the strategy evaluation after saving candle and fundamental data.' }}</p>
+        </div>
+      </section>
+    }
+
+    @if (activeTab() === 'portfolio') {
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Saved market data</p>
+            <h2>Stock rows from PostgreSQL</h2>
+          </div>
+          <button type="button" class="secondary" (click)="loadStocks()">Reload</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Date</th>
+                <th>Close</th>
+                <th>Company</th>
+                <th>Volume</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (stock of stocks(); track stock.id || stock.symbol + stock.stockDate) {
+                <tr>
+                  <td>{{ stock.symbol }}</td>
+                  <td>{{ stock.stockDate || '-' }}</td>
+                  <td>{{ formatNumber(stock.currentPrice) }}</td>
+                  <td>{{ stock.companyName || '-' }}</td>
+                  <td>{{ formatNumber(stock.volume) }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="5">No stock rows loaded yet.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+    @if (activeTab() === 'screener') {
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Saved symbols</p>
+            <h2>Full market screener</h2>
+          </div>
+          <button type="button" class="primary" (click)="runScreener()" [disabled]="isBusy()">Run Screener</button>
+        </div>
+
+        <div class="screener-summary">
+          <div><span>Total</span><strong>{{ screenerResults().length }}</strong></div>
+          <div><span>Buy</span><strong>{{ screenerBuyCount() }}</strong></div>
+          <div><span>Hold</span><strong>{{ screenerHoldCount() }}</strong></div>
+          <div><span>Wait</span><strong>{{ screenerWaitCount() }}</strong></div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Signal</th>
+                <th>Buy Date</th>
+                <th>Price</th>
+                <th>RSI</th>
+                <th>Target</th>
+                <th>Stop Loss</th>
+                <th>Candles</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (result of screenerResults(); track result.symbol) {
+                <tr>
+                  <td>{{ result.symbol }}</td>
+                  <td><strong [class]="rowSignalClass(result.signal)">{{ result.signal }}</strong></td>
+                  <td>{{ result.buyDate || '-' }}</td>
+                  <td>{{ formatNumber(result.buyPrice) }}</td>
+                  <td>{{ formatNumber(result.rsi) }}</td>
+                  <td>{{ formatNumber(result.target) }}</td>
+                  <td>{{ formatNumber(result.stopLoss) }}</td>
+                  <td>{{ result.candlesCount || 0 }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="8">Run the screener after saving candles for one or more symbols.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+    @if (activeTab() === 'services') {
+      <section class="service-grid">
+        @for (service of services(); track service.name) {
+          <div class="panel service-card">
+            <div class="service-state" [class]="service.state"></div>
+            <span>{{ service.name }}</span>
+            <strong>{{ service.label }}</strong>
+            <code>{{ gatewayUrl }}{{ service.endpoint }}</code>
+          </div>
+        }
+      </section>
+    }
+  </main>
+</div>

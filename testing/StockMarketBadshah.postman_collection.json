@@ -1,0 +1,590 @@
+{
+  "info": {
+    "_postman_id": "c3bd860c-0885-4f70-a319-5f1a4bd891e9",
+    "name": "StockMarketBadshah Microservices",
+    "description": "Postman collection for StockMarketBadshah. Import this file into Postman and run requests by microservice folder. Application API requests use the API Gateway URL.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "gatewayUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "symbol",
+      "value": "RELIANCE"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Discovery Server",
+      "item": [
+        {
+          "name": "Gateway - Eureka Apps JSON",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/eureka/apps"
+          }
+        },
+        {
+          "name": "Gateway - Eureka Stock Data Service",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/eureka/apps/STOCK-DATA-SERVICE"
+          }
+        },
+        {
+          "name": "Gateway - Eureka Indicator Service",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/eureka/apps/INDICATOR-SERVICE"
+          }
+        },
+        {
+          "name": "Gateway - Eureka Scanner Service",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{gatewayUrl}}/eureka/apps/SCANNER-SERVICE"
+          }
+        },
+        {
+          "name": "Gateway - Eureka FUNDAMENTAL-SERVICE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/eureka/apps/FUNDAMENTAL-SERVICE"
+          }
+        },
+        {
+          "name": "Gateway - Eureka STRATEGY-SERVICE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/eureka/apps/STRATEGY-SERVICE"
+          }
+        },
+        {
+          "name": "Gateway - Eureka BACKTEST-SERVICE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/eureka/apps/BACKTEST-SERVICE"
+          }
+        },
+        {
+          "name": "Gateway - Eureka USER-SERVICE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/eureka/apps/USER-SERVICE"
+          }
+        },
+        {
+          "name": "Gateway - Eureka NOTIFICATION-SERVICE",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/eureka/apps/NOTIFICATION-SERVICE"
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - API Gateway",
+      "item": [
+        {
+          "name": "Gateway - Get All Stocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/stocks"
+          }
+        },
+        {
+          "name": "Gateway - Save One Stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"{{symbol}}\",\n  \"companyName\": \"Reliance\",\n  \"currentPrice\": 2800,\n  \"marketCap\": 1000000,\n  \"peRatio\": 25,\n  \"roe\": 15,\n  \"debtToEquity\": 0.5,\n  \"volume\": 100000,\n  \"stockDate\": \"2026-05-10\"\n}"
+            },
+            "url": "{{gatewayUrl}}/stocks"
+          }
+        },
+        {
+          "name": "Gateway - Save Bulk Candles",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2800, \"stockDate\": \"2026-05-10\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2810, \"stockDate\": \"2026-05-11\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2820, \"stockDate\": \"2026-05-12\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2790, \"stockDate\": \"2026-05-13\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2785, \"stockDate\": \"2026-05-14\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2770, \"stockDate\": \"2026-05-15\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2760, \"stockDate\": \"2026-05-16\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2750, \"stockDate\": \"2026-05-17\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2740, \"stockDate\": \"2026-05-18\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2730, \"stockDate\": \"2026-05-19\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2720, \"stockDate\": \"2026-05-20\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2710, \"stockDate\": \"2026-05-21\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2700, \"stockDate\": \"2026-05-22\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2690, \"stockDate\": \"2026-05-23\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2710, \"stockDate\": \"2026-05-24\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2730, \"stockDate\": \"2026-05-25\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2750, \"stockDate\": \"2026-05-26\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2770, \"stockDate\": \"2026-05-27\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2790, \"stockDate\": \"2026-05-28\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2810, \"stockDate\": \"2026-05-29\" }\n]"
+            },
+            "url": "{{gatewayUrl}}/stocks/bulk"
+          }
+        },
+        {
+          "name": "Gateway - Get Stocks By Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/stocks/{{symbol}}"
+          }
+        },
+        {
+          "name": "Gateway - Get Stock Symbols",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/stocks/meta/symbols"
+          }
+        },
+        {
+          "name": "Gateway - Get Candles By Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/stocks/{{symbol}}/candles"
+          }
+        },
+        {
+          "name": "Gateway - Indicator Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/indicators/health"
+          }
+        },
+        {
+          "name": "Gateway - Calculate Indicator Help",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/indicators/calculate"
+          }
+        },
+        {
+          "name": "Gateway - Calculate Indicator",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"{{symbol}}\",\n  \"candles\": [\n    { \"date\": \"2026-05-10\", \"close\": 2800 },\n    { \"date\": \"2026-05-11\", \"close\": 2810 },\n    { \"date\": \"2026-05-12\", \"close\": 2820 },\n    { \"date\": \"2026-05-13\", \"close\": 2790 },\n    { \"date\": \"2026-05-14\", \"close\": 2785 },\n    { \"date\": \"2026-05-15\", \"close\": 2770 },\n    { \"date\": \"2026-05-16\", \"close\": 2760 },\n    { \"date\": \"2026-05-17\", \"close\": 2750 },\n    { \"date\": \"2026-05-18\", \"close\": 2740 },\n    { \"date\": \"2026-05-19\", \"close\": 2730 },\n    { \"date\": \"2026-05-20\", \"close\": 2720 },\n    { \"date\": \"2026-05-21\", \"close\": 2710 },\n    { \"date\": \"2026-05-22\", \"close\": 2700 },\n    { \"date\": \"2026-05-23\", \"close\": 2690 },\n    { \"date\": \"2026-05-24\", \"close\": 2710 },\n    { \"date\": \"2026-05-25\", \"close\": 2730 },\n    { \"date\": \"2026-05-26\", \"close\": 2750 },\n    { \"date\": \"2026-05-27\", \"close\": 2770 },\n    { \"date\": \"2026-05-28\", \"close\": 2790 },\n    { \"date\": \"2026-05-29\", \"close\": 2810 }\n  ]\n}"
+            },
+            "url": "{{gatewayUrl}}/indicators/calculate"
+          }
+        },
+        {
+          "name": "Gateway - Scanner Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/scanner/health"
+          }
+        },
+        {
+          "name": "Gateway - Scan Saved Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/scanner/scan/{{symbol}}"
+          }
+        },
+        {
+          "name": "Gateway - Screen Saved Symbols",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/scanner/screen"
+          }
+        },
+        {
+          "name": "Gateway - Scan With Candles",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"{{symbol}}\",\n  \"candles\": [\n    { \"date\": \"2026-05-10\", \"close\": 2800 },\n    { \"date\": \"2026-05-11\", \"close\": 2810 },\n    { \"date\": \"2026-05-12\", \"close\": 2820 },\n    { \"date\": \"2026-05-13\", \"close\": 2790 },\n    { \"date\": \"2026-05-14\", \"close\": 2785 },\n    { \"date\": \"2026-05-15\", \"close\": 2770 },\n    { \"date\": \"2026-05-16\", \"close\": 2760 },\n    { \"date\": \"2026-05-17\", \"close\": 2750 },\n    { \"date\": \"2026-05-18\", \"close\": 2740 },\n    { \"date\": \"2026-05-19\", \"close\": 2730 },\n    { \"date\": \"2026-05-20\", \"close\": 2720 },\n    { \"date\": \"2026-05-21\", \"close\": 2710 },\n    { \"date\": \"2026-05-22\", \"close\": 2700 },\n    { \"date\": \"2026-05-23\", \"close\": 2690 },\n    { \"date\": \"2026-05-24\", \"close\": 2710 },\n    { \"date\": \"2026-05-25\", \"close\": 2730 },\n    { \"date\": \"2026-05-26\", \"close\": 2750 },\n    { \"date\": \"2026-05-27\", \"close\": 2770 },\n    { \"date\": \"2026-05-28\", \"close\": 2790 },\n    { \"date\": \"2026-05-29\", \"close\": 2810 }\n  ]\n}"
+            },
+            "url": "{{gatewayUrl}}/scanner/scan"
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Stock Data Service Via API Gateway",
+      "item": [
+        {
+          "name": "Gateway - Get All Stocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/stocks"
+          }
+        },
+        {
+          "name": "Gateway - Save Bulk Candles",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2800, \"stockDate\": \"2026-05-10\" },\n  { \"symbol\": \"{{symbol}}\", \"companyName\": \"Reliance\", \"currentPrice\": 2810, \"stockDate\": \"2026-05-11\" }\n]"
+            },
+            "url": "{{gatewayUrl}}/stocks/bulk"
+          }
+        },
+        {
+          "name": "Gateway - Get Stocks By Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/stocks/{{symbol}}"
+          }
+        },
+        {
+          "name": "Gateway - Get Stock Symbols",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/stocks/meta/symbols"
+          }
+        },
+        {
+          "name": "Gateway - Get Candles By Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/stocks/{{symbol}}/candles"
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Indicator Service Via API Gateway",
+      "item": [
+        {
+          "name": "Gateway - Indicator Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/indicators/health"
+          }
+        },
+        {
+          "name": "Gateway - Calculate Indicator Help",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/indicators/calculate"
+          }
+        },
+        {
+          "name": "Gateway - Calculate Indicator",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"{{symbol}}\",\n  \"candles\": [\n    { \"date\": \"2026-05-10\", \"close\": 2800 },\n    { \"date\": \"2026-05-11\", \"close\": 2810 },\n    { \"date\": \"2026-05-12\", \"close\": 2820 },\n    { \"date\": \"2026-05-13\", \"close\": 2790 },\n    { \"date\": \"2026-05-14\", \"close\": 2785 },\n    { \"date\": \"2026-05-15\", \"close\": 2770 },\n    { \"date\": \"2026-05-16\", \"close\": 2760 },\n    { \"date\": \"2026-05-17\", \"close\": 2750 },\n    { \"date\": \"2026-05-18\", \"close\": 2740 },\n    { \"date\": \"2026-05-19\", \"close\": 2730 },\n    { \"date\": \"2026-05-20\", \"close\": 2720 },\n    { \"date\": \"2026-05-21\", \"close\": 2710 },\n    { \"date\": \"2026-05-22\", \"close\": 2700 },\n    { \"date\": \"2026-05-23\", \"close\": 2690 },\n    { \"date\": \"2026-05-24\", \"close\": 2710 },\n    { \"date\": \"2026-05-25\", \"close\": 2730 },\n    { \"date\": \"2026-05-26\", \"close\": 2750 },\n    { \"date\": \"2026-05-27\", \"close\": 2770 },\n    { \"date\": \"2026-05-28\", \"close\": 2790 },\n    { \"date\": \"2026-05-29\", \"close\": 2810 }\n  ]\n}"
+            },
+            "url": "{{gatewayUrl}}/indicators/calculate"
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Scanner Service Via API Gateway",
+      "item": [
+        {
+          "name": "Gateway - Scanner Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/scanner/health"
+          }
+        },
+        {
+          "name": "Gateway - Scan Saved Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/scanner/scan/{{symbol}}"
+          }
+        },
+        {
+          "name": "Gateway - Screen Saved Symbols",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/scanner/screen"
+          }
+        },
+        {
+          "name": "Gateway - Scan With Candles",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"{{symbol}}\",\n  \"candles\": [\n    { \"date\": \"2026-05-10\", \"close\": 2800 },\n    { \"date\": \"2026-05-11\", \"close\": 2810 },\n    { \"date\": \"2026-05-12\", \"close\": 2820 },\n    { \"date\": \"2026-05-13\", \"close\": 2790 },\n    { \"date\": \"2026-05-14\", \"close\": 2785 },\n    { \"date\": \"2026-05-15\", \"close\": 2770 },\n    { \"date\": \"2026-05-16\", \"close\": 2760 },\n    { \"date\": \"2026-05-17\", \"close\": 2750 },\n    { \"date\": \"2026-05-18\", \"close\": 2740 },\n    { \"date\": \"2026-05-19\", \"close\": 2730 },\n    { \"date\": \"2026-05-20\", \"close\": 2720 },\n    { \"date\": \"2026-05-21\", \"close\": 2710 },\n    { \"date\": \"2026-05-22\", \"close\": 2700 },\n    { \"date\": \"2026-05-23\", \"close\": 2690 },\n    { \"date\": \"2026-05-24\", \"close\": 2710 },\n    { \"date\": \"2026-05-25\", \"close\": 2730 },\n    { \"date\": \"2026-05-26\", \"close\": 2750 },\n    { \"date\": \"2026-05-27\", \"close\": 2770 },\n    { \"date\": \"2026-05-28\", \"close\": 2790 },\n    { \"date\": \"2026-05-29\", \"close\": 2810 }\n  ]\n}"
+            },
+            "url": "{{gatewayUrl}}/scanner/scan"
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Fundamental Service Via API Gateway",
+      "item": [
+        {
+          "name": "Gateway - Fundamental Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/fundamentals/health"
+          }
+        },
+        {
+          "name": "Gateway - Analyze Saved Symbol",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/fundamentals/analyze/{{symbol}}"
+          }
+        },
+        {
+          "name": "Gateway - Analyze Manual Fundamentals",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"{{symbol}}\",\n  \"marketCap\": 1000000,\n  \"peRatio\": 24,\n  \"roe\": 15,\n  \"debtToEquity\": 0.5,\n  \"profitGrowth\": 12\n}"
+            },
+            "url": "{{gatewayUrl}}/fundamentals/analyze"
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Strategy Service Via API Gateway",
+      "item": [
+        {
+          "name": "Gateway - Strategy Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/strategy/health"
+          }
+        },
+        {
+          "name": "Gateway - Evaluate Strategy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/strategy/evaluate/{{symbol}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - Backtest Service Via API Gateway",
+      "item": [
+        {
+          "name": "Gateway - Backtest Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/backtests/health"
+          }
+        },
+        {
+          "name": "Gateway - Run Saved Symbol Backtest",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/backtests/run/{{symbol}}"
+          }
+        },
+        {
+          "name": "Gateway - Run Manual Backtest",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"symbol\": \"{{symbol}}\",\n  \"candles\": [\n    { \"date\": \"2026-05-10\", \"close\": 2800 },\n    { \"date\": \"2026-05-11\", \"close\": 2810 },\n    { \"date\": \"2026-05-12\", \"close\": 2820 },\n    { \"date\": \"2026-05-13\", \"close\": 2790 },\n    { \"date\": \"2026-05-14\", \"close\": 2785 },\n    { \"date\": \"2026-05-15\", \"close\": 2770 },\n    { \"date\": \"2026-05-16\", \"close\": 2760 },\n    { \"date\": \"2026-05-17\", \"close\": 2750 },\n    { \"date\": \"2026-05-18\", \"close\": 2740 },\n    { \"date\": \"2026-05-19\", \"close\": 2730 },\n    { \"date\": \"2026-05-20\", \"close\": 2720 },\n    { \"date\": \"2026-05-21\", \"close\": 2710 },\n    { \"date\": \"2026-05-22\", \"close\": 2700 },\n    { \"date\": \"2026-05-23\", \"close\": 2690 },\n    { \"date\": \"2026-05-24\", \"close\": 2710 },\n    { \"date\": \"2026-05-25\", \"close\": 2730 },\n    { \"date\": \"2026-05-26\", \"close\": 2750 },\n    { \"date\": \"2026-05-27\", \"close\": 2770 },\n    { \"date\": \"2026-05-28\", \"close\": 2790 },\n    { \"date\": \"2026-05-29\", \"close\": 2810 }\n  ]\n}"
+            },
+            "url": "{{gatewayUrl}}/backtests/run"
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 - User Service Via API Gateway",
+      "item": [
+        {
+          "name": "Gateway - User Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/users/health"
+          }
+        },
+        {
+          "name": "Gateway - Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"demo\",\n  \"password\": \"Demo@123\",\n  \"email\": \"demo@stockbadshah.local\"\n}"
+            },
+            "url": "{{gatewayUrl}}/users/register"
+          }
+        },
+        {
+          "name": "Gateway - Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"demo\",\n  \"password\": \"Demo@123\"\n}"
+            },
+            "url": "{{gatewayUrl}}/users/login"
+          }
+        },
+        {
+          "name": "Gateway - User Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/users/demo"
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 - Notification Service Via API Gateway",
+      "item": [
+        {
+          "name": "Gateway - Notification Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/notifications/health"
+          }
+        },
+        {
+          "name": "Gateway - Test Telegram Notification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{gatewayUrl}}/notifications/test/telegram"
+          }
+        },
+        {
+          "name": "Gateway - Send Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"channel\": \"TELEGRAM\",\n  \"recipient\": \"demo-user\",\n  \"message\": \"{{symbol}} strategy alert is ready.\"\n}"
+            },
+            "url": "{{gatewayUrl}}/notifications/send"
+          }
+        }
+      ]
+    }
+  ]
+}

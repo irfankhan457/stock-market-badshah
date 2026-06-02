@@ -1,0 +1,15 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: scanner-service
+
+services:
+  stock-data-url: http://localhost:8081
+  indicator-url: http://localhost:8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

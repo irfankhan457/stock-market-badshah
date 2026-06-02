@@ -1,0 +1,12 @@
+package com.stockbadshah.indicator_service.dto;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
+
+public record IndicatorRequest(
+		@NotBlank String symbol,
+		@Valid List<CandleRequest> candles
+) {
+}

@@ -20,6 +20,41 @@ spring:
               predicates:
                 - Path=/indicators/**
 
+            - id: scanner-service
+              uri: lb://SCANNER-SERVICE
+              predicates:
+                - Path=/scanner/**
+
+            - id: fundamental-service
+              uri: lb://FUNDAMENTAL-SERVICE
+              predicates:
+                - Path=/fundamentals/**
+
+            - id: strategy-service
+              uri: lb://STRATEGY-SERVICE
+              predicates:
+                - Path=/strategy/**
+
+            - id: backtest-service
+              uri: lb://BACKTEST-SERVICE
+              predicates:
+                - Path=/backtests/**
+
+            - id: user-service
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/users/**
+
+            - id: notification-service
+              uri: lb://NOTIFICATION-SERVICE
+              predicates:
+                - Path=/notifications/**
+
+            - id: discovery-server
+              uri: http://localhost:8761
+              predicates:
+                - Path=/eureka/**
+
 eureka:
   client:
     service-url:
