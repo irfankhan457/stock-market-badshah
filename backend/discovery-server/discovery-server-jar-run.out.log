@@ -939,3 +939,5 @@ Caused by: java.net.SocketTimeoutException: Read timed out
 2026-06-02T18:46:29.812+05:30  INFO 11488 --- [discovery-server] [nio-8761-exec-5] c.n.e.registry.AbstractInstanceRegistry  : Registered instance FUNDAMENTAL-SERVICE/DESKTOP-TAPHLMF:fundamental-service:8084 with status UP (replication=true)
 2026-06-02T18:47:01.999+05:30  INFO 11488 --- [discovery-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
 2026-06-02T18:48:01.999+05:30  INFO 11488 --- [discovery-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-06-02T18:49:02.000+05:30  INFO 11488 --- [discovery-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
+2026-06-02T18:50:02.000+05:30  INFO 11488 --- [discovery-server] [a-EvictionTimer] c.n.e.registry.AbstractInstanceRegistry  : Running the evict task with compensationTime 0ms
