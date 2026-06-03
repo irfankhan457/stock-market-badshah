@@ -41,7 +41,11 @@ public class FundamentalService {
 	public FundamentalResponse analyzeSavedSymbol(String symbol) {
 		FundamentalResponse screenerResponse = fetchScreenerFundamentals(symbol);
 		if (hasFundamentalValues(screenerResponse)) {
-			return screenerResponse;
+			if (screenerResponse.debtToEquity() != null && screenerResponse.netProfit() != null) {
+				return screenerResponse;
+			}
+			FundamentalResponse stockAnalysisResponse = fetchStockAnalysisFundamentals(symbol);
+			return mergeMissingFundamentals(screenerResponse, stockAnalysisResponse);
 		}
 
 		FundamentalResponse stockAnalysisResponse = fetchStockAnalysisFundamentals(symbol);
