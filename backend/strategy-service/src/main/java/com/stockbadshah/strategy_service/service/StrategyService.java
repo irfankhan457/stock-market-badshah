@@ -7,11 +7,13 @@ import com.stockbadshah.strategy_service.dto.StrategyResponse;
 import com.stockbadshah.strategy_service.dto.UniverseRecommendationResponse;
 import com.stockbadshah.strategy_service.dto.UniverseRefreshResult;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +34,10 @@ public class StrategyService {
 			@Value("${services.fundamental-url}") String fundamentalUrl,
 			@Value("${services.backtest-url}") String backtestUrl,
 			@Value("${services.stock-data-url}") String stockDataUrl) {
-		this.restClient = restClientBuilder.build();
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+		requestFactory.setConnectTimeout(Duration.ofSeconds(5));
+		requestFactory.setReadTimeout(Duration.ofSeconds(150));
+		this.restClient = restClientBuilder.requestFactory(requestFactory).build();
 		this.scannerUrl = scannerUrl;
 		this.fundamentalUrl = fundamentalUrl;
 		this.backtestUrl = backtestUrl;

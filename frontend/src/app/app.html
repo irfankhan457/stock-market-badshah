@@ -112,7 +112,12 @@
               <p class="eyebrow">Result</p>
               <h2>Buying recommendation</h2>
             </div>
-            <div class="signal-badge" [class]="strategyDecisionClass()">{{ userRecommendation() }}</div>
+            <div class="recommendation-actions">
+              <div class="signal-badge" [class]="strategyDecisionClass()">{{ userRecommendation() }}</div>
+              <button type="button" class="table-button save-button" (click)="addToWatchlist()" [disabled]="!strategy() || isInWatchlist(strategy()?.symbol)">
+                {{ strategy() && isInWatchlist(strategy()?.symbol) ? 'Saved' : 'Save' }}
+              </button>
+            </div>
           </div>
 
           <div class="recommendation-insight">
@@ -155,7 +160,7 @@
       <section class="panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Live watchlist</p>
+            <p class="eyebrow">Live scan results</p>
             <h2>Passed stocks from {{ activeScanName() }}</h2>
           </div>
           <div class="action-row">
@@ -204,7 +209,7 @@
                 <th>Expected Target</th>
                 <th>Stop Loss</th>
                 <th>Confidence</th>
-                <th></th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -218,7 +223,14 @@
                   <td>{{ formatNumber(result.target) }} <span class="gain-text">{{ formatTargetGain(result) }}</span></td>
                   <td>{{ formatNumber(result.stopLoss) }}</td>
                   <td>{{ confidenceLabel(result.confidence) }}</td>
-                  <td><button type="button" class="table-button" (click)="selectRecommendation(result)">View</button></td>
+                  <td>
+                    <div class="table-actions">
+                      <button type="button" class="table-button" (click)="selectRecommendation(result)">View</button>
+                      <button type="button" class="table-button save-button" (click)="addToWatchlist(result)" [disabled]="isInWatchlist(result.symbol)">
+                        {{ isInWatchlist(result.symbol) ? 'Saved' : 'Save' }}
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               } @empty {
                 <tr>
@@ -303,6 +315,8 @@
               <p class="eyebrow">Growth</p>
               <div><span>Sales Growth</span><strong>{{ formatPercent(strategy()?.salesGrowth) }}</strong></div>
               <div><span>Profit Growth</span><strong>{{ formatPercent(strategy()?.profitGrowth) }}</strong></div>
+              <div><span>Sales CAGR</span><strong>{{ formatPercent(strategy()?.salesCagr) }}</strong></div>
+              <div><span>Profit CAGR</span><strong>{{ formatPercent(strategy()?.profitCagr) }}</strong></div>
               <div><span>Stock CAGR</span><strong>{{ formatPercent(strategy()?.stockPriceCagr) }}</strong></div>
               <p>Sales and profit growth show whether the business is expanding, not only whether the price is moving.</p>
             </div>
@@ -313,6 +327,14 @@
               <div><span>Debt to Equity</span><strong>{{ formatNumber(strategy()?.debtToEquity) }}</strong></div>
               <div><span>Net Profit</span><strong>{{ formatCrore(strategy()?.netProfit) }}</strong></div>
               <p>ROE checks business quality. Debt and profit help understand risk and stability.</p>
+            </div>
+
+            <div class="analysis-box business-box">
+              <p class="eyebrow">Business View</p>
+              <div><span>Data Source</span><strong>{{ strategy()?.fundamentalDataSource || '-' }}</strong></div>
+              <div><span>Future View</span><strong>{{ strategy()?.futurePerspective || '-' }}</strong></div>
+              <div><span>Order Book</span><strong>{{ strategy()?.orderBook || '-' }}</strong></div>
+              <p>This section explains where the company data came from and what the free source can or cannot confirm.</p>
             </div>
           </div>
 
@@ -387,73 +409,77 @@
         <div class="panel-heading">
           <div>
             <p class="eyebrow">Watchlist</p>
-            <h2>Passed stocks from {{ activeScanName() }}</h2>
+            <h2>Saved stocks to review</h2>
           </div>
           <div class="action-row">
-            <button type="button" class="primary" (click)="runScreener()" [disabled]="isBusy()">Scan Nifty 100</button>
-            <button type="button" class="primary" (click)="runNifty500Scanner()" [disabled]="isBusy()">Scan Nifty 500</button>
+            <button type="button" class="secondary" (click)="setTab('scanner')">Go to Scan</button>
+            <button type="button" class="primary" (click)="refreshWatchlist()" [disabled]="isBusy() || !watchlistItems().length">
+              Refresh Watchlist
+            </button>
           </div>
         </div>
 
         <div class="screener-summary">
-          <div><span>Checked</span><strong>{{ scannedCount() }} / {{ scanTotal() || 100 }}</strong></div>
-          <div><span>Live Loaded</span><strong>{{ liveLoadedCount() }}</strong></div>
-          <div><span>Good to Buy</span><strong>{{ screenerBuyCount() }}</strong></div>
-          <div><span>Failed</span><strong>{{ liveFailedCount() }}</strong></div>
-          <div><span>Hold</span><strong>{{ screenerHoldCount() }}</strong></div>
-          <div><span>Did Not Pass</span><strong>{{ screenerWaitCount() }}</strong></div>
+          <div><span>Saved</span><strong>{{ watchlistItems().length }}</strong></div>
+          <div><span>Good to Buy</span><strong>{{ watchlistBuyCount() }}</strong></div>
+          <div><span>Review First</span><strong>{{ watchlistHoldCount() }}</strong></div>
+          <div><span>Near Stop</span><strong>{{ watchlistNearStopCount() }}</strong></div>
+          <div><span>Avg Success</span><strong>{{ formatPercent(watchlistAverageSuccess()) }}</strong></div>
+          <div><span>Source</span><strong>Saved picks</strong></div>
         </div>
 
-        @if (failedSymbols().length) {
-          <p class="result-note">Could not load live data for {{ failedSymbols().length }} symbols yet: {{ failedSymbols().slice(0, 12).join(', ') }}{{ failedSymbols().length > 12 ? '...' : '' }}</p>
-        }
-
-        @if (marketRecommendations().length) {
-          <div class="pager">
-            <span>Showing <strong>{{ recommendationStart() }}-{{ recommendationEnd() }}</strong> of <strong>{{ marketRecommendations().length }}</strong> passed stocks</span>
-            <div>
-              <button type="button" class="secondary" (click)="previousRecommendationPage()" [disabled]="recommendationPage() === 0">Previous</button>
-              <span>Page {{ recommendationPage() + 1 }} of {{ recommendationTotalPages() }}</span>
-              <button type="button" class="secondary" (click)="nextRecommendationPage()" [disabled]="recommendationPage() + 1 >= recommendationTotalPages()">Next</button>
-            </div>
+        <div class="watchlist-guide">
+          <div>
+            <strong>How to use this page</strong>
+            <p>Scan Nifty 100 or Nifty 500, save only the stocks you want to track, then refresh this page for the latest full check before deciding.</p>
           </div>
-        }
+          <div>
+            <strong>What to watch</strong>
+            <p>Target Gap shows possible upside from current price. Stop Risk shows how far the price is from the stop-loss level.</p>
+          </div>
+        </div>
 
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>Symbol</th>
-                <th>Recommendation</th>
-                <th>
-                  <button type="button" class="sort-button" (click)="toggleSuccessSort()">
-                    Success Chance <span>{{ successSortDirection() === 'desc' ? 'High to low' : 'Low to high' }}</span>
-                  </button>
-                </th>
-                <th>Price Date</th>
+                <th>Final View</th>
                 <th>Price</th>
-                <th>Expected Target</th>
-                <th>Stop Loss</th>
+                <th>Target</th>
+                <th>Target Gap</th>
+                <th>Stop Risk</th>
+                <th>Success</th>
+                <th>Company</th>
                 <th>Confidence</th>
-                <th></th>
+                <th>Last Checked</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              @for (result of visibleMarketRecommendations(); track result.symbol) {
+              @for (item of watchlistItems(); track item.symbol) {
                 <tr>
-                  <td>{{ result.symbol }}</td>
-                  <td><strong [class]="decisionClass(result.decision)">{{ toDecisionLabel(result.decision) }}</strong></td>
-                  <td>{{ formatPercent(result.backtestSuccessRate) }}</td>
-                  <td>{{ result.buyDate || '-' }}</td>
-                  <td>{{ formatNumber(result.buyPrice) }}</td>
-                  <td>{{ formatNumber(result.target) }} <span class="gain-text">{{ formatTargetGain(result) }}</span></td>
-                  <td>{{ formatNumber(result.stopLoss) }}</td>
-                  <td>{{ confidenceLabel(result.confidence) }}</td>
-                  <td><button type="button" class="table-button" (click)="selectRecommendation(result)">View</button></td>
+                  <td>{{ item.symbol }}</td>
+                  <td><strong [class]="decisionClass(item.decision)">{{ toDecisionLabel(item.decision) }}</strong></td>
+                  <td>{{ formatNumber(item.buyPrice) }}</td>
+                  <td>{{ formatNumber(item.target) }} <span class="gain-text">{{ formatTargetGain(item) }}</span></td>
+                  <td>{{ watchlistTargetGap(item) }}</td>
+                  <td>{{ watchlistStopRisk(item) }}</td>
+                  <td>{{ formatPercent(item.backtestSuccessRate) }}</td>
+                  <td>{{ item.fundamentalVerdict || '-' }}</td>
+                  <td>{{ confidenceLabel(item.confidence) }}</td>
+                  <td>{{ formatDateTime(item.lastCheckedAt) }}</td>
+                  <td>
+                    <div class="table-actions">
+                      <button type="button" class="table-button" (click)="openFullCheckFromWatchlist(item)">Full Check</button>
+                      <button type="button" class="table-button" (click)="refreshWatchlistItem(item)" [disabled]="isBusy()">Refresh</button>
+                      <button type="button" class="table-button danger-button" (click)="removeFromWatchlist(item.symbol)">Remove</button>
+                    </div>
+                  </td>
                 </tr>
               } @empty {
                 <tr>
-                  <td colspan="9">Click Scan Nifty 100 or Scan Nifty 500. Only stocks that pass the buy rule will appear here.</td>
+                  <td colspan="11">No saved stocks yet. Go to Scan, run Nifty 100 or Nifty 500, then click Save on the stocks you want to track.</td>
                 </tr>
               }
             </tbody>

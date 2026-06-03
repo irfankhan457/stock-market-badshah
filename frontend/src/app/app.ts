@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { timeout } from 'rxjs';
 
 type ServiceState = 'online' | 'checking' | 'offline';
 
@@ -71,6 +72,11 @@ interface StrategyResponse {
   reason: string;
 }
 
+interface WatchlistItem extends StrategyResponse {
+  addedAt: string;
+  lastCheckedAt: string;
+}
+
 interface UniverseRecommendationResponse {
   universe: string;
   total: number;
@@ -97,6 +103,8 @@ interface ServiceCard {
 export class App {
   private readonly http = inject(HttpClient);
   private readonly titleService = inject(Title);
+  private readonly watchlistStorageKey = 'stock-badshah-watchlist-v1';
+  private readonly scanTimeoutMs = 180000;
 
   gatewayUrl = 'http://localhost:8080';
   symbol = signal('RELIANCE');
@@ -113,6 +121,7 @@ export class App {
   activeTab = signal<'scanner' | 'strategy' | 'screener' | 'portfolio' | 'services'>('scanner');
   screenerResults = signal<IndicatorResponse[]>([]);
   marketRecommendations = signal<StrategyResponse[]>([]);
+  watchlistItems = signal<WatchlistItem[]>([]);
   recommendationPage = signal(0);
   recommendationPageSize = signal(25);
   successSortDirection = signal<'desc' | 'asc'>('desc');
@@ -187,6 +196,20 @@ export class App {
   }
 
   topSuccessChance = computed(() => this.strategy()?.backtestSuccessRate ?? this.topRecommendation()?.backtestSuccessRate ?? null);
+  watchlistBuyCount = computed(() => this.watchlistItems().filter((item) => item.decision === 'BUY').length);
+  watchlistHoldCount = computed(() => this.watchlistItems().filter((item) => item.decision !== 'BUY').length);
+  watchlistNearStopCount = computed(() => this.watchlistItems().filter((item) => {
+    const risk = this.stopLossRoomPercent(item);
+    return risk != null && risk <= 3;
+  }).length);
+  watchlistAverageSuccess = computed(() => {
+    const items = this.watchlistItems().filter((item) => item.backtestSuccessRate != null);
+    if (!items.length) {
+      return null;
+    }
+    const total = items.reduce((sum, item) => sum + Number(item.backtestSuccessRate ?? 0), 0);
+    return total / items.length;
+  });
 
   trendPoints(): string {
     const candles = this.savedRowsForSymbol()
@@ -209,6 +232,7 @@ export class App {
 
   ngOnInit(): void {
     this.titleService.setTitle('Stock Badshah Scanner');
+    this.loadWatchlist();
     this.refreshAll();
   }
 
@@ -316,7 +340,9 @@ export class App {
       this.scanTotal.set(expectedTotal);
       this.statusMessage.set(`${label} scan is running on the server. Loading live prices and checking the buy rule...`);
 
-      const response = await this.http.get<UniverseRecommendationResponse>(this.url(`/strategy/recommendations/universe/${universe}`)).toPromise();
+      const response = await this.http.get<UniverseRecommendationResponse>(this.url(`/strategy/recommendations/universe/${universe}`))
+        .pipe(timeout(this.scanTimeoutMs))
+        .toPromise();
       const recommendations = this.sortRecommendations(response?.recommendations ?? []);
       this.scanTotal.set(response?.total ?? expectedTotal);
       this.scannedCount.set(response?.total ?? expectedTotal);
@@ -396,6 +422,106 @@ export class App {
     if (scrollToTop) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+  }
+
+  addToWatchlist(recommendation: StrategyResponse | null = this.strategy()): void {
+    if (!recommendation) {
+      this.statusMessage.set('Select a stock first, then add it to Watchlist.');
+      return;
+    }
+
+    const symbol = recommendation.symbol.toUpperCase();
+    const now = new Date().toISOString();
+    const existing = this.watchlistItems().find((item) => item.symbol.toUpperCase() === symbol);
+    const item: WatchlistItem = {
+      ...recommendation,
+      symbol,
+      addedAt: existing?.addedAt ?? now,
+      lastCheckedAt: now
+    };
+    const nextItems = existing
+      ? this.watchlistItems().map((current) => current.symbol.toUpperCase() === symbol ? item : current)
+      : [item, ...this.watchlistItems()];
+
+    this.watchlistItems.set(this.sortWatchlist(nextItems));
+    this.saveWatchlist();
+    this.statusMessage.set(`${symbol} saved in Watchlist.`);
+  }
+
+  removeFromWatchlist(symbol: string): void {
+    const normalized = symbol.toUpperCase();
+    this.watchlistItems.set(this.watchlistItems().filter((item) => item.symbol.toUpperCase() !== normalized));
+    this.saveWatchlist();
+    this.statusMessage.set(`${normalized} removed from Watchlist.`);
+  }
+
+  isInWatchlist(symbol: string | null | undefined): boolean {
+    const normalized = (symbol ?? '').toUpperCase();
+    return this.watchlistItems().some((item) => item.symbol.toUpperCase() === normalized);
+  }
+
+  async refreshWatchlist(): Promise<void> {
+    const items = this.watchlistItems();
+    if (!items.length) {
+      this.statusMessage.set('Add stocks from the Scan page before refreshing Watchlist.');
+      return;
+    }
+
+    await this.runTask('Watchlist updated with latest full checks.', async () => {
+      const refreshed: WatchlistItem[] = [];
+      for (const item of items) {
+        this.statusMessage.set(`Checking ${item.symbol} for Watchlist...`);
+        refreshed.push(await this.evaluateWatchlistItem(item));
+      }
+      this.watchlistItems.set(this.sortWatchlist(refreshed));
+      this.saveWatchlist();
+    });
+  }
+
+  async refreshWatchlistItem(item: WatchlistItem): Promise<void> {
+    await this.runTask(`${item.symbol} updated in Watchlist.`, async () => {
+      const refreshed = await this.evaluateWatchlistItem(item);
+      this.watchlistItems.set(this.sortWatchlist(this.watchlistItems().map((current) => {
+        return current.symbol.toUpperCase() === item.symbol.toUpperCase() ? refreshed : current;
+      })));
+      this.saveWatchlist();
+    });
+  }
+
+  async openFullCheckFromWatchlist(item: WatchlistItem): Promise<void> {
+    this.symbol.set(item.symbol);
+    this.activeTab.set('strategy');
+    await this.evaluateStrategy();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  watchlistTargetGap(item: StrategyResponse): string {
+    const gain = this.targetGainPercent(item.buyPrice, item.target);
+    if (gain == null) {
+      return '-';
+    }
+    const sign = gain >= 0 ? '+' : '';
+    return `${sign}${this.formatNumber(gain)}%`;
+  }
+
+  watchlistStopRisk(item: StrategyResponse): string {
+    const risk = this.stopLossRoomPercent(item);
+    if (risk == null) {
+      return '-';
+    }
+    return `${this.formatNumber(risk)}%`;
+  }
+
+  formatDateTime(value: string | null | undefined): string {
+    if (!value) {
+      return '-';
+    }
+    return new Intl.DateTimeFormat('en-IN', {
+      day: '2-digit',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(new Date(value));
   }
 
   async checkServices(): Promise<void> {
@@ -561,11 +687,61 @@ export class App {
     });
   }
 
+  private sortWatchlist(items: WatchlistItem[]): WatchlistItem[] {
+    return [...items].sort((left, right) => {
+      const decisionRank = Number(right.decision === 'BUY') - Number(left.decision === 'BUY');
+      if (decisionRank !== 0) {
+        return decisionRank;
+      }
+      return (right.backtestSuccessRate ?? 0) - (left.backtestSuccessRate ?? 0);
+    });
+  }
+
   private targetGainPercent(price: number | null | undefined, target: number | null | undefined): number | null {
     if (!price || !target || price <= 0) {
       return null;
     }
     return ((target - price) / price) * 100;
+  }
+
+  private stopLossRoomPercent(item: StrategyResponse): number | null {
+    if (!item.buyPrice || !item.stopLoss || item.buyPrice <= 0) {
+      return null;
+    }
+    return ((item.buyPrice - item.stopLoss) / item.buyPrice) * 100;
+  }
+
+  private loadWatchlist(): void {
+    try {
+      const raw = window.localStorage.getItem(this.watchlistStorageKey);
+      if (!raw) {
+        return;
+      }
+      const parsed = JSON.parse(raw) as WatchlistItem[];
+      this.watchlistItems.set(this.sortWatchlist(Array.isArray(parsed) ? parsed : []));
+    } catch {
+      this.watchlistItems.set([]);
+    }
+  }
+
+  private saveWatchlist(): void {
+    window.localStorage.setItem(this.watchlistStorageKey, JSON.stringify(this.watchlistItems()));
+  }
+
+  private async evaluateWatchlistItem(item: WatchlistItem): Promise<WatchlistItem> {
+    try {
+      await this.refreshLiveSymbol(item.symbol);
+    } catch {
+      this.rememberFailedSymbol(item.symbol);
+    }
+
+    const response = await this.http.get<StrategyResponse>(this.url(`/strategy/evaluate/${encodeURIComponent(item.symbol)}`)).toPromise();
+    return {
+      ...(response ?? item),
+      symbol: item.symbol,
+      addedAt: item.addedAt,
+      lastCheckedAt: new Date().toISOString()
+    };
   }
 
   private async refreshLiveWithRetry(symbol: string): Promise<boolean> {
@@ -609,9 +785,17 @@ export class App {
         this.statusMessage.set(successMessage);
       }
     } catch (error) {
-      this.statusMessage.set(error instanceof Error ? error.message : 'Could not complete this request. Please check that backend services are running.');
+      this.statusMessage.set(this.toUserErrorMessage(error));
     } finally {
       this.isBusy.set(false);
     }
+  }
+
+  private toUserErrorMessage(error: unknown): string {
+    const message = error instanceof Error ? error.message : '';
+    if (message.includes('Timeout') || message.includes('timeout')) {
+      return 'Scan took too long. Please try Nifty 100 first, or retry after a minute.';
+    }
+    return message || 'Could not complete this request. Please check that backend services are running.';
   }
 }

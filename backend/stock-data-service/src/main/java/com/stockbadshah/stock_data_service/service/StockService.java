@@ -8,6 +8,7 @@ import com.stockbadshah.stock_data_service.repository.StockRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -34,7 +36,8 @@ import java.util.concurrent.Executors;
 public class StockService {
 
     private static final ZoneId MARKET_ZONE = ZoneId.of("Asia/Kolkata");
-    private static final int LIVE_REFRESH_THREADS = 8;
+    private static final int LIVE_REFRESH_THREADS = 4;
+    private static final int RECENT_SAVED_DATA_DAYS = 5;
 
     private final StockRepository repository;
     private final RestClient restClient;
@@ -54,7 +57,10 @@ public class StockService {
             @Value("${market-data.nifty500-list-url:https://archives.nseindia.com/content/indices/ind_nifty500list.csv}") String nifty500ListUrl
     ) {
         this.repository = repository;
-        this.restClient = restClientBuilder.build();
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(Duration.ofSeconds(4));
+        requestFactory.setReadTimeout(Duration.ofSeconds(6));
+        this.restClient = restClientBuilder.requestFactory(requestFactory).build();
         this.transactionTemplate = transactionTemplate;
         this.yahooChartUrl = yahooChartUrl;
         this.nifty50ListUrl = nifty50ListUrl;
@@ -111,14 +117,17 @@ public class StockService {
 
     public LiveRefreshResult refreshLiveCandlesSummary(String symbol) {
         String appSymbol = normalizeAppSymbol(symbol);
+        StockEntity latestSaved = repository.findTopBySymbolIgnoreCaseOrderByStockDateDesc(appSymbol);
         try {
-            StockEntity latestSaved = repository.findTopBySymbolIgnoreCaseOrderByStockDateDesc(appSymbol);
-            if (latestSaved != null && LocalDate.now(MARKET_ZONE).equals(latestSaved.getStockDate())) {
-                return new LiveRefreshResult(appSymbol, true, (int) repository.countBySymbolIgnoreCase(appSymbol), "Live market data is already loaded for today.");
+            if (hasRecentSavedData(latestSaved)) {
+                return new LiveRefreshResult(appSymbol, true, (int) repository.countBySymbolIgnoreCase(appSymbol), "Recent market data is already loaded.");
             }
             int rowsSaved = fetchAndSaveLiveCandles(appSymbol).size();
             return new LiveRefreshResult(appSymbol, true, rowsSaved, "Live market data loaded.");
         } catch (Exception exception) {
+            if (latestSaved != null) {
+                return new LiveRefreshResult(appSymbol, true, (int) repository.countBySymbolIgnoreCase(appSymbol), "Using saved market data because live market data is busy right now.");
+            }
             return new LiveRefreshResult(appSymbol, false, 0, "Could not load live market data right now.");
         }
     }
@@ -160,6 +169,14 @@ public class StockService {
             repository.deleteBySymbolIgnoreCase(appSymbol);
             return repository.saveAll(rows);
         });
+    }
+
+    private boolean hasRecentSavedData(StockEntity latestSaved) {
+        if (latestSaved == null || latestSaved.getStockDate() == null) {
+            return false;
+        }
+        LocalDate oldestAllowedDate = LocalDate.now(MARKET_ZONE).minusDays(RECENT_SAVED_DATA_DAYS);
+        return !latestSaved.getStockDate().isBefore(oldestAllowedDate);
     }
 
     private List<StockEntity> toStockRows(String appSymbol, JsonNode chart) {

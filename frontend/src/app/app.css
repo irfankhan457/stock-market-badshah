@@ -284,6 +284,13 @@ button:disabled {
   background: #f2f4f7;
 }
 
+.recommendation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .signal-buy {
   color: #047857;
 }
@@ -453,12 +460,28 @@ button:disabled {
 
 .analysis-box strong {
   color: #182230;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 
 .analysis-box p {
   margin: 0;
   color: #475467;
   line-height: 1.45;
+}
+
+.business-box {
+  grid-column: 1 / -1;
+}
+
+.business-box div {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) minmax(0, 1fr);
+  align-items: start;
+}
+
+.business-box strong {
+  text-align: left;
 }
 
 .full-check-reasons {
@@ -598,6 +621,37 @@ th {
   font-weight: 800;
 }
 
+.watchlist-guide {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.watchlist-guide div {
+  border: 1px solid #d9e1ea;
+  border-radius: 8px;
+  padding: 14px;
+  background: #f8fbfc;
+}
+
+.watchlist-guide strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #182230;
+}
+
+.watchlist-guide p {
+  color: #475467;
+  line-height: 1.5;
+}
+
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .table-button {
   border: 0;
   border-radius: 8px;
@@ -606,6 +660,16 @@ th {
   color: #263445;
   cursor: pointer;
   font-weight: 800;
+}
+
+.save-button {
+  background: #dff7ed;
+  color: #047857;
+}
+
+.danger-button {
+  background: #fee4e2;
+  color: #b42318;
 }
 
 .service-grid {
@@ -685,6 +749,7 @@ th {
   .result-grid,
   .service-grid,
   .screener-summary,
+  .watchlist-guide,
   .recommendation-insight,
   .full-check-grid,
   .decision-hero {

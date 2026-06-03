@@ -6,12 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e6d99b91-575e-40ce-a196-22de9a7cb657" name="Changes" comment="PRGSTOCK-04: Full functionality of stock market added">
       <change beforePath="$PROJECT_DIR$/backend/discovery-server/discovery-server-jar-run.out.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/discovery-server/discovery-server-jar-run.out.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/indicator-service/indicator-service-jar-run.out.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/indicator-service/indicator-service-jar-run.out.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/indicator-service/src/main/java/com/stockbadshah/indicator_service/service/IndicatorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/indicator-service/src/main/java/com/stockbadshah/indicator_service/service/IndicatorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/controller/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/controller/StockController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/repository/StockRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/repository/StockRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/indicator-service/indicator-service-run.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/indicator-service/indicator-service-run.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/service/StockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/service/StockService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/strategy-service/src/main/java/com/stockbadshah/strategy_service/service/StrategyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/strategy-service/src/main/java/com/stockbadshah/strategy_service/service/StrategyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/frontend-run.log" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/frontend-run.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/app.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.ts" afterDir="false" />
     </list>
@@ -111,6 +110,7 @@
     "Application.ApiGatewayApplication.executor": "Run",
     "Application.DiscoveryServer.executor": "Run",
     "Application.IndicatorService.executor": "Run",
+    "Application.ScannerService.executor": "Run",
     "Application.StockDataService.executor": "Run",
     "Maven.api-gateway [clean,install].executor": "Run",
     "Maven.api-gateway [clean].executor": "Run",
