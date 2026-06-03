@@ -203,11 +203,20 @@ public class FundamentalService {
 
 			BigDecimal marketCap = parseStockAnalysisMoneyToCrore(parseStockAnalysisValue(quoteHtml, "Market Cap"));
 			BigDecimal peRatio = parseStockAnalysisPlainValue(quoteHtml, "PE Ratio");
-			BigDecimal netProfit = parseStockAnalysisMoneyToCrore(parseStockAnalysisValue(quoteHtml, "Net Income"));
+			BigDecimal netProfit = first(
+					parseStockAnalysisMoneyToCrore(parseStockAnalysisValue(quoteHtml, "Net Income")),
+					parseStockAnalysisMoneyFromFinancialChart(quoteHtml, "earnings")
+			);
 			BigDecimal salesGrowth = parseStockAnalysisGrowth(quoteHtml, "Revenue \\(ttm\\)");
 			BigDecimal profitGrowth = parseStockAnalysisGrowth(quoteHtml, "Net Income");
-			BigDecimal roe = parseStockAnalysisRatio(ratioHtml, "Return on Equity \\(ROE\\)");
-			BigDecimal debtToEquity = parseStockAnalysisRatio(ratioHtml, "Debt / Equity Ratio");
+			BigDecimal roe = first(
+					parseStockAnalysisRatio(ratioHtml, "Return on Equity \\(ROE\\)"),
+					parseStockAnalysisFinancialArray(ratioHtml, "roe", true)
+			);
+			BigDecimal debtToEquity = first(
+					parseStockAnalysisRatio(ratioHtml, "Debt / Equity Ratio"),
+					parseStockAnalysisFinancialArray(ratioHtml, "debtequity", false)
+			);
 			BigDecimal pegRatio = calculatePeg(peRatio, profitGrowth);
 
 			int score = 0;
@@ -295,6 +304,69 @@ public class FundamentalService {
 				|| response.salesGrowth() != null;
 	}
 
+	private FundamentalResponse mergeMissingFundamentals(FundamentalResponse primary, FundamentalResponse fallback) {
+		if (!hasFundamentalValues(fallback)) {
+			return primary;
+		}
+		BigDecimal marketCap = first(primary.marketCap(), fallback.marketCap());
+		BigDecimal peRatio = first(primary.peRatio(), fallback.peRatio());
+		BigDecimal profitGrowth = first(primary.profitGrowth(), fallback.profitGrowth());
+		BigDecimal pegRatio = first(primary.pegRatio(), fallback.pegRatio(), calculatePeg(peRatio, profitGrowth));
+		BigDecimal roe = first(primary.roe(), fallback.roe());
+		BigDecimal debtToEquity = first(primary.debtToEquity(), fallback.debtToEquity());
+		BigDecimal salesGrowth = first(primary.salesGrowth(), fallback.salesGrowth());
+		BigDecimal salesCagr = first(primary.salesCagr(), fallback.salesCagr());
+		BigDecimal profitCagr = first(primary.profitCagr(), fallback.profitCagr());
+		BigDecimal stockPriceCagr = first(primary.stockPriceCagr(), fallback.stockPriceCagr());
+		BigDecimal netProfit = first(primary.netProfit(), fallback.netProfit());
+
+		int score = 0;
+		score += isAtLeast(marketCap, BigDecimal.valueOf(10000)) ? 15 : 0;
+		score += isBetween(peRatio, BigDecimal.ONE, BigDecimal.valueOf(35)) ? 20 : 0;
+		score += pegRatio != null && pegRatio.compareTo(BigDecimal.valueOf(2.5)) <= 0 ? 10 : 0;
+		score += isAtLeast(roe, BigDecimal.valueOf(12)) ? 20 : 0;
+		score += isAtMost(debtToEquity, BigDecimal.ONE) ? 15 : 0;
+		score += isAtLeast(profitGrowth, BigDecimal.valueOf(8)) ? 10 : 0;
+		score += isAtLeast(salesGrowth, BigDecimal.valueOf(8)) ? 10 : 0;
+		score += isAtLeast(stockPriceCagr, BigDecimal.valueOf(10)) ? 10 : 0;
+
+		String verdict = score >= 75 ? "STRONG" : score >= 55 ? "INVESTABLE" : score >= 35 ? "WATCHLIST" : "WEAK";
+		return new FundamentalResponse(
+				primary.symbol(),
+				verdict,
+				score,
+				marketCap,
+				peRatio,
+				pegRatio,
+				roe,
+				debtToEquity,
+				profitGrowth,
+				salesGrowth,
+				salesCagr,
+				profitCagr,
+				stockPriceCagr,
+				netProfit,
+				firstText(primary.futurePerspective(), fallback.futurePerspective()),
+				firstText(primary.orderBook(), fallback.orderBook()),
+				primary.dataSource() + " + missing fields from " + fallback.dataSource(),
+				"Fundamental score uses public valuation, growth, quality, debt, and profit values where available."
+		);
+	}
+
+	@SafeVarargs
+	private final <T> T first(T... values) {
+		for (T value : values) {
+			if (value != null) {
+				return value;
+			}
+		}
+		return null;
+	}
+
+	private String firstText(String primary, String fallback) {
+		return primary == null || primary.isBlank() ? fallback : primary;
+	}
+
 	private BigDecimal calculatePeg(BigDecimal peRatio, BigDecimal profitGrowth) {
 		if (peRatio == null || profitGrowth == null || profitGrowth.compareTo(BigDecimal.ZERO) <= 0) {
 			return null;
@@ -369,6 +441,37 @@ public class FundamentalService {
 		Matcher matcher = Pattern.compile(labelRegex + ".*?<td class=\"[^\"]*\">([-0-9.,]+)%?</td>", Pattern.DOTALL)
 				.matcher(html == null ? "" : html);
 		return matcher.find() ? parseNumber(matcher.group(1)) : null;
+	}
+
+	private BigDecimal parseStockAnalysisFinancialArray(String html, String fieldName, boolean asPercent) {
+		Matcher matcher = Pattern.compile(Pattern.quote(fieldName) + ":\\[([^\\]]+)]", Pattern.DOTALL)
+				.matcher(html == null ? "" : html);
+		if (!matcher.find()) {
+			return null;
+		}
+		String firstValue = Arrays.stream(matcher.group(1).split(","))
+				.map(String::trim)
+				.filter(value -> !value.equals("null") && !value.isBlank())
+				.findFirst()
+				.orElse(null);
+		BigDecimal parsed = parseNumber(firstValue);
+		if (parsed == null || !asPercent) {
+			return parsed;
+		}
+		return parsed.multiply(BigDecimal.valueOf(100)).setScale(2, RoundingMode.HALF_UP);
+	}
+
+	private BigDecimal parseStockAnalysisMoneyFromFinancialChart(String html, String fieldName) {
+		Matcher matcher = Pattern.compile(Pattern.quote(fieldName) + ":(\\d+)", Pattern.DOTALL)
+				.matcher(html == null ? "" : html);
+		BigDecimal latest = null;
+		while (matcher.find()) {
+			latest = parseNumber(matcher.group(1));
+		}
+		if (latest == null) {
+			return null;
+		}
+		return latest.divide(BigDecimal.valueOf(10000000), 2, RoundingMode.HALF_UP);
 	}
 
 	private BigDecimal parseStockAnalysisMoneyToCrore(String value) {

@@ -7,6 +7,8 @@ import com.stockbadshah.stock_data_service.entity.StockEntity;
 import com.stockbadshah.stock_data_service.repository.StockRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
@@ -36,8 +38,9 @@ import java.util.concurrent.Executors;
 public class StockService {
 
     private static final ZoneId MARKET_ZONE = ZoneId.of("Asia/Kolkata");
-    private static final int LIVE_REFRESH_THREADS = 4;
+    private static final int LIVE_REFRESH_THREADS = 10;
     private static final int RECENT_SAVED_DATA_DAYS = 5;
+    private static final String LIVE_HISTORY_RANGE = "1y";
 
     private final StockRepository repository;
     private final RestClient restClient;
@@ -59,7 +62,7 @@ public class StockService {
         this.repository = repository;
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(Duration.ofSeconds(4));
-        requestFactory.setReadTimeout(Duration.ofSeconds(6));
+        requestFactory.setReadTimeout(Duration.ofSeconds(10));
         this.restClient = restClientBuilder.requestFactory(requestFactory).build();
         this.transactionTemplate = transactionTemplate;
         this.yahooChartUrl = yahooChartUrl;
@@ -82,6 +85,24 @@ public class StockService {
 
     public Page<StockEntity> getStocksPage(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    public Page<StockEntity> getStocksPage(int page, int size, String symbolSearch, String sortBy, String direction) {
+        int safePage = Math.max(0, page);
+        int safeSize = Math.min(100, Math.max(10, size));
+        String safeSortBy = switch (sortBy == null ? "" : sortBy.trim()) {
+            case "symbol" -> "symbol";
+            case "stockDate" -> "stockDate";
+            case "volume" -> "volume";
+            default -> "symbol";
+        };
+        Sort.Direction safeDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(safePage, safeSize, Sort.by(safeDirection, safeSortBy));
+        String search = symbolSearch == null ? "" : symbolSearch.trim();
+        if (search.isBlank()) {
+            return repository.findAll(pageable);
+        }
+        return repository.findBySymbolContainingIgnoreCase(search, pageable);
     }
 
     public List<String> getSymbols() {
@@ -116,14 +137,18 @@ public class StockService {
     }
 
     public LiveRefreshResult refreshLiveCandlesSummary(String symbol) {
+        return refreshLiveCandlesSummary(symbol, false);
+    }
+
+    public LiveRefreshResult refreshLiveCandlesSummary(String symbol, boolean forceRefresh) {
         String appSymbol = normalizeAppSymbol(symbol);
         StockEntity latestSaved = repository.findTopBySymbolIgnoreCaseOrderByStockDateDesc(appSymbol);
         try {
-            if (hasRecentSavedData(latestSaved)) {
+            if (!forceRefresh && hasRecentSavedData(latestSaved)) {
                 return new LiveRefreshResult(appSymbol, true, (int) repository.countBySymbolIgnoreCase(appSymbol), "Recent market data is already loaded.");
             }
             int rowsSaved = fetchAndSaveLiveCandles(appSymbol).size();
-            return new LiveRefreshResult(appSymbol, true, rowsSaved, "Live market data loaded.");
+            return new LiveRefreshResult(appSymbol, true, rowsSaved, "Latest one-year market data saved.");
         } catch (Exception exception) {
             if (latestSaved != null) {
                 return new LiveRefreshResult(appSymbol, true, (int) repository.countBySymbolIgnoreCase(appSymbol), "Using saved market data because live market data is busy right now.");
@@ -133,13 +158,17 @@ public class StockService {
     }
 
     public UniverseRefreshResult refreshUniverse(String universe) {
+        return refreshUniverse(universe, false);
+    }
+
+    public UniverseRefreshResult refreshUniverse(String universe, boolean forceRefresh) {
         String normalizedUniverse = universe == null ? "nifty100" : universe.trim().toLowerCase();
         List<String> symbols = "nifty500".equals(normalizedUniverse) ? getNifty500Symbols() : getNifty100Symbols();
 
         ExecutorService executor = Executors.newFixedThreadPool(LIVE_REFRESH_THREADS);
         try {
             List<CompletableFuture<LiveRefreshResult>> futures = symbols.stream()
-                    .map(symbol -> CompletableFuture.supplyAsync(() -> refreshLiveCandlesSummary(symbol), executor))
+                    .map(symbol -> CompletableFuture.supplyAsync(() -> refreshLiveCandlesSummary(symbol, forceRefresh), executor))
                     .toList();
 
             List<LiveRefreshResult> results = futures.stream()
@@ -152,11 +181,30 @@ public class StockService {
         }
     }
 
+    public UniverseRefreshResult getSavedUniverseStatus(String universe) {
+        String normalizedUniverse = universe == null ? "nifty100" : universe.trim().toLowerCase();
+        List<String> symbols = "nifty500".equals(normalizedUniverse) ? getNifty500Symbols() : getNifty100Symbols();
+        Set<String> savedSymbols = new LinkedHashSet<>(repository.findSavedSymbols(symbols));
+        List<LiveRefreshResult> results = symbols.stream()
+                .map(symbol -> {
+                    String normalizedSymbol = normalizeAppSymbol(symbol);
+                    boolean loaded = savedSymbols.contains(normalizedSymbol);
+                    int rows = loaded ? (int) repository.countBySymbolIgnoreCase(normalizedSymbol) : 0;
+                    String message = loaded ? "Saved market data is available." : "No saved market data found. Update prices from the Prices page.";
+                    return new LiveRefreshResult(normalizedSymbol, loaded, rows, message);
+                })
+                .toList();
+        long loaded = results.stream().filter(LiveRefreshResult::loaded).count();
+        return new UniverseRefreshResult(normalizedUniverse, symbols.size(), (int) loaded, results.size() - (int) loaded, results);
+    }
+
     private List<StockEntity> fetchAndSaveLiveCandles(String symbol) {
         String appSymbol = normalizeAppSymbol(symbol);
         String providerSymbol = toYahooSymbol(symbol);
         JsonNode chart = restClient.get()
-                .uri(URI.create(yahooChartUrl + "/" + encodePathSegment(providerSymbol) + "?range=6mo&interval=1d"))
+                .uri(URI.create(yahooChartUrl + "/" + encodePathSegment(providerSymbol) + "?range=" + LIVE_HISTORY_RANGE + "&interval=1d"))
+                .header("User-Agent", "Mozilla/5.0")
+                .header("Accept", "application/json,text/plain,*/*")
                 .retrieve()
                 .body(JsonNode.class);
 

@@ -9,7 +9,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/backtests")
-@CrossOrigin(origins = "*")
 public class BacktestController {
 	private final BacktestService backtestService;
 

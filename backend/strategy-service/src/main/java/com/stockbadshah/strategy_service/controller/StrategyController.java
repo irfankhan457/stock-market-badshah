@@ -10,7 +10,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/strategy")
-@CrossOrigin(origins = "*")
 public class StrategyController {
 	private final StrategyService strategyService;
 

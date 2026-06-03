@@ -9,7 +9,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/notifications")
-@CrossOrigin(origins = "*")
 public class NotificationController {
 	@GetMapping("/health")
 	public Map<String, String> health() {

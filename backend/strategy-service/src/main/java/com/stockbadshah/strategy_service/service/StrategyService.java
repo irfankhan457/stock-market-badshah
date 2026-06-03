@@ -113,8 +113,8 @@ public class StrategyService {
 			normalizedUniverse = "nifty100";
 		}
 
-		UniverseRefreshResult refreshResult = restClient.post()
-				.uri(stockDataUrl + "/stocks/live/universe/{universe}/refresh", normalizedUniverse)
+		UniverseRefreshResult refreshResult = restClient.get()
+				.uri(stockDataUrl + "/stocks/universe/{universe}/saved-status", normalizedUniverse)
 				.retrieve()
 				.body(UniverseRefreshResult.class);
 

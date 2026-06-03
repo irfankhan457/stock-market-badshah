@@ -7,14 +7,12 @@ import com.stockbadshah.stock_data_service.entity.StockEntity;
 import com.stockbadshah.stock_data_service.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/stocks")
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class StockController {
 
@@ -38,11 +36,12 @@ public class StockController {
     @GetMapping("/page")
     public Page<StockEntity> getPage(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "50") int size
+            @RequestParam(defaultValue = "50") int size,
+            @RequestParam(defaultValue = "") String symbol,
+            @RequestParam(defaultValue = "symbol") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
     ) {
-        int safePage = Math.max(0, page);
-        int safeSize = Math.min(100, Math.max(10, size));
-        return stockService.getStocksPage(PageRequest.of(safePage, safeSize));
+        return stockService.getStocksPage(page, size, symbol, sortBy, direction);
     }
 
     @GetMapping("/meta/symbols")
@@ -81,7 +80,15 @@ public class StockController {
     }
 
     @PostMapping("/live/universe/{universe}/refresh")
-    public UniverseRefreshResult refreshUniverse(@PathVariable String universe) {
-        return stockService.refreshUniverse(universe);
+    public UniverseRefreshResult refreshUniverse(
+            @PathVariable String universe,
+            @RequestParam(defaultValue = "false") boolean force
+    ) {
+        return stockService.refreshUniverse(universe, force);
+    }
+
+    @GetMapping("/universe/{universe}/saved-status")
+    public UniverseRefreshResult getSavedUniverseStatus(@PathVariable String universe) {
+        return stockService.getSavedUniverseStatus(universe);
     }
 }

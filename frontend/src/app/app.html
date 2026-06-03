@@ -93,7 +93,7 @@
 
           <div class="help-box">
             <strong>How the scan works</strong>
-            <p>Choose Nifty 100 or Nifty 500. Each stock is refreshed from live market data first, then only stocks that pass the buy rule are shown below.</p>
+            <p>First update prices from the Prices page when you need fresh one-year data. Scan then reads saved local DB prices and shows only stocks that pass the buy rule.</p>
           </div>
 
           <div class="help-box">
@@ -361,7 +361,29 @@
             <p class="eyebrow">Market data</p>
             <h2>Recent prices saved for checking</h2>
           </div>
-          <button type="button" class="secondary" (click)="loadPricePage()">Refresh</button>
+          <div class="action-row">
+            <button type="button" class="primary" (click)="updateNifty100Prices()" [disabled]="isBusy()">Update Nifty 100 Prices</button>
+            <button type="button" class="primary" (click)="updateNifty500Prices()" [disabled]="isBusy()">Update Nifty 500 Prices</button>
+            <button type="button" class="secondary" (click)="loadPricePage()" [disabled]="isBusy()">Refresh</button>
+          </div>
+        </div>
+        <p class="result-note">Use these buttons to save the latest one-year market history into the local database. After this, Scan Nifty 100 or Scan Nifty 500 will read from saved DB data.</p>
+
+        <div class="price-filter-row">
+          <label for="price-symbol-search">
+            Search symbol
+            <input
+              id="price-symbol-search"
+              type="search"
+              [ngModel]="priceSearch()"
+              (ngModelChange)="onPriceSearchChange($event)"
+              placeholder="Type SUN to find SUNPHARMA, SUNTV..."
+              autocomplete="off"
+            >
+          </label>
+          @if (priceSearch()) {
+            <button type="button" class="secondary" (click)="clearPriceSearch()">Clear</button>
+          }
         </div>
 
         <div class="pager">
@@ -377,11 +399,26 @@
           <table>
             <thead>
               <tr>
-                <th>Symbol</th>
-                <th>Date</th>
+                <th>
+                  <button type="button" class="sort-button" (click)="togglePriceSort('symbol')">
+                    Symbol
+                    <span>{{ priceSortLabel('symbol') }}</span>
+                  </button>
+                </th>
+                <th>
+                  <button type="button" class="sort-button" (click)="togglePriceSort('stockDate')">
+                    Date
+                    <span>{{ priceSortLabel('stockDate') }}</span>
+                  </button>
+                </th>
                 <th>Price</th>
                 <th>Company</th>
-                <th>Volume</th>
+                <th>
+                  <button type="button" class="sort-button" (click)="togglePriceSort('volume')">
+                    Volume
+                    <span>{{ priceSortLabel('volume') }}</span>
+                  </button>
+                </th>
               </tr>
             </thead>
             <tbody>

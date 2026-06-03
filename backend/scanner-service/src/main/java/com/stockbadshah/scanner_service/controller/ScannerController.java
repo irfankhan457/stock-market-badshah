@@ -4,7 +4,6 @@ import com.stockbadshah.scanner_service.dto.ScannerRequest;
 import com.stockbadshah.scanner_service.dto.ScannerResponse;
 import com.stockbadshah.scanner_service.service.ScannerService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +16,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/scanner")
-@CrossOrigin(origins = "*")
 public class ScannerController {
 
 	private final ScannerService scannerService;

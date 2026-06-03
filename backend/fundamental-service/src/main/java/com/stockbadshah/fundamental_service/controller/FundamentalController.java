@@ -9,7 +9,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/fundamentals")
-@CrossOrigin(origins = "*")
 public class FundamentalController {
 	private final FundamentalService fundamentalService;
 

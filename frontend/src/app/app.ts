@@ -6,6 +6,8 @@ import { Title } from '@angular/platform-browser';
 import { timeout } from 'rxjs';
 
 type ServiceState = 'online' | 'checking' | 'offline';
+type PriceSortField = 'symbol' | 'stockDate' | 'volume';
+type SortDirection = 'asc' | 'desc';
 
 interface StockRow {
   id?: number;
@@ -87,6 +89,13 @@ interface UniverseRecommendationResponse {
   recommendations: StrategyResponse[];
 }
 
+interface UniverseRefreshResponse {
+  universe: string;
+  total: number;
+  loaded: number;
+  failed: number;
+}
+
 interface ServiceCard {
   name: string;
   label: string;
@@ -105,6 +114,8 @@ export class App {
   private readonly titleService = inject(Title);
   private readonly watchlistStorageKey = 'stock-badshah-watchlist-v1';
   private readonly scanTimeoutMs = 180000;
+  private readonly priceUpdateTimeoutMs = 900000;
+  private priceSearchTimer: number | undefined;
 
   gatewayUrl = 'http://localhost:8080';
   symbol = signal('RELIANCE');
@@ -116,6 +127,9 @@ export class App {
   pricePageSize = signal(50);
   priceTotalElements = signal(0);
   priceTotalPages = signal(0);
+  priceSearch = signal('');
+  priceSortField = signal<PriceSortField>('symbol');
+  priceSortDirection = signal<SortDirection>('asc');
   indicator = signal<IndicatorResponse | null>(null);
   strategy = signal<StrategyResponse | null>(null);
   activeTab = signal<'scanner' | 'strategy' | 'screener' | 'portfolio' | 'services'>('scanner');
@@ -261,7 +275,14 @@ export class App {
 
   async loadPricePage(page = this.pricePage()): Promise<void> {
     try {
-      const response = await this.http.get<StockPage>(this.url(`/stocks/page?page=${page}&size=${this.pricePageSize()}`)).toPromise();
+      const params = new URLSearchParams({
+        page: String(page),
+        size: String(this.pricePageSize()),
+        symbol: this.priceSearch().trim(),
+        sortBy: this.priceSortField(),
+        direction: this.priceSortDirection()
+      });
+      const response = await this.http.get<StockPage>(this.url(`/stocks/page?${params.toString()}`)).toPromise();
       this.priceRows.set(response?.content ?? []);
       this.pricePage.set(response?.number ?? page);
       this.priceTotalElements.set(response?.totalElements ?? 0);
@@ -269,6 +290,45 @@ export class App {
     } catch {
       this.statusMessage.set('Could not load price rows right now.');
     }
+  }
+
+  onPriceSearchChange(value: string): void {
+    this.priceSearch.set(value);
+    window.clearTimeout(this.priceSearchTimer);
+    this.priceSearchTimer = window.setTimeout(() => {
+      void this.loadPricePage(0);
+    }, 350);
+  }
+
+  clearPriceSearch(): void {
+    this.priceSearch.set('');
+    window.clearTimeout(this.priceSearchTimer);
+    void this.loadPricePage(0);
+  }
+
+  togglePriceSort(field: PriceSortField): void {
+    if (this.priceSortField() === field) {
+      this.priceSortDirection.set(this.priceSortDirection() === 'asc' ? 'desc' : 'asc');
+    } else {
+      this.priceSortField.set(field);
+      this.priceSortDirection.set(field === 'stockDate' ? 'desc' : 'asc');
+    }
+    void this.loadPricePage(0);
+  }
+
+  priceSortLabel(field: PriceSortField): string {
+    if (this.priceSortField() !== field) {
+      return 'Sort';
+    }
+    return this.priceSortDirection() === 'asc' ? 'Asc' : 'Desc';
+  }
+
+  async updateNifty100Prices(): Promise<void> {
+    await this.updateUniversePrices('nifty100', 'Nifty 100');
+  }
+
+  async updateNifty500Prices(): Promise<void> {
+    await this.updateUniversePrices('nifty500', 'Nifty 500');
   }
 
   async nextPricePage(): Promise<void> {
@@ -338,7 +398,7 @@ export class App {
       this.failedSymbols.set([]);
       const expectedTotal = universe === 'nifty500' ? 500 : 100;
       this.scanTotal.set(expectedTotal);
-      this.statusMessage.set(`${label} scan is running on the server. Loading live prices and checking the buy rule...`);
+      this.statusMessage.set(`${label} scan is running from saved market data. Update prices first if you need the latest one-year records.`);
 
       const response = await this.http.get<UniverseRecommendationResponse>(this.url(`/strategy/recommendations/universe/${universe}`))
         .pipe(timeout(this.scanTimeoutMs))
@@ -772,6 +832,23 @@ export class App {
     await this.http.post<StockRow[]>(this.url(`/stocks/live/${encodeURIComponent(symbol)}/refresh`), {}).toPromise();
   }
 
+  private async updateUniversePrices(universe: 'nifty100' | 'nifty500', label: string): Promise<void> {
+    await this.runTask(`${label} one-year prices saved in the database.`, async () => {
+      this.statusMessage.set(`Updating ${label} with latest one-year market prices. This may take a few minutes...`);
+      const response = await this.http.post<UniverseRefreshResponse>(
+        this.url(`/stocks/live/universe/${universe}/refresh?force=true`),
+        {}
+      ).pipe(timeout(this.priceUpdateTimeoutMs)).toPromise();
+      this.activeScanName.set(label);
+      this.scanTotal.set(response?.total ?? (universe === 'nifty500' ? 500 : 100));
+      this.scannedCount.set(response?.total ?? 0);
+      this.liveLoadedCount.set(response?.loaded ?? 0);
+      this.liveFailedCount.set(response?.failed ?? 0);
+      await this.loadPricePage(0);
+      this.statusMessage.set(`${label} price update complete. Saved ${response?.loaded ?? 0} stocks into local DB.`);
+    });
+  }
+
   private wait(milliseconds: number): Promise<void> {
     return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
   }
@@ -794,7 +871,11 @@ export class App {
   private toUserErrorMessage(error: unknown): string {
     const message = error instanceof Error ? error.message : '';
     if (message.includes('Timeout') || message.includes('timeout')) {
-      return 'Scan took too long. Please try Nifty 100 first, or retry after a minute.';
+      return 'This is taking longer than expected. Please keep backend services running and try again after a minute.';
+    }
+    const status = typeof error === 'object' && error !== null && 'status' in error ? Number((error as { status?: number }).status) : 0;
+    if (status === 0 || status === 502 || status === 503 || status === 504) {
+      return 'Could not reach the market-data service. Please check that backend services are running and try again.';
     }
     return message || 'Could not complete this request. Please check that backend services are running.';
   }
