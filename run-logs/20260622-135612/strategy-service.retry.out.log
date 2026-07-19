@@ -1,0 +1,200 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.stockbadshah:strategy-service >------------------
+[INFO] Building strategy-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.6:run (default-cli) > test-compile @ strategy-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ strategy-service ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ strategy-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ strategy-service ---
+[INFO] skip non existing resourceDirectory D:\StockMarketBadsaha\backend\strategy-service\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ strategy-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.6:run (default-cli) < test-compile @ strategy-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.6:run (default-cli) @ strategy-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-06-22T14:02:21.645+05:30  INFO 26620 --- [strategy-service] [           main] c.s.s.StrategyServiceApplication         : Starting StrategyServiceApplication using Java 25 with PID 26620 (D:\StockMarketBadsaha\backend\strategy-service\target\classes started by irfan in D:\StockMarketBadsaha\backend\strategy-service)
+2026-06-22T14:02:21.720+05:30  INFO 26620 --- [strategy-service] [           main] c.s.s.StrategyServiceApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-06-22T14:02:27.559+05:30  INFO 26620 --- [strategy-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=8c866967-7623-3e14-b4c0-2d967147d1cb
+2026-06-22T14:02:28.709+05:30  INFO 26620 --- [strategy-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8085 (http)
+2026-06-22T14:02:28.750+05:30  INFO 26620 --- [strategy-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-22T14:02:29.119+05:30  INFO 26620 --- [strategy-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-22T14:02:29.423+05:30  INFO 26620 --- [strategy-service] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 7231 ms
+2026-06-22T14:02:34.596+05:30  INFO 26620 --- [strategy-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-06-22T14:02:34.763+05:30  WARN 26620 --- [strategy-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-06-22T14:02:34.792+05:30  INFO 26620 --- [strategy-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-06-22T14:02:34.996+05:30  INFO 26620 --- [strategy-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-06-22T14:02:35.923+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-06-22T14:02:35.933+05:30  INFO 26620 --- [strategy-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:02:35.952+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-22T14:02:35.955+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-22T14:02:35.956+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-22T14:02:35.958+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-22T14:02:35.961+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-22T14:02:35.991+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-06-22T14:02:35.993+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-22T14:02:46.136+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-22T14:02:46.363+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-06-22T14:02:46.368+05:30  INFO 26620 --- [strategy-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-06-22T14:02:46.376+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1782117166374 with initial instances count: 0
+2026-06-22T14:02:46.387+05:30  INFO 26620 --- [strategy-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application STRATEGY-SERVICE with eureka with status UP
+2026-06-22T14:02:46.390+05:30  INFO 26620 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1782117166390, current=UP, previous=STARTING]
+2026-06-22T14:02:46.394+05:30  INFO 26620 --- [strategy-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STRATEGY-SERVICE/DESKTOP-TAPHLMF:strategy-service:8085: registering service...
+2026-06-22T14:02:48.758+05:30  INFO 26620 --- [strategy-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8085 (http) with context path '/'
+2026-06-22T14:02:48.762+05:30  INFO 26620 --- [strategy-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8085
+2026-06-22T14:02:48.872+05:30  INFO 26620 --- [strategy-service] [           main] c.s.s.StrategyServiceApplication         : Started StrategyServiceApplication in 31.689 seconds (process running for 54.499)
+2026-06-22T14:02:49.557+05:30  INFO 26620 --- [strategy-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STRATEGY-SERVICE/DESKTOP-TAPHLMF:strategy-service:8085 - registration status: 204
+2026-06-22T14:03:16.365+05:30  INFO 26620 --- [strategy-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-22T14:03:16.366+05:30  INFO 26620 --- [strategy-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-22T14:03:16.367+05:30  INFO 26620 --- [strategy-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-22T14:03:16.368+05:30  INFO 26620 --- [strategy-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-22T14:03:16.370+05:30  INFO 26620 --- [strategy-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-22T14:03:16.371+05:30  INFO 26620 --- [strategy-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-06-22T14:03:16.372+05:30  INFO 26620 --- [strategy-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-22T14:03:16.453+05:30  INFO 26620 --- [strategy-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-22T14:07:36.013+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:12:36.108+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:12:51.505+05:30  INFO 26620 --- [strategy-service] [nio-8085-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-22T14:12:51.620+05:30  INFO 26620 --- [strategy-service] [nio-8085-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-22T14:12:51.738+05:30  INFO 26620 --- [strategy-service] [nio-8085-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 115 ms
+2026-06-22T14:17:36.223+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:22:36.307+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:27:36.347+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:32:36.380+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:37:36.389+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:42:36.392+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:47:36.396+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:52:36.399+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:57:36.403+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:02:36.405+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:07:36.464+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:12:36.470+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:17:36.494+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:22:36.498+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:27:36.499+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:32:36.502+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:37:36.505+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:42:36.512+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:47:36.516+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:52:36.518+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:57:36.520+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:02:36.531+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:07:36.533+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:12:36.572+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:17:36.576+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:22:36.578+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:27:36.582+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:32:36.585+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:37:36.587+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:42:36.589+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:47:36.591+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:52:36.625+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:57:36.670+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:02:36.673+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:07:36.676+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:12:36.681+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:17:36.684+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:22:36.690+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:27:36.729+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:32:36.732+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:37:36.743+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:42:36.776+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:47:36.783+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:52:36.790+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:57:36.808+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:02:36.817+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:07:36.863+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:12:36.870+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:17:36.882+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:22:36.892+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:27:36.934+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:32:36.938+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:37:36.941+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:42:36.943+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:47:36.946+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:52:36.948+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:57:36.976+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:02:36.979+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:07:37.045+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:12:37.248+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:17:37.257+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:22:37.304+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:27:37.308+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:32:37.317+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:37:37.336+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:42:37.346+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:47:37.376+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:52:37.413+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:57:37.452+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:02:37.628+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:07:37.676+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:12:37.736+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:17:37.836+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:22:37.905+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:29:06.374+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:34:06.446+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:39:09.267+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:54:40.892+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:59:40.981+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:04:41.002+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:09:41.019+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:14:41.039+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:19:41.057+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:24:41.092+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:29:41.098+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:34:41.114+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:39:41.126+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:44:41.138+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:49:41.140+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:54:41.144+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:59:41.193+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:04:41.247+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:09:41.251+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:14:41.265+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:19:41.313+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:24:41.357+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:29:41.388+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:34:41.471+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:39:41.553+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:44:41.618+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:49:41.649+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:54:41.656+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:59:41.673+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:04:41.707+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:09:41.764+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:14:41.797+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:19:41.903+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:24:42.062+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:29:42.113+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:34:42.115+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:39:42.125+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T00:42:42.932+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T00:47:43.061+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T00:52:43.158+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T00:57:43.238+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T01:02:43.275+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T01:07:44.646+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T01:12:50.665+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T01:17:50.777+05:30  INFO 26620 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

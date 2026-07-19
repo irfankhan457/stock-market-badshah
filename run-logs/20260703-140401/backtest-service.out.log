@@ -1,0 +1,84 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.stockbadshah:backtest-service >------------------
+[INFO] Building backtest-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.6:run (default-cli) > test-compile @ backtest-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ backtest-service ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ backtest-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ backtest-service ---
+[INFO] skip non existing resourceDirectory D:\StockMarketBadsaha\backend\backtest-service\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ backtest-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.6:run (default-cli) < test-compile @ backtest-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.6:run (default-cli) @ backtest-service ---
+[INFO] Attaching agents: []
+Picked up JAVA_TOOL_OPTIONS: -Xms64m -Xmx256m -XX:MaxMetaspaceSize=192m
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-07-03T14:07:35.460+05:30  INFO 22552 --- [backtest-service] [           main] c.s.b.BacktestServiceApplication         : Starting BacktestServiceApplication using Java 25 with PID 22552 (D:\StockMarketBadsaha\backend\backtest-service\target\classes started by irfan in D:\StockMarketBadsaha\backend\backtest-service)
+2026-07-03T14:07:35.651+05:30  INFO 22552 --- [backtest-service] [           main] c.s.b.BacktestServiceApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-03T14:07:42.555+05:30  INFO 22552 --- [backtest-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=60127043-e5e4-3d04-9f69-7acb3795bb96
+2026-07-03T14:07:44.613+05:30  INFO 22552 --- [backtest-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8086 (http)
+2026-07-03T14:07:44.659+05:30  INFO 22552 --- [backtest-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-03T14:07:44.663+05:30  INFO 22552 --- [backtest-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-07-03T14:07:45.514+05:30  INFO 22552 --- [backtest-service] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 9340 ms
+2026-07-03T14:07:50.401+05:30  INFO 22552 --- [backtest-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-07-03T14:07:50.598+05:30  WARN 22552 --- [backtest-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-07-03T14:07:50.671+05:30  INFO 22552 --- [backtest-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-07-03T14:07:50.892+05:30  INFO 22552 --- [backtest-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-07-03T14:07:51.163+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-07-03T14:07:51.238+05:30  INFO 22552 --- [backtest-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-03T14:07:51.260+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-07-03T14:07:51.263+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-07-03T14:07:51.266+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-07-03T14:07:51.271+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-07-03T14:07:51.275+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-07-03T14:07:51.280+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-07-03T14:07:51.284+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-07-03T14:08:06.533+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-07-03T14:08:06.559+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-07-03T14:08:06.564+05:30  INFO 22552 --- [backtest-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-07-03T14:08:06.571+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1783067886568 with initial instances count: 0
+2026-07-03T14:08:06.578+05:30  INFO 22552 --- [backtest-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application BACKTEST-SERVICE with eureka with status UP
+2026-07-03T14:08:06.580+05:30  INFO 22552 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1783067886580, current=UP, previous=STARTING]
+2026-07-03T14:08:06.584+05:30  INFO 22552 --- [backtest-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086: registering service...
+2026-07-03T14:08:07.067+05:30  INFO 22552 --- [backtest-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8086 (http) with context path '/'
+2026-07-03T14:08:07.165+05:30  INFO 22552 --- [backtest-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8086
+2026-07-03T14:08:07.233+05:30  INFO 22552 --- [backtest-service] [           main] c.s.b.BacktestServiceApplication         : Started BacktestServiceApplication in 36.728 seconds (process running for 50.231)
+2026-07-03T14:08:09.160+05:30  INFO 22552 --- [backtest-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086 - registration status: 204
+2026-07-03T14:08:36.579+05:30  INFO 22552 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-07-03T14:08:36.582+05:30  INFO 22552 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-07-03T14:08:36.585+05:30  INFO 22552 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-07-03T14:08:36.587+05:30  INFO 22552 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-07-03T14:08:36.591+05:30  INFO 22552 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-07-03T14:08:36.594+05:30  INFO 22552 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-07-03T14:08:36.596+05:30  INFO 22552 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-07-03T14:08:36.652+05:30  INFO 22552 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-07-03T14:10:03.415+05:30  INFO 22552 --- [backtest-service] [nio-8086-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-03T14:10:03.515+05:30  INFO 22552 --- [backtest-service] [nio-8086-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-03T14:10:03.851+05:30  INFO 22552 --- [backtest-service] [nio-8086-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 18 ms
+2026-07-03T14:12:51.967+05:30  INFO 22552 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-03T14:17:52.013+05:30  INFO 22552 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-03T14:31:47.898+05:30  INFO 22552 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-03T14:36:47.952+05:30  INFO 22552 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

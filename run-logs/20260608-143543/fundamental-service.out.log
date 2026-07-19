@@ -1,0 +1,150 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.stockbadshah:fundamental-service >----------------
+[INFO] Building fundamental-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.6:run (default-cli) > test-compile @ fundamental-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ fundamental-service ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ fundamental-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ fundamental-service ---
+[INFO] skip non existing resourceDirectory D:\StockMarketBadsaha\backend\fundamental-service\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ fundamental-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.6:run (default-cli) < test-compile @ fundamental-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.6:run (default-cli) @ fundamental-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-06-08T14:36:38.869+05:30  INFO 4072 --- [fundamental-service] [           main] c.s.f.FundamentalServiceApplication      : Starting FundamentalServiceApplication using Java 21.0.7 with PID 4072 (D:\StockMarketBadsaha\backend\fundamental-service\target\classes started by irfan in D:\StockMarketBadsaha\backend\fundamental-service)
+2026-06-08T14:36:38.884+05:30  INFO 4072 --- [fundamental-service] [           main] c.s.f.FundamentalServiceApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-06-08T14:36:42.373+05:30  INFO 4072 --- [fundamental-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=8ee6d589-4742-30ae-9ae7-9d469ece2009
+2026-06-08T14:36:43.459+05:30  INFO 4072 --- [fundamental-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8084 (http)
+2026-06-08T14:36:43.498+05:30  INFO 4072 --- [fundamental-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-08T14:36:43.512+05:30  INFO 4072 --- [fundamental-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-08T14:36:43.768+05:30  INFO 4072 --- [fundamental-service] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 4642 ms
+2026-06-08T14:36:46.441+05:30  INFO 4072 --- [fundamental-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-06-08T14:36:46.508+05:30  WARN 4072 --- [fundamental-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-06-08T14:36:46.520+05:30  INFO 4072 --- [fundamental-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-06-08T14:36:46.615+05:30  INFO 4072 --- [fundamental-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-06-08T14:36:46.659+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-06-08T14:36:46.666+05:30  INFO 4072 --- [fundamental-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T14:36:46.679+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-08T14:36:46.680+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-08T14:36:46.682+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-08T14:36:46.683+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-08T14:36:46.683+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-08T14:36:46.684+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-06-08T14:36:46.686+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-08T14:36:47.237+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-08T14:36:47.242+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-06-08T14:36:47.249+05:30  INFO 4072 --- [fundamental-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-06-08T14:36:47.255+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1780909607253 with initial instances count: 0
+2026-06-08T14:36:47.264+05:30  INFO 4072 --- [fundamental-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application FUNDAMENTAL-SERVICE with eureka with status UP
+2026-06-08T14:36:47.267+05:30  INFO 4072 --- [fundamental-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1780909607266, current=UP, previous=STARTING]
+2026-06-08T14:36:47.273+05:30  INFO 4072 --- [fundamental-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_FUNDAMENTAL-SERVICE/DESKTOP-TAPHLMF:fundamental-service:8084: registering service...
+2026-06-08T14:36:47.333+05:30  INFO 4072 --- [fundamental-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8084 (http) with context path '/'
+2026-06-08T14:36:47.336+05:30  INFO 4072 --- [fundamental-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8084
+2026-06-08T14:36:47.384+05:30  INFO 4072 --- [fundamental-service] [           main] c.s.f.FundamentalServiceApplication      : Started FundamentalServiceApplication in 12.161 seconds (process running for 15.867)
+2026-06-08T14:36:47.425+05:30  INFO 4072 --- [fundamental-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_FUNDAMENTAL-SERVICE/DESKTOP-TAPHLMF:fundamental-service:8084 - registration status: 204
+2026-06-08T14:37:17.247+05:30  INFO 4072 --- [fundamental-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-08T14:37:17.252+05:30  INFO 4072 --- [fundamental-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-08T14:37:17.253+05:30  INFO 4072 --- [fundamental-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-08T14:37:17.285+05:30  INFO 4072 --- [fundamental-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-08T14:37:17.286+05:30  INFO 4072 --- [fundamental-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-08T14:37:17.287+05:30  INFO 4072 --- [fundamental-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-06-08T14:37:17.287+05:30  INFO 4072 --- [fundamental-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-08T14:37:17.346+05:30  INFO 4072 --- [fundamental-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-08T14:37:57.281+05:30  INFO 4072 --- [fundamental-service] [nio-8084-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-08T14:37:57.283+05:30  INFO 4072 --- [fundamental-service] [nio-8084-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-08T14:37:57.312+05:30  INFO 4072 --- [fundamental-service] [nio-8084-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 28 ms
+2026-06-08T14:41:46.705+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T14:46:46.727+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T14:51:46.757+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T14:56:46.772+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:01:46.784+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:06:46.832+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:11:46.840+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:16:46.876+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:21:46.883+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:26:46.890+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:31:46.897+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:36:46.918+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:41:46.937+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:46:46.944+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:51:46.959+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:56:46.991+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:01:46.996+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:06:47.082+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:11:47.098+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:16:47.101+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:21:47.107+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:26:47.119+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:31:47.159+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:36:47.169+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:41:47.176+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:46:47.188+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:01:46.365+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:06:46.415+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:11:46.446+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:16:46.492+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:21:46.505+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:26:46.547+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:31:46.579+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:36:46.616+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:41:46.628+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:46:46.644+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:51:46.657+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:56:46.690+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:01:46.699+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:06:46.754+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:11:46.763+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:16:46.771+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:21:46.800+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:26:46.813+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:31:46.824+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:36:46.833+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:41:46.985+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:46:47.883+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:51:47.939+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:56:48.006+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:01:48.100+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:09:03.428+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:14:03.530+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:19:03.611+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:24:03.717+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:29:03.816+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:34:03.864+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:39:03.925+05:30  INFO 4072 --- [fundamental-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:03 h
+[INFO] Finished at: 2026-06-08T19:40:01+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.0.6:run (default-cli) on project fundamental-service: Process terminated with exit code: -1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

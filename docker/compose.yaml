@@ -1,0 +1,24 @@
+name: stock-market-badshah
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: ${STOCK_DB_NAME:-stock_market_badshah}
+      POSTGRES_USER: ${STOCK_DB_USER:-stock_app}
+      POSTGRES_PASSWORD: ${STOCK_DB_PASSWORD:-stock_app_dev_only}
+    ports:
+      - "127.0.0.1:${STOCK_DB_PORT:-5432}:5432"
+    volumes:
+      - stock_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  stock_postgres_data:
+    name: stock-market-badshah-postgres-data

@@ -2,6 +2,14 @@ server:
   port: 8080
 
 spring:
+  # Universe price refreshes legitimately take several minutes. Keep the
+  # gateway connection open slightly longer than the frontend's 15 minute
+  # request timeout, while still failing quickly when a service is unreachable.
+  http:
+    clients:
+      connect-timeout: 5s
+      read-timeout: 16m
+
   application:
     name: api-gateway
 
@@ -9,6 +17,21 @@ spring:
     gateway:
       server:
         webmvc:
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowed-origins:
+                  - "http://localhost:4200"
+                  - "http://127.0.0.1:4200"
+                allowed-methods:
+                  - GET
+                  - POST
+                  - PUT
+                  - PATCH
+                  - DELETE
+                  - OPTIONS
+                allowed-headers:
+                  - "*"
           routes:
             - id: stock-data-service
               uri: lb://STOCK-DATA-SERVICE

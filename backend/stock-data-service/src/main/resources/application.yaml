@@ -6,14 +6,15 @@ spring:
     name: stock-data-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/stock_market_badshah
-    username: postgres
-    password: 9981945154aA$
+    url: "${STOCK_DB_URL:jdbc:postgresql://${STOCK_DB_HOST:localhost}:${STOCK_DB_PORT:5432}/${STOCK_DB_NAME:stock_market_badshah}}"
+    username: "${STOCK_DB_USER:stock_app}"
+    password: "${STOCK_DB_PASSWORD:stock_app_dev_only}"
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: "${STOCK_DB_SHOW_SQL:false}"
 
 eureka:
   client:

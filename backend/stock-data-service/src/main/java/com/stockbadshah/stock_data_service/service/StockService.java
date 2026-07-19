@@ -10,11 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.server.ResponseStatusException;
 import tools.jackson.databind.JsonNode;
 
 import java.math.BigDecimal;
@@ -29,10 +31,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
 public class StockService {
@@ -41,6 +46,14 @@ public class StockService {
     private static final int LIVE_REFRESH_THREADS = 10;
     private static final int RECENT_SAVED_DATA_DAYS = 5;
     private static final String LIVE_HISTORY_RANGE = "1y";
+    private static final String MARKET_DATA_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36";
+
+    static final String DEFAULT_NIFTY_50_LIST_URL = "https://nsearchives.nseindia.com/content/indices/ind_nifty50list.csv";
+    static final String DEFAULT_NIFTY_NEXT_50_LIST_URL = "https://nsearchives.nseindia.com/content/indices/ind_niftynext50list.csv";
+    static final String DEFAULT_NIFTY_500_LIST_URL = "https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv";
+    static final String DEFAULT_NIFTY_50_FALLBACK_LIST_URL = "https://www.niftyindices.com/IndexConstituent/ind_nifty50list.csv";
+    static final String DEFAULT_NIFTY_NEXT_50_FALLBACK_LIST_URL = "https://www.niftyindices.com/IndexConstituent/ind_niftynext50list.csv";
+    static final String DEFAULT_NIFTY_500_FALLBACK_LIST_URL = "https://www.niftyindices.com/IndexConstituent/ind_nifty500list.csv";
 
     private final StockRepository repository;
     private final RestClient restClient;
@@ -49,15 +62,23 @@ public class StockService {
     private final String nifty50ListUrl;
     private final String niftyNext50ListUrl;
     private final String nifty500ListUrl;
+    private final String nifty50FallbackListUrl;
+    private final String niftyNext50FallbackListUrl;
+    private final String nifty500FallbackListUrl;
+    private volatile List<String> lastKnownNifty100Symbols = List.of();
+    private volatile List<String> lastKnownNifty500Symbols = List.of();
 
     public StockService(
             StockRepository repository,
             RestClient.Builder restClientBuilder,
             TransactionTemplate transactionTemplate,
             @Value("${market-data.yahoo-chart-url:https://query1.finance.yahoo.com/v8/finance/chart}") String yahooChartUrl,
-            @Value("${market-data.nifty50-list-url:https://archives.nseindia.com/content/indices/ind_nifty50list.csv}") String nifty50ListUrl,
-            @Value("${market-data.nifty-next50-list-url:https://archives.nseindia.com/content/indices/ind_niftynext50list.csv}") String niftyNext50ListUrl,
-            @Value("${market-data.nifty500-list-url:https://archives.nseindia.com/content/indices/ind_nifty500list.csv}") String nifty500ListUrl
+            @Value("${market-data.nifty50-list-url:" + DEFAULT_NIFTY_50_LIST_URL + "}") String nifty50ListUrl,
+            @Value("${market-data.nifty-next50-list-url:" + DEFAULT_NIFTY_NEXT_50_LIST_URL + "}") String niftyNext50ListUrl,
+            @Value("${market-data.nifty500-list-url:" + DEFAULT_NIFTY_500_LIST_URL + "}") String nifty500ListUrl,
+            @Value("${market-data.nifty50-fallback-list-url:" + DEFAULT_NIFTY_50_FALLBACK_LIST_URL + "}") String nifty50FallbackListUrl,
+            @Value("${market-data.nifty-next50-fallback-list-url:" + DEFAULT_NIFTY_NEXT_50_FALLBACK_LIST_URL + "}") String niftyNext50FallbackListUrl,
+            @Value("${market-data.nifty500-fallback-list-url:" + DEFAULT_NIFTY_500_FALLBACK_LIST_URL + "}") String nifty500FallbackListUrl
     ) {
         this.repository = repository;
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -69,6 +90,9 @@ public class StockService {
         this.nifty50ListUrl = nifty50ListUrl;
         this.niftyNext50ListUrl = niftyNext50ListUrl;
         this.nifty500ListUrl = nifty500ListUrl;
+        this.nifty50FallbackListUrl = nifty50FallbackListUrl;
+        this.niftyNext50FallbackListUrl = niftyNext50FallbackListUrl;
+        this.nifty500FallbackListUrl = nifty500FallbackListUrl;
     }
 
     public StockEntity save(StockEntity stock) {
@@ -121,14 +145,20 @@ public class StockService {
     }
 
     public List<String> getNifty100Symbols() {
-        Set<String> symbols = new LinkedHashSet<>();
-        symbols.addAll(fetchIndexSymbols(nifty50ListUrl));
-        symbols.addAll(fetchIndexSymbols(niftyNext50ListUrl));
-        return symbols.stream().limit(100).toList();
+        return resolveUniverseSymbols("nifty100", 100, () -> {
+            Set<String> symbols = new LinkedHashSet<>();
+            symbols.addAll(fetchIndexSymbols(nifty50ListUrl, nifty50FallbackListUrl));
+            symbols.addAll(fetchIndexSymbols(niftyNext50ListUrl, niftyNext50FallbackListUrl));
+            return symbols.stream().limit(100).toList();
+        });
     }
 
     public List<String> getNifty500Symbols() {
-        return fetchIndexSymbols(nifty500ListUrl).stream().limit(500).toList();
+        return resolveUniverseSymbols(
+                "nifty500",
+                500,
+                () -> fetchIndexSymbols(nifty500ListUrl, nifty500FallbackListUrl).stream().limit(500).toList()
+        );
     }
 
     @Transactional
@@ -184,12 +214,20 @@ public class StockService {
     public UniverseRefreshResult getSavedUniverseStatus(String universe) {
         String normalizedUniverse = universe == null ? "nifty100" : universe.trim().toLowerCase();
         List<String> symbols = "nifty500".equals(normalizedUniverse) ? getNifty500Symbols() : getNifty100Symbols();
-        Set<String> savedSymbols = new LinkedHashSet<>(repository.findSavedSymbols(symbols));
-        List<LiveRefreshResult> results = symbols.stream()
-                .map(symbol -> {
-                    String normalizedSymbol = normalizeAppSymbol(symbol);
-                    boolean loaded = savedSymbols.contains(normalizedSymbol);
-                    int rows = loaded ? (int) repository.countBySymbolIgnoreCase(normalizedSymbol) : 0;
+        List<String> normalizedSymbols = symbols.stream()
+                .map(this::normalizeAppSymbol)
+                .toList();
+        Map<String, Long> rowCounts = repository.findSymbolRowCounts(normalizedSymbols).stream()
+                .collect(Collectors.toMap(
+                        row -> normalizeAppSymbol(row.getSymbol()),
+                        StockRepository.SymbolRowCount::getRowCount,
+                        Long::sum
+                ));
+        List<LiveRefreshResult> results = normalizedSymbols.stream()
+                .map(normalizedSymbol -> {
+                    Long rowCount = rowCounts.get(normalizedSymbol);
+                    boolean loaded = rowCount != null;
+                    int rows = loaded ? rowCount.intValue() : 0;
                     String message = loaded ? "Saved market data is available." : "No saved market data found. Update prices from the Prices page.";
                     return new LiveRefreshResult(normalizedSymbol, loaded, rows, message);
                 })
@@ -261,9 +299,87 @@ public class StockService {
         return rows;
     }
 
+    private List<String> resolveUniverseSymbols(String universe, int limit, Supplier<List<String>> remoteLoader) {
+        RuntimeException remoteFailure;
+        try {
+            List<String> remoteSymbols = normalizeSymbols(remoteLoader.get(), limit);
+            if (remoteSymbols.isEmpty()) {
+                throw new IllegalStateException("NSE returned an empty " + universe + " constituent list.");
+            }
+            rememberUniverseSymbols(universe, remoteSymbols);
+            return remoteSymbols;
+        } catch (RuntimeException exception) {
+            remoteFailure = exception;
+        }
+
+        List<String> lastKnownSymbols = "nifty500".equals(universe)
+                ? lastKnownNifty500Symbols
+                : lastKnownNifty100Symbols;
+        if (!lastKnownSymbols.isEmpty()) {
+            return lastKnownSymbols;
+        }
+
+        List<String> savedSymbols = normalizeSymbols(repository.findDistinctSymbols(), limit);
+        if (!savedSymbols.isEmpty()) {
+            return savedSymbols;
+        }
+
+        throw new ResponseStatusException(
+                HttpStatus.SERVICE_UNAVAILABLE,
+                "The NSE " + universe + " constituent list is temporarily unavailable, and no saved market symbols are available yet.",
+                remoteFailure
+        );
+    }
+
+    private void rememberUniverseSymbols(String universe, List<String> symbols) {
+        if ("nifty500".equals(universe)) {
+            lastKnownNifty500Symbols = symbols;
+        } else {
+            lastKnownNifty100Symbols = symbols;
+        }
+    }
+
+    private List<String> normalizeSymbols(List<String> symbols, int limit) {
+        if (symbols == null) {
+            return List.of();
+        }
+        return symbols.stream()
+                .filter(symbol -> symbol != null && !symbol.isBlank())
+                .map(this::normalizeAppSymbol)
+                .distinct()
+                .limit(limit)
+                .toList();
+    }
+
+    private List<String> fetchIndexSymbols(String primaryUrl, String fallbackUrl) {
+        try {
+            return requireIndexSymbols(primaryUrl);
+        } catch (RuntimeException primaryFailure) {
+            if (primaryUrl.equals(fallbackUrl)) {
+                throw primaryFailure;
+            }
+            try {
+                return requireIndexSymbols(fallbackUrl);
+            } catch (RuntimeException fallbackFailure) {
+                primaryFailure.addSuppressed(fallbackFailure);
+                throw primaryFailure;
+            }
+        }
+    }
+
+    private List<String> requireIndexSymbols(String url) {
+        List<String> symbols = fetchIndexSymbols(url);
+        if (symbols.isEmpty()) {
+            throw new IllegalStateException("NSE returned no constituent symbols from " + url + ".");
+        }
+        return symbols;
+    }
+
     private List<String> fetchIndexSymbols(String url) {
         String csv = restClient.get()
                 .uri(url)
+                .header("User-Agent", MARKET_DATA_USER_AGENT)
+                .header("Accept", "text/csv,text/plain;q=0.9,*/*;q=0.8")
                 .retrieve()
                 .body(String.class);
         if (csv == null || csv.isBlank()) {

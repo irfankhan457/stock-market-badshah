@@ -1,0 +1,99 @@
+2026-06-17 14:29:47.120 IST [20352] LOG:  starting PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit
+2026-06-17 14:29:47.122 IST [20352] LOG:  listening on IPv4 address "127.0.0.1", port 55432
+2026-06-17 14:29:47.513 IST [26192] LOG:  database system was shut down at 2026-06-17 14:29:29 IST
+2026-06-17 14:29:47.535 IST [20352] LOG:  database system is ready to accept connections
+2026-06-17 14:34:47.464 IST [28072] LOG:  checkpoint starting: time
+2026-06-17 14:37:18.829 IST [28072] LOG:  checkpoint complete: wrote 1355 buffers (8.3%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=146.982 s, sync=3.274 s, total=151.368 s; sync files=319, longest=0.156 s, average=0.011 s; distance=9290 kB, estimate=9290 kB; lsn=0/2103E60, redo lsn=0/2103DD0
+2026-06-17 14:44:47.857 IST [28072] LOG:  checkpoint starting: time
+2026-06-17 14:47:53.985 IST [28072] LOG:  checkpoint complete: wrote 1699 buffers (10.4%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=182.627 s, sync=2.812 s, total=186.128 s; sync files=11, longest=0.484 s, average=0.256 s; distance=23578 kB, estimate=23578 kB; lsn=0/4056610, redo lsn=0/380A7A0
+2026-06-17 15:24:48.182 IST [20352] LOG:  could not reserve shared memory region (addr=000001F7E7EB0000) for child 0000000000001540: error code 487
+2026-06-17 16:57:26.124 IST [20352] LOG:  received fast shutdown request
+2026-06-17 16:57:26.187 IST [20352] LOG:  aborting any active transactions
+2026-06-17 16:57:26.195 IST [21452] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.199 IST [10616] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.200 IST [2312] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.212 IST [17424] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.205 IST [19392] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.212 IST [22920] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.212 IST [2756] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.225 IST [3088] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.241 IST [21656] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.264 IST [22432] FATAL:  terminating connection due to administrator command
+2026-06-17 16:57:26.398 IST [20352] LOG:  background worker "logical replication launcher" (PID 25416) exited with exit code 1
+2026-06-17 16:57:26.402 IST [28072] LOG:  shutting down
+2026-06-17 16:57:26.433 IST [28072] LOG:  checkpoint starting: shutdown immediate
+2026-06-17 16:57:26.708 IST [28072] LOG:  checkpoint complete: wrote 69 buffers (0.4%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.048 s, sync=0.148 s, total=0.306 s; sync files=9, longest=0.045 s, average=0.017 s; distance=8495 kB, estimate=22070 kB; lsn=0/40566C0, redo lsn=0/40566C0
+2026-06-17 16:57:26.816 IST [20352] LOG:  database system is shut down
+2026-06-19 09:26:24.443 IST [16732] LOG:  starting PostgreSQL 18.4 on x86_64-windows, compiled by msvc-19.44.35226, 64-bit
+2026-06-19 09:26:24.446 IST [16732] LOG:  listening on IPv4 address "127.0.0.1", port 55432
+2026-06-19 09:26:24.755 IST [23436] LOG:  database system was shut down at 2026-06-17 16:57:26 IST
+2026-06-19 09:26:24.798 IST [16732] LOG:  database system is ready to accept connections
+2026-06-19 09:31:24.733 IST [9552] LOG:  checkpoint starting: time
+2026-06-19 09:31:25.359 IST [9552] LOG:  checkpoint complete: wrote 3 buffers (0.0%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.428 s, sync=0.060 s, total=0.631 s; sync files=5, longest=0.015 s, average=0.012 s; distance=24 kB, estimate=24 kB; lsn=0/405C8B0, redo lsn=0/405C858
+2026-06-19 13:10:03.078 IST [28112] LOG:  could not receive data from client: An established connection was aborted by the software in your host machine.
+	
+2026-06-19 15:05:10.219 IST [16732] LOG:  CreateProcess() call failed: A non-blocking socket operation could not be completed immediately.
+	 (error code 1455)
+2026-06-19 15:05:10.550 IST [16732] LOG:  could not fork "autovacuum worker" process: A non-blocking socket operation could not be completed immediately.
+	
+2026-06-19 15:14:48.277 IST [33508] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.277 IST [32152] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.278 IST [17492] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.279 IST [23940] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.296 IST [32152] LOG:  unexpected EOF on client connection with an open transaction
+2026-06-19 15:14:48.277 IST [4744] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.280 IST [21168] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.279 IST [31540] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.279 IST [9408] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.278 IST [21696] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:14:48.279 IST [6120] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-06-19 15:25:26.424 IST [9552] LOG:  checkpoint starting: time
+2026-06-19 15:25:50.019 IST [9552] LOG:  checkpoint complete: wrote 212 buffers (1.3%), wrote 1 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=23.295 s, sync=0.089 s, total=23.597 s; sync files=6, longest=0.030 s, average=0.015 s; distance=2563 kB, estimate=2563 kB; lsn=0/4865640, redo lsn=0/42DD5B8
+2026-06-19 15:26:26.204 IST [16700] LOG:  unrecognized win32 error code: 1450
+2026-06-19 15:26:26.221 IST [16700] PANIC:  could not write to log file "000000010000000000000005" at offset 1089536, length 49152: Invalid argument
+2026-06-19 15:26:30.666 IST [16732] LOG:  CreateProcess() call failed: A non-blocking socket operation could not be completed immediately.
+	 (error code 1455)
+2026-06-19 15:26:30.667 IST [16732] LOG:  could not fork "autovacuum worker" process: A non-blocking socket operation could not be completed immediately.
+	
+2026-06-19 15:26:32.674 IST [16732] LOG:  CreateProcess() call failed: A non-blocking socket operation could not be completed immediately.
+	 (error code 1455)
+2026-06-19 15:26:32.674 IST [16732] LOG:  could not fork "autovacuum worker" process: A non-blocking socket operation could not be completed immediately.
+	
+2026-06-19 15:26:35.786 IST [16732] LOG:  autovacuum worker (PID 15128) was terminated by exception 0xC000012D
+2026-06-19 15:26:35.786 IST [16732] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2026-06-19 15:26:35.786 IST [16732] LOG:  terminating any other active server processes
+2026-06-19 15:26:47.669 IST [15120] LOG:  could not receive data from client: An established connection was aborted by the software in your host machine.
+	
+2026-06-19 15:26:47.676 IST [16732] LOG:  all server processes terminated; reinitializing
+2026-06-19 15:26:48.119 IST [30732] LOG:  database system was interrupted; last known up at 2026-06-19 15:25:49 IST
+2026-06-19 15:26:48.230 IST [30396] FATAL:  the database system is in recovery mode
+2026-06-19 15:26:48.359 IST [22876] FATAL:  the database system is in recovery mode
+2026-06-19 15:26:48.810 IST [29020] FATAL:  the database system is in recovery mode
+2026-06-19 15:26:49.022 IST [30732] LOG:  database system was not properly shut down; automatic recovery in progress
+2026-06-19 15:26:49.152 IST [30732] LOG:  redo starts at 0/42DD5B8
+2026-06-19 15:26:49.194 IST [12512] FATAL:  the database system is in recovery mode
+2026-06-19 15:26:49.581 IST [11060] FATAL:  the database system is not yet accepting connections
+2026-06-19 15:26:49.581 IST [11060] DETAIL:  Consistent recovery state has not been yet reached.
+2026-06-19 15:26:50.296 IST [29384] FATAL:  the database system is not yet accepting connections
+2026-06-19 15:26:50.296 IST [29384] DETAIL:  Consistent recovery state has not been yet reached.
+2026-06-19 15:26:52.231 IST [21348] FATAL:  the database system is not yet accepting connections
+2026-06-19 15:26:52.231 IST [21348] DETAIL:  Consistent recovery state has not been yet reached.
+2026-06-19 15:26:53.447 IST [30732] LOG:  unexpected pageaddr 0/210A000 in WAL segment 000000010000000000000005, LSN 0/510A000, offset 1089536
+2026-06-19 15:26:53.447 IST [30732] LOG:  redo done at 0/5109FA8 system usage: CPU: user: 0.03 s, system: 0.07 s, elapsed: 4.30 s
+2026-06-19 15:26:53.495 IST [32896] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-06-19 15:26:53.982 IST [32896] LOG:  checkpoint complete: wrote 1128 buffers (6.9%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.054 s, sync=0.306 s, total=0.521 s; sync files=9, longest=0.121 s, average=0.034 s; distance=14514 kB, estimate=14514 kB; lsn=0/510A048, redo lsn=0/510A048
+2026-06-19 15:26:54.003 IST [16732] LOG:  database system is ready to accept connections
+2026-06-19 15:30:17.776 IST [16732] LOG:  client backend (PID 6816) was terminated by exception 0x40010004
+2026-06-19 15:30:17.776 IST [16732] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2026-06-19 15:30:17.776 IST [16732] LOG:  terminating any other active server processes
+2026-06-19 15:30:17.833 IST [16732] LOG:  all server processes terminated; reinitializing

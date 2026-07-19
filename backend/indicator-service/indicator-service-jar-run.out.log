@@ -8,63 +8,56 @@
 
  :: Spring Boot ::                (v4.0.6)
 
-2026-06-03T19:49:24.874+05:30  INFO 9704 --- [indicator-service] [           main] c.s.i.IndicatorServiceApplication        : Starting IndicatorServiceApplication v0.0.1-SNAPSHOT using Java 21.0.7 with PID 9704 (D:\StockMarketBadsaha\backend\indicator-service\target\indicator-service-0.0.1-SNAPSHOT.jar started by irfan in D:\StockMarketBadsaha\backend\indicator-service)
-2026-06-03T19:49:24.886+05:30  INFO 9704 --- [indicator-service] [           main] c.s.i.IndicatorServiceApplication        : No active profile set, falling back to 1 default profile: "default"
-2026-06-03T19:49:37.786+05:30  INFO 9704 --- [indicator-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=54b084e5-f6e2-3257-b1f7-4bb27cf6cc9e
-2026-06-03T19:49:40.728+05:30  INFO 9704 --- [indicator-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8082 (http)
-2026-06-03T19:49:40.923+05:30  INFO 9704 --- [indicator-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-06-03T19:49:40.925+05:30  INFO 9704 --- [indicator-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
-2026-06-03T19:49:41.115+05:30  INFO 9704 --- [indicator-service] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 15960 ms
-2026-06-03T19:49:52.549+05:30  INFO 9704 --- [indicator-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
-2026-06-03T19:49:53.065+05:30  WARN 9704 --- [indicator-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2026-06-03T19:49:53.099+05:30  INFO 9704 --- [indicator-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
-2026-06-03T19:49:53.619+05:30  INFO 9704 --- [indicator-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
-2026-06-03T19:49:53.858+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
-2026-06-03T19:49:53.889+05:30  INFO 9704 --- [indicator-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T19:49:53.914+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
-2026-06-03T19:49:53.915+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
-2026-06-03T19:49:53.917+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
-2026-06-03T19:49:53.918+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
-2026-06-03T19:49:53.919+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
-2026-06-03T19:49:53.920+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
-2026-06-03T19:49:53.921+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
-2026-06-03T19:49:56.423+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
-2026-06-03T19:49:56.429+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
-2026-06-03T19:49:56.434+05:30  INFO 9704 --- [indicator-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
-2026-06-03T19:49:56.438+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1780496396437 with initial instances count: 9
-2026-06-03T19:49:56.447+05:30  INFO 9704 --- [indicator-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application INDICATOR-SERVICE with eureka with status UP
-2026-06-03T19:49:56.449+05:30  INFO 9704 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1780496396449, current=UP, previous=STARTING]
-2026-06-03T19:49:56.454+05:30  INFO 9704 --- [indicator-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_INDICATOR-SERVICE/DESKTOP-TAPHLMF:indicator-service:8082: registering service...
-2026-06-03T19:49:56.531+05:30  INFO 9704 --- [indicator-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8082 (http) with context path '/'
-2026-06-03T19:49:56.534+05:30  INFO 9704 --- [indicator-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8082
-2026-06-03T19:49:56.671+05:30  INFO 9704 --- [indicator-service] [           main] c.s.i.IndicatorServiceApplication        : Started IndicatorServiceApplication in 33.802 seconds (process running for 36.695)
-2026-06-03T19:49:56.873+05:30  INFO 9704 --- [indicator-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_INDICATOR-SERVICE/DESKTOP-TAPHLMF:indicator-service:8082 - registration status: 204
-2026-06-03T19:52:11.666+05:30  INFO 9704 --- [indicator-service] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-03T19:52:11.669+05:30  INFO 9704 --- [indicator-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-06-03T19:52:11.681+05:30  INFO 9704 --- [indicator-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
-2026-06-03T19:54:54.009+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T19:59:54.122+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:04:54.149+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:09:54.197+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:14:54.263+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:19:54.338+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:24:54.396+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:29:54.462+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:34:54.532+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:39:54.589+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:44:54.598+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:49:54.666+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:54:54.693+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T20:59:54.764+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:04:54.861+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:09:54.928+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:14:54.979+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:19:55.073+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:24:55.138+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:29:55.189+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:34:55.205+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:39:55.261+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:44:55.367+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:49:55.387+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:54:55.785+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
-2026-06-03T21:59:56.534+05:30  INFO 9704 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T01:47:43.271+05:30  INFO 18736 --- [indicator-service] [           main] c.s.i.IndicatorServiceApplication        : Starting IndicatorServiceApplication v0.0.1-SNAPSHOT using Java 21.0.7 with PID 18736 (D:\StockMarketBadsaha\backend\indicator-service\target\indicator-service-0.0.1-SNAPSHOT.jar started by irfan in D:\StockMarketBadsaha\backend\indicator-service)
+2026-06-08T01:47:43.285+05:30  INFO 18736 --- [indicator-service] [           main] c.s.i.IndicatorServiceApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-06-08T01:48:18.902+05:30  INFO 18736 --- [indicator-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=54b084e5-f6e2-3257-b1f7-4bb27cf6cc9e
+2026-06-08T01:48:25.563+05:30  INFO 18736 --- [indicator-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8082 (http)
+2026-06-08T01:48:25.618+05:30  INFO 18736 --- [indicator-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-08T01:48:25.620+05:30  INFO 18736 --- [indicator-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-08T01:48:25.767+05:30  INFO 18736 --- [indicator-service] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 40257 ms
+2026-06-08T01:48:49.728+05:30  INFO 18736 --- [indicator-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-06-08T01:48:50.276+05:30  WARN 18736 --- [indicator-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-06-08T01:48:50.345+05:30  INFO 18736 --- [indicator-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-06-08T01:48:51.559+05:30  INFO 18736 --- [indicator-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-06-08T01:48:52.106+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-06-08T01:48:52.170+05:30  INFO 18736 --- [indicator-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T01:48:52.249+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-08T01:48:52.250+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-08T01:48:52.252+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-08T01:48:52.254+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-08T01:48:52.258+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-08T01:48:52.261+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-06-08T01:48:52.264+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-08T01:49:01.046+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-08T01:49:01.115+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-06-08T01:49:01.124+05:30  INFO 18736 --- [indicator-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-06-08T01:49:01.131+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1780863541129 with initial instances count: 0
+2026-06-08T01:49:01.287+05:30  INFO 18736 --- [indicator-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application INDICATOR-SERVICE with eureka with status UP
+2026-06-08T01:49:01.289+05:30  INFO 18736 --- [indicator-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1780863541289, current=UP, previous=STARTING]
+2026-06-08T01:49:01.293+05:30  INFO 18736 --- [indicator-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_INDICATOR-SERVICE/DESKTOP-TAPHLMF:indicator-service:8082: registering service...
+2026-06-08T01:49:02.101+05:30  INFO 18736 --- [indicator-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8082 (http) with context path '/'
+2026-06-08T01:49:02.104+05:30  INFO 18736 --- [indicator-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8082
+2026-06-08T01:49:02.427+05:30  INFO 18736 --- [indicator-service] [           main] c.s.i.IndicatorServiceApplication        : Started IndicatorServiceApplication in 97.414 seconds (process running for 113.333)
+2026-06-08T01:49:03.488+05:30  INFO 18736 --- [indicator-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_INDICATOR-SERVICE/DESKTOP-TAPHLMF:indicator-service:8082 - registration status: 204
+2026-06-08T01:49:07.984+05:30  INFO 18736 --- [indicator-service] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-08T01:49:07.986+05:30  INFO 18736 --- [indicator-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-08T01:49:07.990+05:30  INFO 18736 --- [indicator-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-06-08T01:49:31.144+05:30  INFO 18736 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-08T01:49:31.160+05:30  INFO 18736 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-08T01:49:31.161+05:30  INFO 18736 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-08T01:49:31.162+05:30  INFO 18736 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-08T01:49:31.162+05:30  INFO 18736 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-08T01:49:31.163+05:30  INFO 18736 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-06-08T01:49:31.163+05:30  INFO 18736 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-08T01:49:31.587+05:30  INFO 18736 --- [indicator-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-08T01:53:52.338+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T01:58:52.416+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:03:52.434+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:08:52.477+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:13:52.483+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:18:52.503+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:23:52.534+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:28:52.546+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:33:52.820+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:38:52.857+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T02:43:53.345+05:30  INFO 18736 --- [indicator-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

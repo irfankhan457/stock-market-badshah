@@ -147,8 +147,8 @@ export class App {
   activeScanName = signal('Nifty 100');
 
   services = signal<ServiceCard[]>([
-    { name: 'App', label: 'Main app connection', endpoint: '/actuator', state: 'checking' },
-    { name: 'Prices', label: 'Market prices', endpoint: '/stocks', state: 'checking' },
+    { name: 'App', label: 'Main app connection', endpoint: '/actuator/health', state: 'checking' },
+    { name: 'Prices', label: 'Market prices', endpoint: '/stocks/page?size=1', state: 'checking' },
     { name: 'Trend', label: 'Price trend check', endpoint: '/indicators/health', state: 'checking' },
     { name: 'Scanner', label: 'Stock recommendation', endpoint: '/scanner/health', state: 'checking' },
     { name: 'Company', label: 'Company strength check', endpoint: '/fundamentals/health', state: 'checking' },
@@ -869,14 +869,75 @@ export class App {
   }
 
   private toUserErrorMessage(error: unknown): string {
-    const message = error instanceof Error ? error.message : '';
-    if (message.includes('Timeout') || message.includes('timeout')) {
-      return 'This is taking longer than expected. Please keep backend services running and try again after a minute.';
+    const errorRecord = this.toErrorRecord(error);
+    const status = this.toHttpStatus(errorRecord?.['status']);
+    const outerMessage = this.toErrorText(errorRecord?.['message']);
+    const nestedMessage = this.extractErrorText(errorRecord?.['error']);
+    const message = nestedMessage || outerMessage || this.extractErrorText(error);
+    const errorName = this.toErrorText(errorRecord?.['name']);
+
+    if (`${errorName} ${outerMessage} ${nestedMessage}`.toLowerCase().includes('timeout')) {
+      return 'The market-data request timed out. The backend may still be processing it; wait a minute and try again.';
     }
-    const status = typeof error === 'object' && error !== null && 'status' in error ? Number((error as { status?: number }).status) : 0;
-    if (status === 0 || status === 502 || status === 503 || status === 504) {
-      return 'Could not reach the market-data service. Please check that backend services are running and try again.';
+
+    if (status === 0) {
+      return `Could not connect to the API gateway at ${this.gatewayUrl}. Check that it is running and that the browser can access it.`;
     }
-    return message || 'Could not complete this request. Please check that backend services are running.';
+
+    if (status === 500) {
+      const detail = nestedMessage ? ` ${nestedMessage}` : '';
+      return `The backend is running, but it failed while processing the market-data request (HTTP 500).${detail}`;
+    }
+
+    if (status === 502 || status === 503 || status === 504) {
+      const detail = nestedMessage ? ` ${nestedMessage}` : '';
+      return `The API gateway responded, but a backend service or external market-data provider is temporarily unavailable (HTTP ${status}).${detail}`;
+    }
+
+    if (status !== null) {
+      return message ? `Request failed (HTTP ${status}): ${message}` : `Request failed with HTTP ${status}.`;
+    }
+
+    return message || 'Could not complete this request. Please try again.';
+  }
+
+  private toErrorRecord(value: unknown): Record<string, unknown> | null {
+    return typeof value === 'object' && value !== null ? value as Record<string, unknown> : null;
+  }
+
+  private toErrorText(value: unknown): string {
+    return typeof value === 'string' ? value.trim() : '';
+  }
+
+  private toHttpStatus(value: unknown): number | null {
+    if (typeof value !== 'number' && typeof value !== 'string') {
+      return null;
+    }
+    const status = Number(value);
+    return Number.isFinite(status) ? status : null;
+  }
+
+  private extractErrorText(value: unknown): string {
+    const directText = this.toErrorText(value);
+    if (directText) {
+      return directText;
+    }
+
+    const record = this.toErrorRecord(value);
+    if (!record) {
+      return '';
+    }
+
+    for (const key of ['detail', 'message', 'error']) {
+      const candidate = record[key];
+      if (candidate === value) {
+        continue;
+      }
+      const text = key === 'error' ? this.extractErrorText(candidate) : this.toErrorText(candidate);
+      if (text) {
+        return text;
+      }
+    }
+    return '';
   }
 }

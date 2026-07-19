@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.Collection;
 
 public interface StockRepository extends JpaRepository<StockEntity, Long> {
+    interface SymbolRowCount {
+        String getSymbol();
+
+        long getRowCount();
+    }
+
     Page<StockEntity> findBySymbolContainingIgnoreCase(String symbol, Pageable pageable);
 
     List<StockEntity> findBySymbolIgnoreCaseOrderByStockDateAsc(String symbol);
@@ -24,6 +30,12 @@ public interface StockRepository extends JpaRepository<StockEntity, Long> {
     @Query("select distinct upper(s.symbol) from StockEntity s where s.symbol is not null order by upper(s.symbol)")
     List<String> findDistinctSymbols();
 
-    @Query("select distinct upper(s.symbol) from StockEntity s where upper(s.symbol) in :symbols and s.stockDate is not null order by upper(s.symbol)")
-    List<String> findSavedSymbols(@Param("symbols") Collection<String> symbols);
+    @Query("""
+            select s.symbol as symbol, count(s) as rowCount
+            from StockEntity s
+            where s.symbol in :symbols
+            group by s.symbol
+            having count(s.stockDate) > 0
+            """)
+    List<SymbolRowCount> findSymbolRowCounts(@Param("symbols") Collection<String> symbols);
 }

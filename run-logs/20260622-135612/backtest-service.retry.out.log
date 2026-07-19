@@ -1,0 +1,200 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< com.stockbadshah:backtest-service >------------------
+[INFO] Building backtest-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.6:run (default-cli) > test-compile @ backtest-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ backtest-service ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ backtest-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ backtest-service ---
+[INFO] skip non existing resourceDirectory D:\StockMarketBadsaha\backend\backtest-service\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ backtest-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.6:run (default-cli) < test-compile @ backtest-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.6:run (default-cli) @ backtest-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-06-22T14:02:21.590+05:30  INFO 23988 --- [backtest-service] [           main] c.s.b.BacktestServiceApplication         : Starting BacktestServiceApplication using Java 25 with PID 23988 (D:\StockMarketBadsaha\backend\backtest-service\target\classes started by irfan in D:\StockMarketBadsaha\backend\backtest-service)
+2026-06-22T14:02:21.603+05:30  INFO 23988 --- [backtest-service] [           main] c.s.b.BacktestServiceApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-06-22T14:02:27.534+05:30  INFO 23988 --- [backtest-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=60127043-e5e4-3d04-9f69-7acb3795bb96
+2026-06-22T14:02:28.707+05:30  INFO 23988 --- [backtest-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8086 (http)
+2026-06-22T14:02:28.750+05:30  INFO 23988 --- [backtest-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-22T14:02:29.119+05:30  INFO 23988 --- [backtest-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-22T14:02:29.424+05:30  INFO 23988 --- [backtest-service] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 7516 ms
+2026-06-22T14:02:34.565+05:30  INFO 23988 --- [backtest-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-06-22T14:02:34.723+05:30  WARN 23988 --- [backtest-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-06-22T14:02:34.749+05:30  INFO 23988 --- [backtest-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-06-22T14:02:34.966+05:30  INFO 23988 --- [backtest-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-06-22T14:02:35.933+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-06-22T14:02:35.942+05:30  INFO 23988 --- [backtest-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:02:35.957+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-22T14:02:35.960+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-22T14:02:35.983+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-22T14:02:35.991+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-22T14:02:35.992+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-22T14:02:35.994+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-06-22T14:02:35.995+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-22T14:02:46.114+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-22T14:02:46.269+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-06-22T14:02:46.273+05:30  INFO 23988 --- [backtest-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-06-22T14:02:46.354+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1782117166276 with initial instances count: 0
+2026-06-22T14:02:46.362+05:30  INFO 23988 --- [backtest-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application BACKTEST-SERVICE with eureka with status UP
+2026-06-22T14:02:46.365+05:30  INFO 23988 --- [backtest-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1782117166365, current=UP, previous=STARTING]
+2026-06-22T14:02:46.370+05:30  INFO 23988 --- [backtest-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086: registering service...
+2026-06-22T14:02:48.758+05:30  INFO 23988 --- [backtest-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8086 (http) with context path '/'
+2026-06-22T14:02:48.763+05:30  INFO 23988 --- [backtest-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8086
+2026-06-22T14:02:48.872+05:30  INFO 23988 --- [backtest-service] [           main] c.s.b.BacktestServiceApplication         : Started BacktestServiceApplication in 31.691 seconds (process running for 54.477)
+2026-06-22T14:02:49.559+05:30  INFO 23988 --- [backtest-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_BACKTEST-SERVICE/DESKTOP-TAPHLMF:backtest-service:8086 - registration status: 204
+2026-06-22T14:03:16.270+05:30  INFO 23988 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-22T14:03:16.271+05:30  INFO 23988 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-22T14:03:16.272+05:30  INFO 23988 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-22T14:03:16.273+05:30  INFO 23988 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-22T14:03:16.275+05:30  INFO 23988 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-22T14:03:16.276+05:30  INFO 23988 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-06-22T14:03:16.277+05:30  INFO 23988 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-22T14:03:16.447+05:30  INFO 23988 --- [backtest-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-22T14:07:36.019+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:12:36.114+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:12:53.677+05:30  INFO 23988 --- [backtest-service] [nio-8086-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-22T14:12:53.870+05:30  INFO 23988 --- [backtest-service] [nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-22T14:12:54.370+05:30  INFO 23988 --- [backtest-service] [nio-8086-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 75 ms
+2026-06-22T14:17:36.227+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:22:36.314+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:27:36.341+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:32:36.370+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:37:36.386+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:42:36.389+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:47:36.391+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:52:36.394+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T14:57:36.399+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:02:36.404+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:07:36.472+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:12:36.486+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:17:36.533+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:22:36.537+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:27:36.539+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:32:36.541+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:37:36.543+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:42:36.559+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:47:36.566+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:52:36.569+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T15:57:36.572+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:02:36.587+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:07:36.590+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:12:36.593+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:17:36.595+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:22:36.599+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:27:36.601+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:32:36.604+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:37:36.607+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:42:36.609+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:47:36.613+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:52:36.617+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T16:57:36.646+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:02:36.695+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:07:36.699+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:12:36.701+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:17:36.703+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:22:36.712+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:27:36.749+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:32:36.802+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:37:36.819+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:42:36.854+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:47:36.861+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:52:36.868+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T17:57:36.884+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:02:36.895+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:07:36.925+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:12:36.932+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:17:36.943+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:22:36.952+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:27:36.992+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:32:36.997+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:37:36.999+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:42:37.000+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:47:37.002+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:52:37.023+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T18:57:37.026+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:02:37.030+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:07:37.051+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:12:37.195+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:17:37.203+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:22:37.236+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:27:37.243+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:32:37.253+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:37:37.280+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:42:37.291+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:47:37.318+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:52:37.347+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T19:57:37.451+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:02:37.623+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:07:37.671+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:12:37.744+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:17:37.836+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:22:37.905+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:29:06.375+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:34:06.491+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:39:09.313+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:54:40.939+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T20:59:41.025+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:04:41.048+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:09:41.051+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:14:41.070+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:19:41.088+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:24:41.092+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:29:41.098+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:34:41.114+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:39:41.126+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:44:41.137+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:49:41.141+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:54:41.144+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T21:59:41.239+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:04:41.247+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:09:41.251+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:14:41.265+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:19:41.313+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:24:41.357+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:29:41.378+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:34:41.450+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:39:41.532+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:44:41.618+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:49:41.649+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:54:41.656+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T22:59:41.669+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:04:41.690+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:09:41.748+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:14:41.779+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:19:41.901+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:24:42.042+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:29:42.081+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:34:42.084+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-22T23:39:42.093+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T00:42:42.910+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T00:47:43.019+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T00:52:43.118+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T00:57:43.210+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T01:02:43.259+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T01:07:44.600+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T01:12:50.411+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-23T01:17:50.681+05:30  INFO 23988 --- [backtest-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

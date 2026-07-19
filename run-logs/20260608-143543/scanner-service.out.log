@@ -1,0 +1,150 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< com.stockbadshah:scanner-service >------------------
+[INFO] Building scanner-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.6:run (default-cli) > test-compile @ scanner-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ scanner-service ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ scanner-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ scanner-service ---
+[INFO] skip non existing resourceDirectory D:\StockMarketBadsaha\backend\scanner-service\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ scanner-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.0.6:run (default-cli) < test-compile @ scanner-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.0.6:run (default-cli) @ scanner-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-06-08T14:36:37.416+05:30  INFO 18836 --- [scanner-service] [           main] c.s.s.ScannerServiceApplication          : Starting ScannerServiceApplication using Java 21.0.7 with PID 18836 (D:\StockMarketBadsaha\backend\scanner-service\target\classes started by irfan in D:\StockMarketBadsaha\backend\scanner-service)
+2026-06-08T14:36:37.434+05:30  INFO 18836 --- [scanner-service] [           main] c.s.s.ScannerServiceApplication          : No active profile set, falling back to 1 default profile: "default"
+2026-06-08T14:36:41.525+05:30  INFO 18836 --- [scanner-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=35c9ec96-e282-36e2-9770-2a56893fc5d5
+2026-06-08T14:36:42.826+05:30  INFO 18836 --- [scanner-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-06-08T14:36:42.860+05:30  INFO 18836 --- [scanner-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-08T14:36:42.866+05:30  INFO 18836 --- [scanner-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-06-08T14:36:43.110+05:30  INFO 18836 --- [scanner-service] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5484 ms
+2026-06-08T14:36:46.195+05:30  INFO 18836 --- [scanner-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-06-08T14:36:46.311+05:30  WARN 18836 --- [scanner-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-06-08T14:36:46.325+05:30  INFO 18836 --- [scanner-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-06-08T14:36:46.428+05:30  INFO 18836 --- [scanner-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-06-08T14:36:46.461+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-06-08T14:36:46.469+05:30  INFO 18836 --- [scanner-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T14:36:46.484+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-08T14:36:46.485+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-08T14:36:46.485+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-08T14:36:46.486+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-08T14:36:46.487+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-08T14:36:46.489+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-06-08T14:36:46.490+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-08T14:36:46.853+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-08T14:36:46.855+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-06-08T14:36:46.860+05:30  INFO 18836 --- [scanner-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-06-08T14:36:46.864+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1780909606862 with initial instances count: 0
+2026-06-08T14:36:46.869+05:30  INFO 18836 --- [scanner-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application SCANNER-SERVICE with eureka with status UP
+2026-06-08T14:36:46.871+05:30  INFO 18836 --- [scanner-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1780909606871, current=UP, previous=STARTING]
+2026-06-08T14:36:46.875+05:30  INFO 18836 --- [scanner-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SCANNER-SERVICE/DESKTOP-TAPHLMF:scanner-service:8083: registering service...
+2026-06-08T14:36:46.909+05:30  INFO 18836 --- [scanner-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-06-08T14:36:46.912+05:30  INFO 18836 --- [scanner-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8083
+2026-06-08T14:36:46.934+05:30  INFO 18836 --- [scanner-service] [           main] c.s.s.ScannerServiceApplication          : Started ScannerServiceApplication in 11.838 seconds (process running for 15.75)
+2026-06-08T14:36:47.172+05:30  INFO 18836 --- [scanner-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_SCANNER-SERVICE/DESKTOP-TAPHLMF:scanner-service:8083 - registration status: 204
+2026-06-08T14:37:16.860+05:30  INFO 18836 --- [scanner-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-06-08T14:37:16.864+05:30  INFO 18836 --- [scanner-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-06-08T14:37:16.866+05:30  INFO 18836 --- [scanner-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-06-08T14:37:16.867+05:30  INFO 18836 --- [scanner-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-06-08T14:37:16.868+05:30  INFO 18836 --- [scanner-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-06-08T14:37:16.869+05:30  INFO 18836 --- [scanner-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2026-06-08T14:37:16.869+05:30  INFO 18836 --- [scanner-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-06-08T14:37:16.951+05:30  INFO 18836 --- [scanner-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-06-08T14:37:56.854+05:30  INFO 18836 --- [scanner-service] [nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-08T14:37:56.856+05:30  INFO 18836 --- [scanner-service] [nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-08T14:37:56.890+05:30  INFO 18836 --- [scanner-service] [nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 33 ms
+2026-06-08T14:41:46.496+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T14:46:46.522+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T14:51:46.619+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T14:56:46.678+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:01:46.692+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:06:46.755+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:11:46.779+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:16:46.800+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:21:46.805+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:26:46.828+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:31:46.834+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:36:46.870+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:41:46.940+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:46:46.944+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:51:46.959+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T15:56:46.991+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:01:46.996+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:06:47.065+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:11:47.081+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:16:47.096+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:21:47.107+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:26:47.119+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:31:47.129+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:36:47.138+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:41:47.205+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T16:46:47.221+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:01:46.397+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:06:46.415+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:11:46.446+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:16:46.488+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:21:46.505+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:26:46.517+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:31:46.563+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:36:46.569+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:41:46.582+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:46:46.614+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:51:46.657+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T17:56:46.691+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:01:46.699+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:06:46.753+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:11:46.763+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:16:46.826+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:21:46.876+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:26:46.894+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:31:46.904+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:36:46.925+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:41:47.158+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:46:47.537+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:51:47.595+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T18:56:47.655+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:01:47.711+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:09:03.033+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:14:03.139+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:19:03.220+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:24:03.321+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:29:03.403+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:34:03.470+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-06-08T19:39:03.545+05:30  INFO 18836 --- [scanner-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  05:03 h
+[INFO] Finished at: 2026-06-08T19:40:01+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.0.6:run (default-cli) on project scanner-service: Process terminated with exit code: -1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
