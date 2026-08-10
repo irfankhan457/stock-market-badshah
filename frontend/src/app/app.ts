@@ -833,10 +833,10 @@ export class App {
   }
 
   private async updateUniversePrices(universe: 'nifty100' | 'nifty500', label: string): Promise<void> {
-    await this.runTask(`${label} one-year prices saved in the database.`, async () => {
-      this.statusMessage.set(`Updating ${label} with latest one-year market prices. This may take a few minutes...`);
+    await this.runTask(`${label} smart price update complete. Current DB history was reused and only missing or stale stocks were downloaded.`, async () => {
+      this.statusMessage.set(`Smart-updating ${label}. Current DB history will be reused; only missing or stale stocks will be downloaded...`);
       const response = await this.http.post<UniverseRefreshResponse>(
-        this.url(`/stocks/live/universe/${universe}/refresh?force=true`),
+        this.url(`/stocks/live/universe/${universe}/refresh?force=false`),
         {}
       ).pipe(timeout(this.priceUpdateTimeoutMs)).toPromise();
       this.activeScanName.set(label);
@@ -845,7 +845,7 @@ export class App {
       this.liveLoadedCount.set(response?.loaded ?? 0);
       this.liveFailedCount.set(response?.failed ?? 0);
       await this.loadPricePage(0);
-      this.statusMessage.set(`${label} price update complete. Saved ${response?.loaded ?? 0} stocks into local DB.`);
+      this.statusMessage.set(`${label} smart price update complete. ${response?.loaded ?? 0} stocks are ready in the local DB.`);
     });
   }
 

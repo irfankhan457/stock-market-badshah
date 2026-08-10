@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { App } from './app';
 
 describe('App', () => {
@@ -78,5 +78,26 @@ describe('App', () => {
 
     expect(message).toContain('request timed out');
     expect(message).toContain('may still be processing');
+  });
+
+  it('should use smart refresh and avoid forcing a full universe download', async () => {
+    const app = TestBed.createComponent(App).componentInstance;
+    const http = TestBed.inject(HttpTestingController);
+
+    const update = app.updateNifty100Prices();
+    expect(app.statusMessage()).toContain('Current DB history will be reused');
+
+    const refreshRequest = http.expectOne('http://localhost:8080/stocks/live/universe/nifty100/refresh?force=false');
+    expect(refreshRequest.request.method).toBe('POST');
+    refreshRequest.flush({ universe: 'NIFTY100', total: 100, loaded: 100, failed: 0 });
+
+    await Promise.resolve();
+    const pageRequest = http.expectOne((request) => request.url.startsWith('http://localhost:8080/stocks/page?'));
+    pageRequest.flush({ content: [], number: 0, size: 50, totalElements: 0, totalPages: 0 });
+    await update;
+
+    expect(app.statusMessage()).toContain('smart price update complete');
+    expect(app.statusMessage()).toContain('only missing or stale stocks were downloaded');
+    http.verify();
   });
 });

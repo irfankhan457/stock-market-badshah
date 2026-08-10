@@ -362,12 +362,12 @@
             <h2>Recent prices saved for checking</h2>
           </div>
           <div class="action-row">
-            <button type="button" class="primary" (click)="updateNifty100Prices()" [disabled]="isBusy()">Update Nifty 100 Prices</button>
-            <button type="button" class="primary" (click)="updateNifty500Prices()" [disabled]="isBusy()">Update Nifty 500 Prices</button>
+            <button type="button" class="primary" (click)="updateNifty100Prices()" [disabled]="isBusy()">Smart Update Nifty 100</button>
+            <button type="button" class="primary" (click)="updateNifty500Prices()" [disabled]="isBusy()">Smart Update Nifty 500</button>
             <button type="button" class="secondary" (click)="loadPricePage()" [disabled]="isBusy()">Refresh</button>
           </div>
         </div>
-        <p class="result-note">Use these buttons to save the latest one-year market history into the local database. After this, Scan Nifty 100 or Scan Nifty 500 will read from saved DB data.</p>
+        <p class="result-note">Smart Update checks the local database first, reuses current one-year history, and downloads only missing or stale stocks. After this, Scan Nifty 100 or Scan Nifty 500 reads the saved DB data.</p>
 
         <div class="price-filter-row">
           <label for="price-symbol-search">
