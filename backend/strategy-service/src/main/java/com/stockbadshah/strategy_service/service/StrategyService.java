@@ -1,12 +1,16 @@
 package com.stockbadshah.strategy_service.service;
 
 import com.stockbadshah.strategy_service.dto.BacktestResponse;
+import com.stockbadshah.strategy_service.dto.BacktestRequest;
+import com.stockbadshah.strategy_service.dto.CandleRequest;
 import com.stockbadshah.strategy_service.dto.FundamentalResponse;
+import com.stockbadshah.strategy_service.dto.ScannerRequest;
 import com.stockbadshah.strategy_service.dto.ScannerResponse;
 import com.stockbadshah.strategy_service.dto.StrategyResponse;
 import com.stockbadshah.strategy_service.dto.UniverseRecommendationResponse;
 import com.stockbadshah.strategy_service.dto.UniverseRefreshResult;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -14,26 +18,33 @@ import org.springframework.web.client.RestClientException;
 
 import java.math.BigDecimal;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 @Service
 public class StrategyService {
 	private static final BigDecimal MINIMUM_SUCCESS_RATE = BigDecimal.valueOf(20);
+	private static final int MAXIMUM_SCAN_CONCURRENCY = 64;
+	private static final ParameterizedTypeReference<List<CandleRequest>> CANDLE_LIST_TYPE = new ParameterizedTypeReference<>() {
+	};
 
 	private final RestClient restClient;
 	private final String scannerUrl;
 	private final String fundamentalUrl;
 	private final String backtestUrl;
 	private final String stockDataUrl;
+	private final int scanConcurrency;
 
 	public StrategyService(
 			RestClient.Builder restClientBuilder,
 			@Value("${services.scanner-url}") String scannerUrl,
 			@Value("${services.fundamental-url}") String fundamentalUrl,
 			@Value("${services.backtest-url}") String backtestUrl,
-			@Value("${services.stock-data-url}") String stockDataUrl) {
+			@Value("${services.stock-data-url}") String stockDataUrl,
+			@Value("${strategy.scan-concurrency:16}") int scanConcurrency) {
 		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
 		requestFactory.setConnectTimeout(Duration.ofSeconds(5));
 		requestFactory.setReadTimeout(Duration.ofSeconds(150));
@@ -42,6 +53,7 @@ public class StrategyService {
 		this.fundamentalUrl = fundamentalUrl;
 		this.backtestUrl = backtestUrl;
 		this.stockDataUrl = stockDataUrl;
+		this.scanConcurrency = Math.max(1, Math.min(MAXIMUM_SCAN_CONCURRENCY, scanConcurrency));
 	}
 
 	public StrategyResponse evaluate(String symbol) {
@@ -49,7 +61,21 @@ public class StrategyService {
 	}
 
 	private StrategyResponse evaluateForScan(String symbol) {
-		return evaluate(symbol, false);
+		String normalized = symbol.toUpperCase();
+		List<CandleRequest> candles = getCandlesOrNull(normalized);
+
+		ScannerResponse scanner;
+		BacktestResponse backtest;
+		if (candles == null) {
+			// Keep the previous best-effort behavior if the shared candle request has a transient failure.
+			scanner = getOrNull(scannerUrl + "/scanner/scan/{symbol}", normalized, ScannerResponse.class);
+			backtest = getOrNull(backtestUrl + "/backtests/run/{symbol}", normalized, BacktestResponse.class);
+		} else {
+			scanner = postOrNull(scannerUrl + "/scanner/scan", new ScannerRequest(normalized, candles), ScannerResponse.class);
+			backtest = postOrNull(backtestUrl + "/backtests/run", new BacktestRequest(normalized, candles), BacktestResponse.class);
+		}
+
+		return buildResponse(normalized, scanner, null, backtest, false);
 	}
 
 	private StrategyResponse evaluate(String symbol, boolean includeFundamentals) {
@@ -58,6 +84,15 @@ public class StrategyService {
 		FundamentalResponse fundamental = includeFundamentals ? getOrNull(fundamentalUrl + "/fundamentals/analyze/{symbol}", normalized, FundamentalResponse.class) : null;
 		BacktestResponse backtest = getOrNull(backtestUrl + "/backtests/run/{symbol}", normalized, BacktestResponse.class);
 
+		return buildResponse(normalized, scanner, fundamental, backtest, includeFundamentals);
+	}
+
+	private StrategyResponse buildResponse(
+			String normalized,
+			ScannerResponse scanner,
+			FundamentalResponse fundamental,
+			BacktestResponse backtest,
+			boolean includeFundamentals) {
 		String technicalSignal = scanner == null ? "WAIT" : scanner.signal();
 		int fundamentalScore = fundamental == null ? 0 : fundamental.score();
 		BigDecimal successRate = backtest == null ? BigDecimal.ZERO : backtest.successRate();
@@ -130,8 +165,19 @@ public class StrategyService {
 				.map(result -> result.symbol().toUpperCase())
 				.toList();
 
-		List<StrategyResponse> recommendations = loadedSymbols.parallelStream()
-				.map(this::evaluateForScan)
+		List<CompletableFuture<StrategyResponse>> scanTasks;
+		try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+			Semaphore scanPermits = new Semaphore(scanConcurrency);
+			scanTasks = loadedSymbols.stream()
+					.map(symbol -> CompletableFuture.supplyAsync(() -> evaluateWithPermit(symbol, scanPermits), executor))
+					.toList();
+
+			// Joining in input order keeps deterministic tie ordering while requests execute concurrently.
+			scanTasks.forEach(CompletableFuture::join);
+		}
+
+		List<StrategyResponse> recommendations = scanTasks.stream()
+				.map(CompletableFuture::join)
 				.filter(Objects::nonNull)
 				.filter(response -> "BUY".equals(response.decision()))
 				.sorted((left, right) -> right.backtestSuccessRate().compareTo(left.backtestSuccessRate()))
@@ -141,6 +187,22 @@ public class StrategyService {
 		int loaded = refreshResult == null ? loadedSymbols.size() : refreshResult.loaded();
 		int failed = refreshResult == null ? failedSymbols.size() : refreshResult.failed();
 		return new UniverseRecommendationResponse(normalizedUniverse, total, loaded, failed, recommendations.size(), failedSymbols, recommendations);
+	}
+
+	private StrategyResponse evaluateWithPermit(String symbol, Semaphore scanPermits) {
+		boolean acquired = false;
+		try {
+			scanPermits.acquire();
+			acquired = true;
+			return evaluateForScan(symbol);
+		} catch (InterruptedException exception) {
+			Thread.currentThread().interrupt();
+			return null;
+		} finally {
+			if (acquired) {
+				scanPermits.release();
+			}
+		}
 	}
 
 	private StrategyResponse refreshAndEvaluate(String symbol) {
@@ -172,6 +234,25 @@ public class StrategyService {
 	private <T> T getOrNull(String url, String symbol, Class<T> responseType) {
 		try {
 			return restClient.get().uri(url, symbol).retrieve().body(responseType);
+		} catch (RestClientException exception) {
+			return null;
+		}
+	}
+
+	private List<CandleRequest> getCandlesOrNull(String symbol) {
+		try {
+			return restClient.get()
+					.uri(stockDataUrl + "/stocks/{symbol}/candles", symbol)
+					.retrieve()
+					.body(CANDLE_LIST_TYPE);
+		} catch (RestClientException exception) {
+			return null;
+		}
+	}
+
+	private <T> T postOrNull(String url, Object request, Class<T> responseType) {
+		try {
+			return restClient.post().uri(url).body(request).retrieve().body(responseType);
 		} catch (RestClientException exception) {
 			return null;
 		}

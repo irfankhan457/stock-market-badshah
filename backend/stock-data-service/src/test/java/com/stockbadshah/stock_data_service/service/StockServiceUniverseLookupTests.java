@@ -2,6 +2,7 @@ package com.stockbadshah.stock_data_service.service;
 
 import com.stockbadshah.stock_data_service.dto.LiveRefreshResult;
 import com.stockbadshah.stock_data_service.dto.UniverseRefreshResult;
+import com.stockbadshah.stock_data_service.entity.StockEntity;
 import com.stockbadshah.stock_data_service.repository.StockRepository;
 import com.sun.net.httpserver.HttpServer;
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +16,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -132,8 +136,8 @@ class StockServiceUniverseLookupTests {
     @Test
     void getsSavedUniverseStatusWithOneGroupedCountQuery() {
         respond("/nifty-500", 200, NIFTY_50_CSV, null);
-        StockRepository.SymbolRowCount relianceCount = symbolRowCount("RELIANCE", 252);
-        when(repository.findSymbolRowCounts(List.of("RELIANCE", "TCS")))
+        StockRepository.SymbolSnapshot relianceCount = symbolSnapshot("RELIANCE", 252, LocalDate.now());
+        when(repository.findSymbolSnapshots(List.of("RELIANCE", "TCS")))
                 .thenReturn(List.of(relianceCount));
 
         UniverseRefreshResult status = serviceWithEveryIndexUrl(url("/nifty-500"))
@@ -151,16 +155,15 @@ class StockServiceUniverseLookupTests {
                         "TCS", false, 0, "No saved market data found. Update prices from the Prices page."
                 )
         );
-        verify(repository).findSymbolRowCounts(List.of("RELIANCE", "TCS"));
-        verify(repository, never()).countBySymbolIgnoreCase(anyString());
+        verify(repository).findSymbolSnapshots(List.of("RELIANCE", "TCS"));
     }
 
     @Test
     void normalizesSavedUniverseFallbackBeforeTheGroupedCountQuery() {
         respond("/unavailable-status", 503, "temporarily unavailable", null);
         when(repository.findDistinctSymbols()).thenReturn(List.of("reliance.ns"));
-        StockRepository.SymbolRowCount relianceCount = symbolRowCount("RELIANCE", 12);
-        when(repository.findSymbolRowCounts(List.of("RELIANCE")))
+        StockRepository.SymbolSnapshot relianceCount = symbolSnapshot("RELIANCE", 12, LocalDate.now());
+        when(repository.findSymbolSnapshots(List.of("RELIANCE")))
                 .thenReturn(List.of(relianceCount));
 
         UniverseRefreshResult status = serviceWithEveryIndexUrl(url("/unavailable-status"))
@@ -172,7 +175,66 @@ class StockServiceUniverseLookupTests {
         assertThat(status.results()).containsExactly(
                 new LiveRefreshResult("RELIANCE", true, 12, "Saved market data is available.")
         );
-        verify(repository).findSymbolRowCounts(List.of("RELIANCE"));
+        verify(repository).findSymbolSnapshots(List.of("RELIANCE"));
+    }
+
+    @Test
+    void reusesCurrentUniverseWithOneSnapshotQueryAndNoDownloads() {
+        respond("/nifty-500-current", 200, NIFTY_50_CSV, null);
+        LocalDate safelyCurrentDate = LocalDate.of(2099, 1, 1);
+        StockRepository.SymbolSnapshot reliance = symbolSnapshot("RELIANCE", 252, safelyCurrentDate);
+        StockRepository.SymbolSnapshot tcs = symbolSnapshot("TCS", 251, safelyCurrentDate);
+        when(repository.findSymbolSnapshots(List.of("RELIANCE", "TCS"))).thenReturn(List.of(
+                reliance,
+                tcs
+        ));
+
+        UniverseRefreshResult result = serviceWithEveryIndexUrl(url("/nifty-500-current"))
+                .refreshUniverse("nifty500", false);
+
+        assertThat(result.loaded()).isEqualTo(2);
+        assertThat(result.failed()).isZero();
+        assertThat(result.results()).containsExactly(
+                new LiveRefreshResult("RELIANCE", true, 252, "Recent market data is already loaded."),
+                new LiveRefreshResult("TCS", true, 251, "Recent market data is already loaded.")
+        );
+        verify(repository).findSymbolSnapshots(List.of("RELIANCE", "TCS"));
+        verify(repository, never()).deleteBySymbol(anyString());
+    }
+
+    @Test
+    void usesTheLastCompletedTradingDayBeforeTheMarketDataCutoff() {
+        ZoneId marketZone = ZoneId.of("Asia/Kolkata");
+
+        assertThat(StockService.latestExpectedMarketDate(
+                ZonedDateTime.of(2026, 7, 20, 4, 37, 0, 0, marketZone)
+        )).isEqualTo(LocalDate.of(2026, 7, 17));
+        assertThat(StockService.latestExpectedMarketDate(
+                ZonedDateTime.of(2026, 7, 20, 16, 1, 0, 0, marketZone)
+        )).isEqualTo(LocalDate.of(2026, 7, 20));
+        assertThat(StockService.latestExpectedMarketDate(
+                ZonedDateTime.of(2026, 7, 19, 18, 0, 0, 0, marketZone)
+        )).isEqualTo(LocalDate.of(2026, 7, 17));
+    }
+
+    @Test
+    void clampsConfiguredRefreshConcurrency() {
+        assertThat(StockService.clampRefreshThreads(0)).isEqualTo(1);
+        assertThat(StockService.clampRefreshThreads(16)).isEqualTo(16);
+        assertThat(StockService.clampRefreshThreads(500)).isEqualTo(32);
+    }
+
+    @Test
+    void normalizesSymbolsForIndexedWritesAndReads() {
+        StockService service = serviceWithEveryIndexUrl(url("/unused-index"));
+        StockEntity stock = StockEntity.builder().symbol(" reliance.ns ").build();
+
+        service.save(stock);
+        service.getBySymbol(" reliance.bo ");
+
+        assertThat(stock.getSymbol()).isEqualTo("RELIANCE");
+        verify(repository).save(stock);
+        verify(repository).findBySymbolOrderByStockDateAsc("RELIANCE");
     }
 
     private StockService serviceWithEveryIndexUrl(String indexUrl) {
@@ -197,7 +259,8 @@ class StockServiceUniverseLookupTests {
                 nifty500Url,
                 nifty50FallbackUrl,
                 niftyNext50FallbackUrl,
-                nifty500FallbackUrl
+                nifty500FallbackUrl,
+                16
         );
     }
 
@@ -205,10 +268,11 @@ class StockServiceUniverseLookupTests {
         return "http://127.0.0.1:" + server.getAddress().getPort() + path;
     }
 
-    private StockRepository.SymbolRowCount symbolRowCount(String symbol, long rowCount) {
-        StockRepository.SymbolRowCount count = mock(StockRepository.SymbolRowCount.class);
+    private StockRepository.SymbolSnapshot symbolSnapshot(String symbol, long rowCount, LocalDate latestDate) {
+        StockRepository.SymbolSnapshot count = mock(StockRepository.SymbolSnapshot.class);
         when(count.getSymbol()).thenReturn(symbol);
         when(count.getRowCount()).thenReturn(rowCount);
+        when(count.getLatestDate()).thenReturn(latestDate);
         return count;
     }
 

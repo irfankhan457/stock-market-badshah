@@ -24,13 +24,17 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -43,8 +47,9 @@ import java.util.stream.Collectors;
 public class StockService {
 
     private static final ZoneId MARKET_ZONE = ZoneId.of("Asia/Kolkata");
-    private static final int LIVE_REFRESH_THREADS = 10;
-    private static final int RECENT_SAVED_DATA_DAYS = 5;
+    private static final LocalTime MARKET_DATA_READY_TIME = LocalTime.of(16, 0);
+    private static final int MIN_LIVE_REFRESH_THREADS = 1;
+    private static final int MAX_LIVE_REFRESH_THREADS = 32;
     private static final String LIVE_HISTORY_RANGE = "1y";
     private static final String MARKET_DATA_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36";
 
@@ -65,6 +70,7 @@ public class StockService {
     private final String nifty50FallbackListUrl;
     private final String niftyNext50FallbackListUrl;
     private final String nifty500FallbackListUrl;
+    private final int liveRefreshThreads;
     private volatile List<String> lastKnownNifty100Symbols = List.of();
     private volatile List<String> lastKnownNifty500Symbols = List.of();
 
@@ -78,7 +84,8 @@ public class StockService {
             @Value("${market-data.nifty500-list-url:" + DEFAULT_NIFTY_500_LIST_URL + "}") String nifty500ListUrl,
             @Value("${market-data.nifty50-fallback-list-url:" + DEFAULT_NIFTY_50_FALLBACK_LIST_URL + "}") String nifty50FallbackListUrl,
             @Value("${market-data.nifty-next50-fallback-list-url:" + DEFAULT_NIFTY_NEXT_50_FALLBACK_LIST_URL + "}") String niftyNext50FallbackListUrl,
-            @Value("${market-data.nifty500-fallback-list-url:" + DEFAULT_NIFTY_500_FALLBACK_LIST_URL + "}") String nifty500FallbackListUrl
+            @Value("${market-data.nifty500-fallback-list-url:" + DEFAULT_NIFTY_500_FALLBACK_LIST_URL + "}") String nifty500FallbackListUrl,
+            @Value("${market-data.refresh-threads:16}") int liveRefreshThreads
     ) {
         this.repository = repository;
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
@@ -93,13 +100,16 @@ public class StockService {
         this.nifty50FallbackListUrl = nifty50FallbackListUrl;
         this.niftyNext50FallbackListUrl = niftyNext50FallbackListUrl;
         this.nifty500FallbackListUrl = nifty500FallbackListUrl;
+        this.liveRefreshThreads = clampRefreshThreads(liveRefreshThreads);
     }
 
     public StockEntity save(StockEntity stock) {
+        normalizeStockSymbol(stock);
         return repository.save(stock);
     }
 
     public List<StockEntity> saveAll(List<StockEntity> stocks) {
+        stocks.forEach(this::normalizeStockSymbol);
         return repository.saveAll(stocks);
     }
 
@@ -134,7 +144,7 @@ public class StockService {
     }
 
     public List<StockEntity> getBySymbol(String symbol) {
-        return repository.findBySymbolIgnoreCaseOrderByStockDateAsc(symbol);
+        return repository.findBySymbolOrderByStockDateAsc(normalizeAppSymbol(symbol));
     }
 
     public List<CandleResponse> getCandles(String symbol) {
@@ -172,16 +182,24 @@ public class StockService {
 
     public LiveRefreshResult refreshLiveCandlesSummary(String symbol, boolean forceRefresh) {
         String appSymbol = normalizeAppSymbol(symbol);
-        StockEntity latestSaved = repository.findTopBySymbolIgnoreCaseOrderByStockDateDesc(appSymbol);
+        StockRepository.SymbolSnapshot snapshot = loadSymbolSnapshots(List.of(appSymbol)).get(appSymbol);
+        return refreshLiveCandlesSummary(appSymbol, forceRefresh, snapshot);
+    }
+
+    private LiveRefreshResult refreshLiveCandlesSummary(
+            String appSymbol,
+            boolean forceRefresh,
+            StockRepository.SymbolSnapshot snapshot
+    ) {
         try {
-            if (!forceRefresh && hasRecentSavedData(latestSaved)) {
-                return new LiveRefreshResult(appSymbol, true, (int) repository.countBySymbolIgnoreCase(appSymbol), "Recent market data is already loaded.");
+            if (!forceRefresh && hasCurrentSavedData(snapshot)) {
+                return currentSavedResult(appSymbol, snapshot);
             }
             int rowsSaved = fetchAndSaveLiveCandles(appSymbol).size();
             return new LiveRefreshResult(appSymbol, true, rowsSaved, "Latest one-year market data saved.");
         } catch (Exception exception) {
-            if (latestSaved != null) {
-                return new LiveRefreshResult(appSymbol, true, (int) repository.countBySymbolIgnoreCase(appSymbol), "Using saved market data because live market data is busy right now.");
+            if (snapshot != null) {
+                return new LiveRefreshResult(appSymbol, true, toRowCount(snapshot), "Using saved market data because live market data is busy right now.");
             }
             return new LiveRefreshResult(appSymbol, false, 0, "Could not load live market data right now.");
         }
@@ -193,12 +211,25 @@ public class StockService {
 
     public UniverseRefreshResult refreshUniverse(String universe, boolean forceRefresh) {
         String normalizedUniverse = universe == null ? "nifty100" : universe.trim().toLowerCase();
-        List<String> symbols = "nifty500".equals(normalizedUniverse) ? getNifty500Symbols() : getNifty100Symbols();
+        List<String> symbols = normalizeSymbols(
+                "nifty500".equals(normalizedUniverse) ? getNifty500Symbols() : getNifty100Symbols(),
+                "nifty500".equals(normalizedUniverse) ? 500 : 100
+        );
+        Map<String, StockRepository.SymbolSnapshot> snapshots = loadSymbolSnapshots(symbols);
 
-        ExecutorService executor = Executors.newFixedThreadPool(LIVE_REFRESH_THREADS);
+        ExecutorService executor = Executors.newFixedThreadPool(liveRefreshThreads);
         try {
             List<CompletableFuture<LiveRefreshResult>> futures = symbols.stream()
-                    .map(symbol -> CompletableFuture.supplyAsync(() -> refreshLiveCandlesSummary(symbol, forceRefresh), executor))
+                    .map(symbol -> {
+                        StockRepository.SymbolSnapshot snapshot = snapshots.get(symbol);
+                        if (!forceRefresh && hasCurrentSavedData(snapshot)) {
+                            return CompletableFuture.completedFuture(currentSavedResult(symbol, snapshot));
+                        }
+                        return CompletableFuture.supplyAsync(
+                                () -> refreshLiveCandlesSummary(symbol, forceRefresh, snapshot),
+                                executor
+                        );
+                    })
                     .toList();
 
             List<LiveRefreshResult> results = futures.stream()
@@ -217,10 +248,11 @@ public class StockService {
         List<String> normalizedSymbols = symbols.stream()
                 .map(this::normalizeAppSymbol)
                 .toList();
-        Map<String, Long> rowCounts = repository.findSymbolRowCounts(normalizedSymbols).stream()
+        Map<String, StockRepository.SymbolSnapshot> snapshots = loadSymbolSnapshots(normalizedSymbols);
+        Map<String, Long> rowCounts = snapshots.values().stream()
                 .collect(Collectors.toMap(
                         row -> normalizeAppSymbol(row.getSymbol()),
-                        StockRepository.SymbolRowCount::getRowCount,
+                        StockRepository.SymbolSnapshot::getRowCount,
                         Long::sum
                 ));
         List<LiveRefreshResult> results = normalizedSymbols.stream()
@@ -252,17 +284,59 @@ public class StockService {
         }
 
         return transactionTemplate.execute(status -> {
-            repository.deleteBySymbolIgnoreCase(appSymbol);
+            repository.deleteBySymbol(appSymbol);
             return repository.saveAll(rows);
         });
     }
 
-    private boolean hasRecentSavedData(StockEntity latestSaved) {
-        if (latestSaved == null || latestSaved.getStockDate() == null) {
+    private Map<String, StockRepository.SymbolSnapshot> loadSymbolSnapshots(List<String> symbols) {
+        return repository.findSymbolSnapshots(symbols).stream()
+                .collect(Collectors.toMap(
+                        row -> normalizeAppSymbol(row.getSymbol()),
+                        row -> row,
+                        (first, ignored) -> first
+                ));
+    }
+
+    private boolean hasCurrentSavedData(StockRepository.SymbolSnapshot snapshot) {
+        if (snapshot == null || snapshot.getLatestDate() == null) {
             return false;
         }
-        LocalDate oldestAllowedDate = LocalDate.now(MARKET_ZONE).minusDays(RECENT_SAVED_DATA_DAYS);
-        return !latestSaved.getStockDate().isBefore(oldestAllowedDate);
+        return !snapshot.getLatestDate().isBefore(latestExpectedMarketDate(ZonedDateTime.now(MARKET_ZONE)));
+    }
+
+    private LiveRefreshResult currentSavedResult(String symbol, StockRepository.SymbolSnapshot snapshot) {
+        return new LiveRefreshResult(symbol, true, toRowCount(snapshot), "Recent market data is already loaded.");
+    }
+
+    static LocalDate latestExpectedMarketDate(ZonedDateTime marketTime) {
+        LocalDate expectedDate = marketTime.toLocalDate();
+        if (isWeekday(expectedDate) && marketTime.toLocalTime().isBefore(MARKET_DATA_READY_TIME)) {
+            expectedDate = expectedDate.minusDays(1);
+        }
+        while (expectedDate.getDayOfWeek() == DayOfWeek.SATURDAY
+                || expectedDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            expectedDate = expectedDate.minusDays(1);
+        }
+        return expectedDate;
+    }
+
+    private static boolean isWeekday(LocalDate date) {
+        return date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY;
+    }
+
+    static int clampRefreshThreads(int configuredThreads) {
+        return Math.max(MIN_LIVE_REFRESH_THREADS, Math.min(MAX_LIVE_REFRESH_THREADS, configuredThreads));
+    }
+
+    private int toRowCount(StockRepository.SymbolSnapshot snapshot) {
+        return Math.toIntExact(Math.min(Integer.MAX_VALUE, snapshot.getRowCount()));
+    }
+
+    private void normalizeStockSymbol(StockEntity stock) {
+        if (stock != null) {
+            stock.setSymbol(normalizeAppSymbol(stock.getSymbol()));
+        }
     }
 
     private List<StockEntity> toStockRows(String appSymbol, JsonNode chart) {
@@ -421,12 +495,12 @@ public class StockService {
     }
 
     private String normalizeAppSymbol(String symbol) {
-        String normalized = symbol == null || symbol.isBlank() ? "RELIANCE" : symbol.trim().toUpperCase();
+        String normalized = symbol == null || symbol.isBlank() ? "RELIANCE" : symbol.trim().toUpperCase(Locale.ROOT);
         return normalized.replace(".NS", "").replace(".BO", "");
     }
 
     private String toYahooSymbol(String symbol) {
-        String normalized = symbol == null || symbol.isBlank() ? "RELIANCE" : symbol.trim().toUpperCase();
+        String normalized = symbol == null || symbol.isBlank() ? "RELIANCE" : symbol.trim().toUpperCase(Locale.ROOT);
         return normalized.contains(".") ? normalized : normalized + ".NS";
     }
 

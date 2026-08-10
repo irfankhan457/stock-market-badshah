@@ -16,6 +16,9 @@ spring:
       ddl-auto: update
     show-sql: "${STOCK_DB_SHOW_SQL:false}"
 
+market-data:
+  refresh-threads: "${MARKET_DATA_REFRESH_THREADS:16}"
+
 eureka:
   client:
     service-url:

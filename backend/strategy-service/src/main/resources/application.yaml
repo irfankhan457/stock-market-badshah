@@ -11,6 +11,10 @@ services:
   backtest-url: http://localhost:8086
   stock-data-url: http://localhost:8081
 
+strategy:
+  # Analysis calls are I/O-bound. Keep them parallel but bounded to avoid flooding downstream services.
+  scan-concurrency: ${STRATEGY_SCAN_CONCURRENCY:16}
+
 eureka:
   client:
     service-url:

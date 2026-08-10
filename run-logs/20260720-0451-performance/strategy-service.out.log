@@ -1,0 +1,56 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.6)
+
+2026-07-20T04:53:31.418+05:30  INFO 29128 --- [strategy-service] [           main] c.s.s.StrategyServiceApplication         : Starting StrategyServiceApplication v0.0.1-SNAPSHOT using Java 25 with PID 29128 (D:\StockMarketBadsaha\backend\strategy-service\target\strategy-service-0.0.1-SNAPSHOT.jar started by irfan in D:\StockMarketBadsaha)
+2026-07-20T04:53:31.499+05:30  INFO 29128 --- [strategy-service] [           main] c.s.s.StrategyServiceApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-07-20T04:53:35.858+05:30  INFO 29128 --- [strategy-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=8c866967-7623-3e14-b4c0-2d967147d1cb
+2026-07-20T04:53:36.898+05:30  INFO 29128 --- [strategy-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8085 (http)
+2026-07-20T04:53:36.949+05:30  INFO 29128 --- [strategy-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-20T04:53:36.953+05:30  INFO 29128 --- [strategy-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.21]
+2026-07-20T04:53:37.054+05:30  INFO 29128 --- [strategy-service] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 5308 ms
+2026-07-20T04:53:43.548+05:30  INFO 29128 --- [strategy-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestClient.
+2026-07-20T04:53:43.697+05:30  WARN 29128 --- [strategy-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2026-07-20T04:53:43.741+05:30  INFO 29128 --- [strategy-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-07-20T04:53:43.904+05:30  INFO 29128 --- [strategy-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2026-07-20T04:53:43.990+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2026-07-20T04:53:44.005+05:30  INFO 29128 --- [strategy-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:53:44.041+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2026-07-20T04:53:44.043+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2026-07-20T04:53:44.044+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2026-07-20T04:53:44.045+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2026-07-20T04:53:44.046+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2026-07-20T04:53:44.048+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2026-07-20T04:53:44.048+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2026-07-20T04:53:44.932+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2026-07-20T04:53:44.937+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2026-07-20T04:53:44.941+05:30  INFO 29128 --- [strategy-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2026-07-20T04:53:44.945+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1784503424944 with initial instances count: 9
+2026-07-20T04:53:44.957+05:30  INFO 29128 --- [strategy-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application STRATEGY-SERVICE with eureka with status UP
+2026-07-20T04:53:44.959+05:30  INFO 29128 --- [strategy-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1784503424959, current=UP, previous=STARTING]
+2026-07-20T04:53:44.963+05:30  INFO 29128 --- [strategy-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STRATEGY-SERVICE/DESKTOP-TAPHLMF.mshome.net:strategy-service:8085: registering service...
+2026-07-20T04:53:45.017+05:30  INFO 29128 --- [strategy-service] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8085 (http) with context path '/'
+2026-07-20T04:53:45.020+05:30  INFO 29128 --- [strategy-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8085
+2026-07-20T04:53:45.124+05:30  INFO 29128 --- [strategy-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STRATEGY-SERVICE/DESKTOP-TAPHLMF.mshome.net:strategy-service:8085 - registration status: 204
+2026-07-20T04:53:45.204+05:30  INFO 29128 --- [strategy-service] [           main] c.s.s.StrategyServiceApplication         : Started StrategyServiceApplication in 16.54 seconds (process running for 17.894)
+2026-07-20T04:53:45.363+05:30  INFO 29128 --- [strategy-service] [nio-8085-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-20T04:53:45.365+05:30  INFO 29128 --- [strategy-service] [nio-8085-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-20T04:53:45.374+05:30  INFO 29128 --- [strategy-service] [nio-8085-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+2026-07-20T04:58:44.247+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:03:44.264+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:08:44.267+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:13:44.283+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:18:44.292+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:23:44.305+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:28:44.307+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:33:44.311+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:38:44.313+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:43:44.318+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:48:44.322+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T05:53:44.325+05:30  INFO 29128 --- [strategy-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

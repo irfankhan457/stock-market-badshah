@@ -70,3 +70,23 @@
 	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
 	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
 
+2026-07-20T03:43:05.442+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T03:48:05.456+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T03:53:05.515+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T03:58:05.553+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:03:05.593+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:08:05.602+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:13:05.619+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:18:05.683+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:23:05.690+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:28:05.707+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:33:05.723+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:38:05.743+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:40:10.385+05:30  INFO 1864 --- [stock-data-service] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STOCK-DATA-SERVICE/DESKTOP-TAPHLMF.mshome.net:stock-data-service:8081 - Re-registering apps/STOCK-DATA-SERVICE
+2026-07-20T04:40:10.386+05:30  INFO 1864 --- [stock-data-service] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STOCK-DATA-SERVICE/DESKTOP-TAPHLMF.mshome.net:stock-data-service:8081: registering service...
+2026-07-20T04:40:10.420+05:30  INFO 1864 --- [stock-data-service] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STOCK-DATA-SERVICE/DESKTOP-TAPHLMF.mshome.net:stock-data-service:8081 - registration status: 204
+2026-07-20T04:43:05.770+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2026-07-20T04:47:10.836+05:30  INFO 1864 --- [stock-data-service] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STOCK-DATA-SERVICE/DESKTOP-TAPHLMF.mshome.net:stock-data-service:8081 - Re-registering apps/STOCK-DATA-SERVICE
+2026-07-20T04:47:10.838+05:30  INFO 1864 --- [stock-data-service] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STOCK-DATA-SERVICE/DESKTOP-TAPHLMF.mshome.net:stock-data-service:8081: registering service...
+2026-07-20T04:47:10.852+05:30  INFO 1864 --- [stock-data-service] [beatExecutor-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_STOCK-DATA-SERVICE/DESKTOP-TAPHLMF.mshome.net:stock-data-service:8081 - registration status: 204
+2026-07-20T04:48:05.775+05:30  INFO 1864 --- [stock-data-service] [rap-executor-%d] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

@@ -3,21 +3,20 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e6d99b91-575e-40ce-a196-22de9a7cb657" name="Changes" comment="PRGSTOCK-04: Full functionality of stock market added">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api-gateway/src/main/java/com/stockbadshah/api_gateway/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/src/main/java/com/stockbadshah/api_gateway/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api-gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/api-gateway/src/test/java/com/stockbadshah/api_gateway/ApiGatewayApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/api-gateway/src/test/java/com/stockbadshah/api_gateway/ApiGatewayApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/discovery-server/discovery-server-jar-run.out.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/discovery-server/discovery-server-jar-run.out.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/indicator-service/indicator-service-jar-run.out.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/indicator-service/indicator-service-jar-run.out.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/stock-data-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/entity/StockEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/entity/StockEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/repository/StockRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/repository/StockRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/service/StockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/src/main/java/com/stockbadshah/stock_data_service/service/StockService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/stock-data-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/frontend-run.log" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/frontend-run.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/stock-data-service/src/test/java/com/stockbadshah/stock_data_service/service/StockServiceUniverseLookupTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/stock-data-service/src/test/java/com/stockbadshah/stock_data_service/service/StockServiceUniverseLookupTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/strategy-service/src/main/java/com/stockbadshah/strategy_service/service/StrategyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/strategy-service/src/main/java/com/stockbadshah/strategy_service/service/StrategyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/strategy-service/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/strategy-service/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-logs/20260720-0318-live-fix/api-gateway.out.log" beforeDir="false" afterPath="$PROJECT_DIR$/run-logs/20260720-0318-live-fix/api-gateway.out.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run-logs/20260720-0337-optimized/stock-data-service.out.log" beforeDir="false" afterPath="$PROJECT_DIR$/run-logs/20260720-0337-optimized/stock-data-service.out.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +62,7 @@
     </selectedModels>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="23706" />
+    <option name="cachedIndexableFilesCount" value="23723" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -106,7 +105,7 @@
         <option name="modeId" value="Agent" />
         <option name="model">
           <model>
-            <option name="modelType" value="builtin_family" />
+            <option name="modelType" value="builtin_id" />
             <option name="modelValue" value="auto" />
           </model>
         </option>
